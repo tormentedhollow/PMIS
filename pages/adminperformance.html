@@ -1,0 +1,369 @@
+
+<md-content flex layout-padding>
+<md-progress-linear md-mode="indeterminate" ng-show="isLoading"></md-progress-linear>
+<div class="card">
+	<div class="card-content">
+		<h4 class="center" style="padding:0px">Monthly Financial Performance Report</h4>
+		<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
+		<div google-chart chart="myChart" style="height:500px; width:100%;"></div>
+		<span class="card-title activator grey-text text-darken-4">See Data Table<i class="material-icons right">more_vert</i></span>
+	</div>
+	<div class="card-reveal">
+		<span class="card-title grey-text text-darken-4"><h4 class="center">Monthly Financial Performance Report</h4>
+			<i class="material-icons right">close</i></span>   				
+			<md-content flex layout-padding>	
+			<h4 class="center" style="padding:0px">Financial Summary Table - Semi Annual</h4>
+			<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
+			<h5 class="center" style="padding:0px"><b>Annual Target:  &#8369 {{ob_all|number:2}}</b></h5>	
+			<table  class="bordered striped">
+				<thead >
+					<tr >
+						<th ><span>Months</span></th>
+						<th ><span>Financial Target</span></th>
+						<th ><span>Financial Accomplishment</span></th>
+						<th ><span>Financial Accomplishment +</span></th>
+						<th ><span>Percentage (FA/FT)</span></th>
+						<th ><span>Percentage (FA/AT)</span></th>
+						<th ><span>Percentage (FA+/AT)</span></th>
+					</tr>
+				</thead>
+				<tbody >
+					<tr  ng-repeat="x in q1 | limitTo:12">
+						<th >{{x.month}}</th>
+						<td><span ng-click="view(x.month_id, $event)"><a>{{x.ob.obl|number:2}}</a></span></td>
+						<td ><span ng-click="view2(x.month_id, $event)"><a>{{x.oba.obl|number:2}}</a></span></td>
+						<td >{{x.obaa|number:2}}</td>
+						<td  ng-init="per_1 = (1*x.oba.obl)/(1*x.ob.obl)">{{per_1 | percentage:2}}</td>
+						<td  ng-init="per_2 = (1*x.oba.obl)/(ob_all)">{{per_2 | percentage:2}}</td>
+						<td  ng-init="per_3 = (1*x.obaa)/(ob_all)">{{per_3 | percentage:2}}</td>
+					</tr>
+					<tr>
+						<th>SEMI-ANNUAL</th>
+						<td>{{semi|number:2}}</td>
+						<td>{{semia|number:2}}</td>
+						<td>{{semia|number:2}}</td>
+						<td>{{(semia/semi)|percentage:2}}</td>
+						<td>{{(semia/ob_all)|percentage:2}}</td>
+						<td>{{(semia/ob_all)|percentage:2}}</td>
+					</tr>
+
+				</tbody>
+			</table> 
+		</md-content>
+	</div>
+</div>
+</md-content>
+
+
+<md-content flex layout-padding>
+<md-progress-linear md-mode="indeterminate" ng-show="isLoading"></md-progress-linear>
+<div class="card">
+	<div class="card-content">
+		<h4 class="center" style="padding:0px">Monthly Physical Performance Report</h4>
+		<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
+		<div google-chart chart="myChart3" style="height:500px; width:100%;"></div>
+		<span class="card-title activator grey-text text-darken-4">See Data Table<i class="material-icons right">more_vert</i></span>
+	</div>
+	<div class="card-reveal">
+		<span class="card-title grey-text text-darken-4"><h4 class="center">Monthly Physical Performance Report</h4>
+			<i class="material-icons right">close</i></span>   				
+			<md-content flex layout-padding>	
+		<h4 class="center" style="padding:0px">Physical Summary Table - Semi Annual</h4>
+			<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
+			<h5 class="center" style="padding:0px"><b>Annual Target: 100%</b></h5>	
+			<table  class="bordered striped">
+				<thead >
+					<tr >
+						<th ><span>Months</span></th>
+						<th class="center" ng-repeat="y in rowtotal"><span>{{y.description}}</span></th>
+						<th class="center" ><span>Ave %</span></th>
+						<th class="center" ><span>+Ave %</span></th>
+					</tr>
+				</thead>
+				<tbody >
+					<tr  ng-repeat="x in perAve">
+						<th >{{x.description}}</th>
+						<td ng-repeat="y in rowtotal track by $index" style="text-align: right">{{x[$index] | number:2}} % </td>
+						<td style="text-align: right">{{x.ave}} % </td>
+						<td style="text-align: right">{{x.sigma}} % </td>
+					</tr>
+
+				</tbody>
+			</table> 
+		</md-content>
+	</div>
+</div>
+</md-content>
+
+
+
+<md-content flex layout-padding>
+<div class="card">
+	<div class="card-content">
+
+		<span class="card-title grey-text text-darken-4"><h4 class="center">Monthly Physical Performance Report by Units</h4>	
+			<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>	
+			<div google-chart chart="myChart2" style="height:500px; width:100%;"></div>
+			  <span class="card-title activator grey-text text-darken-4">See Data Table<i class="material-icons right">more_vert</i></span>
+		</div>
+		<div class="card-reveal">
+				<span class="card-title grey-text text-darken-4"><h4 class="center">Monthly Physical Performance Report by Units</h4>
+			<i class="material-icons right">close</i></span>   	
+			<md-content flex layout-padding>	
+			<h4 class="center" style="padding:0px">Physical Summary Table by Units- Semi Annual</h4>
+			<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
+			<div fixed-first-column style="width:100%;">
+				<table class="table bordered striped">
+					<thead>
+						<tr class="md-table-headers-row">
+							<th>Measurement</th>
+							<th ng-repeat="h in header track by $index" colspan="4" class="center"><span>{{h.title}}</span></th>
+						</tr>
+						<tr >
+							<th></th>
+							<th class="center" ng-repeat-start="h in header track by $index" ng-show="$index>0"><b>PT</b></th>
+							<th class="center" ng-show="$index>0"><b>PA</b></th>
+							<th class="center" ng-show="$index==0"><b>APT</b></th>
+							<th class="center" ng-show="$index==0"><b>APA</b></th>
+							<th class="center" ng-show="$index==0" colspan="2"><b>%</b></th>
+							<th class="center" ng-show="$index>0"><b>(PA/PT) %</b></th>
+							<th class="center" ng-show="$index>0" ng-repeat-end=""><b>(PA/APT) %</b></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="y in rowtotal track by $index" class="md-table-content-row">
+							<td>{{y.description}}</td>
+							<td style="text-align: right"><span ng-click="viewP('','0',y.description,'T')"><a>{{y[0][0] | number:2}}</a></span></td>
+							<td style="text-align: right"><span ng-click="viewP('','0',y.description,'A')"><a>{{y[0][1] | number:2}}</a></td>
+							<td style="text-align: right" colspan="2">{{((y[0][1])/(y[0][0])*100) | number:2}}</td>
+							<td style="text-align: right"><span ng-click="viewP('','1',y.description,'T')"><a>{{y[1][0] | number:2}}</a></td>
+							<td style="text-align: right"><span ng-click="viewP('','1',y.description,'A')"><a>{{y[1][1] | number:2}}</a></td>
+							<td style="text-align: right">{{((y[1][1])/(y[1][0])*100) | number:2}}</td>
+							<td style="text-align: right">{{((y[1][1])/(y[0][0])*100) | number:2}}</td>
+							<td style="text-align: right"><span ng-click="viewP('','2',y.description,'T')"><a>{{y[2][0] | number:2}}</a></td>
+							<td style="text-align: right"><span ng-click="viewP('','2',y.description,'A')"><a>{{y[2][1] | number:2}}</a></td>
+							<td style="text-align: right">{{((y[2][1])/(y[2][0])*100) | number:2}}</td>
+							<td style="text-align: right">{{((y[2][1])/(y[0][0])*100) | number:2}}</td>
+							<td style="text-align: right"><span ng-click="viewP('','3',y.description,'T')"><a>{{y[3][0] | number:2}}</a></td>
+							<td style="text-align: right"><span ng-click="viewP('','3',y.description,'A')"><a>{{y[3][1] | number:2}}</a></td>
+							<td style="text-align: right">{{((y[3][1])/(y[3][0])*100) | number:2}}</td>
+							<td style="text-align: right">{{((y[3][1])/(y[0][0])*100) | number:2}}</td>
+							<td style="text-align: right"><span ng-click="viewP('','4',y.description,'T')"><a>{{y[4][0] | number:2}}</a></td>
+							<td style="text-align: right"><span ng-click="viewP('','4',y.description,'A')"><a>{{y[4][1] | number:2}}</a></td>
+							<td style="text-align: right">{{((y[4][1])/(y[4][0])*100) | number:2}}</td>
+							<td style="text-align: right">{{((y[4][1])/(y[0][0])*100) | number:2}}</td>
+							<td style="text-align: right"><span ng-click="viewP('','5',y.description,'T')"><a>{{y[5][0] | number:2}}</a></td>
+							<td style="text-align: right"><span ng-click="viewP('','5',y.description,'A')"><a>{{y[5][1] | number:2}}</a></td>
+							<td style="text-align: right">{{((y[5][1])/(y[5][0])*100) | number:2}}</td>
+							<td style="text-align: right">{{((y[5][1])/(y[0][0])*100) | number:2}}</td>
+							<td style="text-align: right"><span ng-click="viewP('','6',y.description,'T')"><a>{{y[6][0] | number:2}}</a></td>
+							<td style="text-align: right"><span ng-click="viewP('','6',y.description,'A')"><a>{{y[6][1] | number:2}}</a></td>
+							<td style="text-align: right">{{((y[6][1])/(y[6][0])*100) | number:2}}</td>
+							<td style="text-align: right">{{((y[6][1])/(y[0][0])*100) | number:2}}</td>
+							<td style="text-align: right">{{totalTSem(y) | number:2}}</td>
+							<td style="text-align: right">{{totalASem(y) | number:2}}</td>
+							<td style="text-align: right">{{((totalASem(y)/totalTSem(y))*100) | number:2}}</td>
+							<td style="text-align: right">{{(totalASem(y)/(y[0][0])*100) | number:2}}</td>
+						</tr>	
+						<tr>
+							<th>Average</th>
+							<td></td>
+							<td></td>
+							<td colspan="2" style="text-align: right">{{ave[0]}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right">{{ave[1]}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right">{{ave[2]}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right">{{ave[3]}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right">{{ave[4]}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right">{{ave[5]}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right">{{ave[6]}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right">{{ave[1]+ave[2]+ave[3]+ave[4]+ave[5]+ave[6]}}</td>
+						</tr>	
+
+					</tbody>
+				</table>
+			</div>
+
+		</md-content>
+
+	</div>
+</div>
+</md-content>
+
+
+<md-content flex layout-padding>
+<div class="card">
+	<div class="card-image">
+
+</div>
+<div class="card-content">
+
+		<span class="card-title grey-text text-darken-4"><h4 class="center">Monthly Physical Performance Report by MFOs</h4>	
+			<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>	
+			<div google-chart chart="myChart4" style="height:500px; width:100%;"	></div>
+			  <span class="card-title activator grey-text text-darken-4">See Data Table<i class="material-icons right">more_vert</i></span>
+</div>
+<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4"><h4 class="center">Monthly Physical Performance Report by MFOs</h4>
+			<i class="material-icons right">close</i></span>   
+			<md-content flex layout-padding>	
+		<h4 class="center" style="padding:0px">Physical Summary Table by MFOs- Semi Annual</h4>
+		<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
+		<div fixed-first-column style="width:100%;">
+			<table class="table bordered striped">
+				<thead >
+					<tr >
+						<th><span>MFOs</span></th>
+						<th class="center" colspan="24" ng-repeat="u in unit"><b>{{u.description}}</b></th>
+
+					</tr>
+					<tr >
+						<th></th>
+						<th class="center" colspan="3" ng-repeat="h in headers track by $index"><b>{{h.title}}</b></th>
+					</tr>
+					<tr >
+						<th></th>
+						<th class="center" ng-repeat-start="h in headers track by $index"><b>PT</b></th>
+						<th class="center"><b>PA</b></th>
+						<th class="center" ng-repeat-end=""><b>%</b></th>
+					</tr>
+				</thead>
+				<tbody >
+					<tr  ng-repeat="x in mfo |orderBy:predicate:false">
+						<td >{{x.header_id}}. {{x.mfo_name}}</td>
+						<td style="text-align: right" ng-repeat-start="u in unit track by $index"><a><span ng-click="viewP(x.header_id,'0',u.description,'T')">{{x.total[$index][0] | number:2}}</span></a></td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'0',u.description,'A')">{{x.totala[$index][0] | number:2}}</span></a></td>
+						<td style="text-align: right">{{((x.totala[$index][0])/(x.total[$index][0])*100) | number:2}}</td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'1',u.description,'T')">{{x.total[$index][1] | number:2}}</span></a></td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'1',u.description,'A')">{{x.totala[$index][1] | number:2}}</span></a></td>
+						<td style="text-align: right">{{((x.totala[$index][1])/(x.total[$index][1])*100) | number:2}}</td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'2',u.description,'T')">{{x.total[$index][2] | number:2}}</span></a></td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'2',u.description,'A')">{{x.totala[$index][2] | number:2}}</span></a></td>
+						<td style="text-align: right">{{((x.totala[$index][2])/(x.total[$index][2])*100) | number:2}}</td>
+						<td style="text-align: right"><a><a><span ng-click="viewP(x.header_id,'3',u.description,'T')">{{x.total[$index][3] | number:2}}</span></a></td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'3',u.description,'A')">{{x.totala[$index][3] | number:2}}</span></a></td>
+						<td style="text-align: right">{{((x.totala[$index][3])/(x.total[$index][3])*100) | number:2}}</td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'4',u.description,'T')">{{x.total[$index][4] | number:2}}</span></a></td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'4',u.description,'A')">{{x.totala[$index][4] | number:2}}</span></a></td>
+						<td style="text-align: right">{{((x.totala[$index][4])/(x.total[$index][4])*100) | number:2}}</td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'5',u.description,'T')">{{x.total[$index][5] | number:2}}</span></a></td>
+						<td style="text-align: right"><span ng-click="viewP(x.header_id,'5',u.description,'A')">{{x.totala[$index][5] | number:2}}</span></a></td>
+						<td style="text-align: right">{{((x.totala[$index][5])/(x.total[$index][5])*100) | number:2}}</td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'6',u.description,'T')">{{x.total[$index][6] | number:2}}</td>
+						<td style="text-align: right"><a><span ng-click="viewP(x.header_id,'6',u.description,'A')">{{x.totala[$index][6] | number:2}}</span></a></td>
+						<td style="text-align: right">{{((x.totala[$index][6])/(x.total[$index][6])*100) | number:2}}</td>
+						<td style="text-align: right">{{x.total[$index]['1stsem'] | number:2}}</td>
+						<td style="text-align: right">{{x.totala[$index]['1stsem'] | number:2}}</td>
+						<td ng-repeat-end=""style="text-align: right">{{((x.totala[$index]['1stsem'])/(x.total[$index]['1stsem'])*100) | number:2}}</td>
+					</tr>
+					<tr>
+						<th>TOTAL</th>
+						<td style="text-align: right" ng-repeat-start="y in rowtotal track by $index">{{y[0][0] | number:2}}</td>
+						<td style="text-align: right">{{y[0][1] | number:2}}</td>
+						<td style="text-align: right">{{((y[0][1])/(y[0][0])*100) | number:2}}</td>
+						<td style="text-align: right">{{y[1][0] | number:2}}</td>
+						<td style="text-align: right">{{y[1][1] | number:2}}</td>
+						<td style="text-align: right">{{((y[1][1])/(y[1][0])*100) | number:2}}</td>
+						<td style="text-align: right">{{y[2][0] | number:2}}</td>
+						<td style="text-align: right">{{y[2][1] | number:2}}</td>
+						<td style="text-align: right">{{((y[2][1])/(y[2][0])*100) | number:2}}</td>
+						<td style="text-align: right">{{y[3][0] | number:2}}</td>
+						<td style="text-align: right">{{y[3][1] | number:2}}</td>
+						<td style="text-align: right">{{((y[3][1])/(y[3][0])*100) | number:2}}</td>
+						<td style="text-align: right">{{y[4][0] | number:2}}</td>
+						<td style="text-align: right">{{y[4][1] | number:2}}</td>
+						<td style="text-align: right">{{((y[4][1])/(y[4][0])*100) | number:2}}</td>
+						<td style="text-align: right">{{y[5][0] | number:2}}</td>
+						<td style="text-align: right">{{y[5][1] | number:2}}</td>
+						<td style="text-align: right">{{((y[5][1])/(y[5][0])*100) | number:2}}</td>
+						<td style="text-align: right">{{y[6][0] | number:2}}</td>
+						<td style="text-align: right">{{y[6][1] | number:2}}</td>
+						<td style="text-align: right">{{((y[6][1])/(y[6][0])*100) | number:2}}</td>
+						<td style="text-align: right">{{y[0]['1stsem'] | number:2}}</td>
+						<td style="text-align: right">{{y[1]['1stsem'] | number:2}}</td>
+						<td ng-repeat-end=""style="text-align: right">{{((y[1]['1stsem'])/(y[0]['1stsem'])*100) | number:2}}</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</md-content>
+
+	</div>
+</div>
+</md-content>
+
+
+<md-content flex layout-padding>
+<div class="card">
+	<div class="card-image">
+
+</div>
+<div class="card-content">
+	<div layout="row">
+			<div google-chart chart="pieBene" style="height:500px; width:50%;"	flex></div>
+			<div google-chart chart="barBene" style="height:500px; width:50%;"	flex></div>
+		</div>
+			  <span class="card-title activator grey-text text-darken-4">See Data Table<i class="material-icons right">more_vert</i></span>
+</div>
+<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4"><h4 class="center">Beneficiary Accomplishment</h4>
+			<i class="material-icons right">close</i></span>   
+	<md-content flex layout-padding>	
+		<h4 class="center" style="padding:0px">Beneficiary Summary Table by Months</h4>
+		<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
+			<table class="table bordered striped">
+				<thead >
+					<tr >
+						<th>Months</th>
+						<th>Total Beneficiary Target</th>
+						<th>Total Beneficiary Target+</th>
+						<th>Total Individuals Accomplishment</th>
+						<th>Total Individuals Accomplishment+</th>
+						<th>Male</th>
+						<th>Female</th>
+						<th>Percentage</th>
+						<th>Percentage+</th>
+			
+					</tr>
+				</thead>
+				<tbody >
+				<tr ng-repeat="x in total track by $index">
+					<td>{{x.month_name}}</td>
+					<td>{{x.total}}</td>
+					<td>{{x.rt}}</td>
+					<td><a ng-click="viewBene($index)">{{bene[$index].ind}}</a></td>
+					<td>{{bene[$index].rt}}</td>
+					<td>{{bene[$index].male}}</td>
+					<td>{{bene[$index].female}}</td>
+					<td>{{(bene[$index].ind/x.total)|percentage:2}}</td>
+					<td>{{(bene[$index].rt/overall_bene)|percentage:2}}</td>
+				</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</md-content>
+
+</div>
+</md-content>

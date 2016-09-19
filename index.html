@@ -1,0 +1,139 @@
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PMISv.1.4 - DA*XIII*RFO</title>
+	<!-- CSS Library -->
+	<link rel="stylesheet" href="resources/css/angular-material.min.css">
+	<link rel="stylesheet" href="resources/css/materialize.min.css">
+
+	<link rel="stylesheet" href="resources/css/md-data-table.css">
+	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+	<link rel="stylesheet" href="resources/css/jquery-ui.css">
+	<link rel="stylesheet" href="resources/css/ng-img-crop.css">
+	<link href="css/login.css" rel="stylesheet">
+	<link href="css/dataTable.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="//cdn.materialdesignicons.com/1.6.50/css/materialdesignicons.min.css">
+
+
+</head>
+<body layout="column" flex ng-cloak>
+
+	<ng-view/>
+	<script src="resources/js/angular.js"></script>
+	<script src="resources/js/angular-animate.min.js"></script>
+	<script src="resources/js/angular-aria.min.js"></script>
+	<script src="resources/js/angular-messages.min.js"></script>
+	<script src="resources/js/angular-route.js"></script>
+	<script src="resources/js/angular-cookies.js"></script>
+
+
+	<script src="resources/js/angular-ui-router.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/jquery-ui.js"></script>
+
+
+
+	<!-- Angular Material Library -->
+	<script src="resources/js/angular-material.min.js"></script>
+	<script src="resources/js/angular-material-icons.min.js"></script> 
+	<script src="resources/js/md-data-table.js"></script>
+	<script src="resources/js/ng-google-chart.min.js" ></script>
+	<script src="resources/js/materialize.min.js"></script>
+
+	<script src="resources/js/jsapi.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.1/angular-filter.js"></script>
+	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+	<!-- Angular Upload -->
+	<script src="resources/js/ng-file-upload-shim.min.js"></script>
+	<script src="resources/js/ng-file-upload.min.js"></script>
+	<script src="resources/js/ng-img-crop.js"></script>
+
+
+	<script src="js/index.js"></script>
+	<script src="js/moment.js"></script>
+	<script src="js/services/loginService.js"></script>
+	<script src="js/services/sessionService.js"></script>
+	<script src="js/services/InitService.js"></script>
+	<script src="js/services/ProvinceService.js"></script>
+	<script src="js/services/MunicipalService.js"></script>
+	<script src="js/services/BarangayService.js"></script>
+	<script src="js/services/MonthService.js"></script>
+	<script src="js/services/MFOBannerService.js"></script>
+	<script src="js/services/MFOBannerQService.js"></script>
+	<script src="js/services/MFOBannerAllService.js"></script>
+	<script src="js/services/addKiloService.js"></script>
+	<script src="js/services/addBeneService.js"></script>
+	<script src="js/services/addGroupService.js"></script>
+	<script src="js/services/addObService.js"></script>
+	<script src="js/services/addObaService.js"></script>
+	<script src="js/services/addRemarksService.js"></script>
+	<script src="js/services/addRemarksDistrictService.js"></script>
+	<script src="js/services/EditKiloService.js"></script>
+	<script src="js/services/EditGroupService.js"></script>
+	<script src="js/services/EditBeneService.js"></script>
+	<script src="js/services/EditAccountService.js"></script>
+	<script src="js/services/kiloDetailsService.js"></script>
+	<script src="js/services/BeneDetailsService.js"></script>
+	<script src="js/services/MFOFilterService.js"></script>
+	<script src="js/services/ByDistService.js"></script>
+	<script src="js/services/ByDistMFOService.js"></script>
+	<script src="js/services/kiloDelService.js"></script>
+	<script src="js/services/groupDelService.js"></script>
+	<script src="js/services/BeneDelService.js"></script>
+	<script src="js/services/getBannerService.js"></script>
+	<script src="js/services/getUnitService.js"></script>
+	<script src="js/services/getAccountService.js"></script>
+	<script src="js/services/gePhysicalService.js"></script>
+	<script src="js/services/gePhysicalByHeaderService.js"></script>
+	<script src="js/services/getMFOHeaderService.js"></script>
+	<script src="js/services/getPhysicalMFOService.js"></script>
+	<script src="js/services/gePhysicalBannerService.js"></script>
+	<script src="js/services/getMFONameService.js"></script>
+	<script src="js/services/viewObService.js"></script>
+	<script src="js/services/viewObaService.js"></script>
+	<script src="js/services/viewPService.js"></script>
+	<script src="js/controllers/loginController.js"></script>
+	<script src="js/controllers/pmisController.js"></script>
+	<script src="js/controllers/bedsController.js"></script>
+	<script src="js/controllers/quarterController.js"></script>
+	<script src="js/controllers/reportsController.js"></script>
+	<script src="js/controllers/performanceController.js"></script>
+	<script src="js/controllers/addBreakdownController.js"></script>
+	<script src="js/controllers/addBeneController.js"></script>
+	<script src="js/controllers/addGroupController.js"></script>
+	<script src="js/controllers/myKiloController.js"></script>
+	<script src="js/controllers/myBeneController.js"></script>
+	<script src="js/controllers/SettingsController.js"></script>
+	<script src="js/controllers/AdminController.js"></script>
+	<script src="js/controllers/AdminPerformanceController.js"></script>
+	<script src="js/controllers/AccountController.js"></script>
+	<script src="js/controllers/RiceController.js"></script>
+	<script src="js/controllers/CornController.js"></script>
+	<script src="js/controllers/HVCDPController.js"></script>
+	<script src="js/controllers/LivestockController.js"></script>
+	<script src="js/controllers/OrganicController.js"></script>
+	<script src="js/controllers/Rice2Controller.js"></script>
+	<script src="js/controllers/Corn2Controller.js"></script>
+	<script src="js/controllers/HVCDP2Controller.js"></script>
+	<script src="js/controllers/Livestock2Controller.js"></script>
+	<script src="js/controllers/Organic2Controller.js"></script>
+	<script src="js/controllers/ViewController.js"></script>
+	<script src="js/controllers/ViewIndividualController.js"></script>
+	<script src="js/controllers/ViewFinancialController.js"></script>
+	<script src="js/controllers/ViewPhysicalController.js"></script>
+	<script src="js/controllers/ViewBeneController.js"></script>
+	<script src="js/controllers/BeneficiaryController.js"></script>
+	<script src="js/controllers/DownloadController.js"></script>
+	<script src="js/directives/passwordVerify.js"></script>
+	<script src="js/directives/fixedFirstColumn.js"></script>
+
+
+
+    
+
+</body>
+</html>

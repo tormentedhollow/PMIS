@@ -1,0 +1,53 @@
+<md-dialog aria-label="Details" class="fullscreen-dialog">
+<md-toolbar>
+<div class="md-toolbar-tools">
+  <h3>{{month_name}}</h3>
+  <span flex></span>
+  <md-icon md-svg-icon="content:ic_clear_24px"  aria-label="date" ng-click="cancel()"></md-icon>
+</div>
+</md-toolbar>
+<md-dialog-content>
+<div class="md-dialog-content">
+  <md-table-container class="bordered striped">
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Group</th>
+        <th>SurName</th>
+        <th>FirstName</th>
+        <th>Province</th>
+        <th>Municipal</th>
+        <th>Barangay</th>
+        <th>Sex</th>
+        <th>Contact</th>
+        <th>Email</hd>
+        <th>Service Received</th>     
+
+      </tr>
+    </thead>
+    <tbody >
+ <tr ng-repeat="x in individuals">
+<td >{{$index+1}}</td>
+<td >{{x.name}}</td>
+<td >{{x.surName}}</td>
+<td >{{x.firstName}}</td>
+<td  ng-repeat="p in provinces | filter:{'province_id': x.province}:true">{{p.province_name}}</td>
+<td  ng-repeat="m in municipals | filter:{'municipal_id': x.municipal}:true">{{m.municipal_name}}</td>
+<td  ng-repeat="b in barangays | filter:{'barangay_id': x.barangay}:true">{{b.barangay_name}}</td>
+<td >{{x.sex}}</td>
+<td >{{x.contact}}</td>
+<td >{{x.email}}</td>
+<td >{{x.mfo_name}}</td>
+ </tr>
+
+      </tbody>
+    </table>
+  </md-table-container>
+</div>
+</md-dialog-content>
+
+</md-dialog>
+
+
+

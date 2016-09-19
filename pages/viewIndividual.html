@@ -1,0 +1,142 @@
+<md-dialog aria-label="Details" class="fullscreen-dialog">
+<md-toolbar>
+<div class="md-toolbar-tools">
+  <h3>{{temp.month_name}}</h3>
+  <span flex></span>
+  <md-icon md-svg-icon="content:ic_clear_24px"  aria-label="date" ng-click="cancel()"></md-icon>
+</div>
+</md-toolbar>
+<md-dialog-content>
+<div class="md-dialog-content">
+Total Group Recipients: {{group_rec.length}}
+<md-table-container class="bordered striped">
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <td>No.</td>
+        <td>Groups</td>
+      </tr>
+    </thead>
+    <tbody >
+      <tr ng-repeat="x in group_rec"> 
+        <td>{{$index+1}}</td>
+        <td>{{x.name}}</td>
+  
+      </tbody>
+    </table>
+</md-table-container>
+  <md-table-container class="bordered striped">
+Total Individual Recipients: {{individuals.length}}
+  <table class="table table-condensed table-striped">
+    <thead>
+      <tr>
+        <td>No.</td>
+        <td>Group</td>
+        <td>SurName</td>
+        <td>FirstName</td>
+        <td>MiddleName</td>
+        <td>Province</td>
+        <td>Municipal</td>
+        <td>Barangay</td>
+        <td>Sex</td>
+        <td>Contact</td>
+        <td>Email</td>
+        <td>
+          Action
+        </td>     
+
+      </tr>
+    </thead>
+    <tbody >
+      <tr ng-repeat="x in individuals" ng-include="getTemplate(x)"> 
+
+      </tbody>
+    </table>
+  </md-table-container>
+</div>
+</md-dialog-content>
+
+</md-dialog>
+
+<div id="dialog-confirm">
+</div>
+<script type="text/ng-template" id="display">
+<td >{{$index+1}}</td>
+<td >{{x.name}}</td>
+<td >{{x.surName}}</td>
+<td >{{x.firstName}}</td>
+<td >{{x.middleName}}</td>
+<td  ng-repeat="p in provinces | filter:{'province_id': x.province}:true">{{p.province_name}}</td>
+<td  ng-repeat="m in municipals | filter:{'municipal_id': x.municipal}:true">{{m.municipal_name}}</td>
+<td  ng-repeat="b in barangays | filter:{'barangay_id': x.barangay}:true">{{b.barangay_name}}</td>
+<td >{{x.sex}}</td>
+<td >{{x.contact}}</td>
+<td >{{x.email}}</td>
+<td >    
+<md-icon ng-click="edit(x)" md-svg-icon="editor:ic_mode_edit_24px"  aria-label="edit"></md-icon>
+<md-icon ng-click="del(x)" md-svg-icon="action:ic_delete_forever_24px"  aria-label="delete"></md-icon>
+</td>
+</script>
+
+<script type="text/ng-template" id="editable">
+<td >{{selected.id}}</td>
+<td >
+<md-select ng-model="selected.group_id" aria-label="name" required>
+<md-option ng-repeat="option in groups" value="{{option.id}}">{{option.name}}</md-option></md-select>
+</td>
+
+<td><md-input-container>
+<input ng-model="selected.surName" type="text" aria-label="surName" required>
+</md-input-container>
+</td>
+<td ><md-input-container>
+<input ng-model="selected.firstName" type="text" aria-label="firstName" required>
+</md-input-container>
+</td>
+<td ><md-input-container>
+<input ng-model="selected.middleName" type="text" aria-label="middleName" required>
+</md-input-container>
+</td>
+
+<td >
+<md-select ng-model="selected.province" aria-label="province" ng-change="selected.municipal=null" required>
+<md-option ng-repeat="option in provinces" value="{{option.province_id}}">{{option.province_name}}</md-option></md-select>
+</td>
+
+<td>
+<md-select ng-model="selected.municipal" aria-label="municipal" required>
+<md-option ng-repeat="option in municipals | filter: selected.province" value="{{option.municipal_id}}">{{option.municipal_name}}</md-option>
+</md-select>
+</td>
+
+<td >
+<md-select ng-model="selected.barangay" aria-label="barangay" required>
+<md-option ng-repeat="option in barangays | filter: selected.municipal" value="{{option.barangay_id}}">{{option.barangay_name}}</md-option>
+</md-select>
+</td>
+<td >
+<md-select ng-model="selected.sex" aria-label="sex" required>
+<md-option value="male">Male</md-option>
+<md-option value="female">Female</md-option>
+</md-select>
+</td>
+
+<td><md-input-container>
+<input ng-model="selected.contact" type="text" aria-label="contact" required>
+</md-input-container>
+</td>
+<td><md-input-container>
+<input ng-model="selected.email" type="email" aria-label="email" required>
+</md-input-container>
+</td>
+
+
+<td >
+<md-icon md-svg-icon="content:ic_save_24px"  aria-label="save" ng-click="save(selected)"></md-icon>
+<md-icon md-svg-icon="content:ic_clear_24px"  aria-label="cancel" ng-click="reset()"></md-icon>
+</td>
+
+
+</script>
+
+
