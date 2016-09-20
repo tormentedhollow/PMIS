@@ -323,8 +323,10 @@
 			<th  colspan="2"><span>Apr</span></th>
 			<th  colspan="2"><span>May</span></th>
 			<th  colspan="2"><span>Jun</span></th>
-			<th  class="customTh" colspan="2"><span>Q2 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q2 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Accomplishment</span></th>
       <th  class="customTh" colspan="2"><span>Q2 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Target</span></th>
       <th  class="customTh" colspan="2"><span>Variance</span></th>
       <th  rowspan="2"><span>Remarks</span></th>
 
@@ -338,6 +340,10 @@
       <th  md-numeric><span>Fin</span></th>
       <th  md-numeric><span>Phys</span></th>
       <th  md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
       <th  class="customTh" md-numeric><span>Phys</span></th>
       <th  class="customTh" md-numeric><span>Fin</span></th>
       <th  class="customTh" md-numeric><span>Phys</span></th>
@@ -371,7 +377,11 @@
 
 			 <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo)|number:2}}</td>
       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl)|number:2}}</td>  
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa)|number:2}} </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)|number:2}} </td>
 
+     <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>  
 
       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[4].kiloa)+(1*x.kiloa[5].kiloa)+(1*x.kiloa[6].kiloa))-((1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo))|number:2}}</td>
       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl))-((1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl))|number:2}}</td>  
@@ -385,6 +395,10 @@
       <td md-cell ng-show="x.clickable=='no'"> </td>
       <td md-cell ng-show="x.clickable=='no'"> </td>
       <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
       <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
       <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
       <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>

@@ -2625,7 +2625,7 @@ function add_remarks($mysqli){
 		$q = $mysqli->real_escape_string(isset( $_POST['q'] ) ? $_POST['q'] : '');
 		$input = $mysqli->real_escape_string(isset( $_POST['input'] ) ? $_POST['input'] : '');
 		
-		$query = "SELECT * FROM tbl_remarks where mfo_id='$mfo_id' and quarter = '$q'";
+		$query = "SELECT * FROM tbl_remarks where mfo_id='$mfo_id' and quarter = '$q' and user_id in(select user_id from users where program_id = ".$_SESSION['program_id'].")";
 		$result = $mysqli->query($query);
 		if($result->num_rows>0)
 		$query2 = "UPDATE tbl_remarks set remarks_text='$input' where quarter = '$q' and mfo_id = '$mfo_id' and user_id in(select user_id from users where program_id = ".$_SESSION['program_id'].")";
@@ -2634,6 +2634,7 @@ function add_remarks($mysqli){
 		VALUES ('$mfo_id', '$q', '$input', now(), ".$_SESSION['user_id'].")";
 
 		if( $mysqli->query( $query2 ) ){
+			$data['qqq'] = $query2;
 			$data['success'] = true;				
 		}else{
 			throw new Exception( $mysqli->sqlstate.' - '. $mysqli->error );

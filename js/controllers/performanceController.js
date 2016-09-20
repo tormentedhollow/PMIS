@@ -33,32 +33,36 @@ $scope.varid = id;
   $scope.finTotalA2 = d.data[15].q1a;
   console.log(d.data);
 
-  $scope.ttl =0;
-  if(!isNaN(parseInt(d.data[12].q1))){
-    $scope.ttl += parseInt(d.data[12].q1);
+  $scope.ttl =0.0;
+  if(!isNaN(parseFloat(d.data[12].q1))){
+    $scope.ttl += parseFloat(d.data[12].q1);
   }
-  if(!isNaN(parseInt(d.data[14].q1))){
-    $scope.ttl += parseInt(d.data[14].q1);
+  if(!isNaN(parseFloat(d.data[14].q1))){
+    $scope.ttl += parseFloat(d.data[14].q1);
   }
-  if(!isNaN(parseInt(d.data[16].q1))){
-    $scope.ttl += parseInt(d.data[16].q1);
+  if(!isNaN(parseFloat(d.data[16].q1))){
+    $scope.ttl += parseFloat(d.data[16].q1);
   }
-  if(!isNaN(parseInt(d.data[18].q1))){
-    $scope.ttl += parseInt(d.data[18].q1);
+  if(!isNaN(parseFloat(d.data[18].q1))){
+    $scope.ttl += parseFloat(d.data[18].q1);
   }
 
-  $scope.ttla =0;
-  if(!isNaN(parseInt(d.data[13].q1a))){
-    $scope.ttla += parseInt(d.data[13].q1a);
+  $scope.ttla =0.0;
+  if(!isNaN(parseFloat(d.data[13].q1a))){
+    $scope.ttla += (Math.round(parseFloat(d.data[13].q1a)*100))/100;
+    console.log(parseFloat(d.data[13].q1a));
   }
-  if(!isNaN(parseInt(d.data[15].q1a))){
-    $scope.ttla += parseInt(d.data[15].q1a);
+  if(!isNaN(parseFloat(d.data[15].q1a))){
+    $scope.ttla += (Math.round(parseFloat(d.data[15].q1a)*100))/100;
+    console.log(parseFloat(d.data[15].q1a));
   }
-  if(!isNaN(parseInt(d.data[17].q1a))){
-    $scope.ttla += parseInt(d.data[17].q1a);
+  if(!isNaN(parseFloat(d.data[17].q1a))){
+    $scope.ttla += (Math.round(parseFloat(d.data[17].q1a)*100))/100;
+    console.log(parseFloat(d.data[17].q1a));
   }
-  if(!isNaN(parseInt(d.data[19].q1a))){
-    $scope.ttla += parseInt(d.data[19].q1a);
+  if(!isNaN(parseFloat(d.data[19].q1a))){
+    $scope.ttla += (Math.round(parseFloat(d.data[19].q1a)*100))/100;
+    console.log(parseFloat(d.data[19].q1a));
   }
   //$scope.ttla = parseInt(d.data[13].q1a) + parseInt(d.data[15].q1a)+ parseInt(d.data[17].q1a)+ parseInt(d.data[19].q1a);
 
