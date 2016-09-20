@@ -1,0 +1,61 @@
+ <md-toolbar layout="row" layout-align="space-between center" md-theme="altTheme" class="md-hue-2" flex>
+ <md-button class="md-icon-button"  ng-click="openLeftMenu()" aria-label="Show Menu">    
+ <md-icon md-svg-src="svg/menu.svg" md-48></md-icon>
+</md-button>
+<h2><span>PMIS</span></h2>
+<span>
+	<md-button ng-click="showGridBottomSheet($event)" aria-label="Show Settings">
+	<md-icon md-svg-src="svg/settings.svg" md-48></md-icon>
+</md-button>
+</span>
+</md-toolbar>
+
+ <section layout="row" flex>
+
+	<md-sidenav  md-component-id="left"  md-whiteframe="4" class="md-sidenav-left" flex>  
+	<md-toolbar class="md-tall md-hue-2">
+	<span flex></span>
+      <div class="row">
+            <div class="col s5">
+              <img ng-src="images/avatar/{{image}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+              <div class="col s3">
+                <br><br>
+                <div> <h6>{{firstName}}{{lastName}}</h6></div>
+                <div> <h6>{{email}}</h6></div>
+            </div>
+          </div>
+</md-toolbar> 
+   <md-divider></md-divider>
+      <md-subheader>Inputs</md-subheader>
+
+     <md-list>
+        <md-list-item class="md-2-line" ng-repeat="item in inputs" role="link" md-ink-ripple>
+          <md-icon md-svg-icon="{{item.icon}}"  aria-label="{{item.title}}"></md-icon>
+          <div class="md-list-item-text" ui-sref="{{item.sref}}" ng-click="closeSidenav()">
+            <span class="md-body-2" >{{item.title}}</span>
+          </div>
+        </md-list-item>
+      </md-list>
+
+       <md-divider></md-divider>
+      <md-subheader>Outputs</md-subheader>
+
+         <md-list>
+        <md-list-item class="md-2-line" ng-repeat="item in outputs" role="link" md-ink-ripple>
+          <md-icon md-svg-icon="{{item.icon}}"  aria-label="{{item.title}}"></md-icon>
+          <div class="md-list-item-text" ui-sref="{{item.sref}}" ng-click="closeSidenav()">
+            <span class="md-body-2" >{{item.title}}</span>
+          </div>
+        </md-list-item>
+      </md-list>
+
+
+</md-sidenav>
+
+<md-content layout-fill layout-align="center center" flex id="content">
+<h3>Welcome {{username}} <md-icon md-svg-icon="action:ic_date_range_24px"  aria-label="date"></md-icon> {{currentTime|displaydate}}</h3>
+<div ui-view="viewA"></div> 
+</md-content>
+
+</section>

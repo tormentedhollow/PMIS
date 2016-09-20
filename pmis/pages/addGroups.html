@@ -1,0 +1,68 @@
+<md-dialog aria-label="Add Group"  layout-padding ng-cloak flex="50">
+  <form name="myForm">
+  <md-toolbar>
+  <div class="md-toolbar-tools">
+    <h3>Beneficiary Group Details</h3>
+    <span flex></span>
+    <md-icon md-svg-icon="content:ic_clear_24px"  aria-label="date" ng-click="cancel()"></md-icon>
+  </div>
+</md-toolbar>
+
+<md-dialog-content>
+<div class="md-dialog-content">
+
+ <div layout-gt-sm="row">
+<md-input-container class="md-block" flex-gt-sm>
+<label >Name of LGU/CSO:</label>
+<input type="text" ng-model="temp.name" required>
+</md-input-container>
+</div>
+
+
+<span><i>Address*:</i></span>
+ <div layout-gt-sm="row">
+<md-input-container  flex-gt-sm>
+<label for="selectProvince"> Province: </label>
+<md-select name="selectProvince" id="selectProvince" ng-model="temp.provs" ng-change="temp.muns=null"required>
+<md-option ng-repeat="option in provinces" value="{{option.province_id}}">{{option.province_name}}</md-option>
+</md-select>
+</md-input-container>
+
+<md-input-container  flex-gt-sm>
+<label for="selectProvince"> Municipal: </label>
+<md-select name="selectMunicipal" id="selectMunicipal" ng-disabled="!temp.provs || temp.provs=='111'" ng-model="temp.muns" ng-change="temp.brgy=null" required>
+<md-option ng-repeat="option in municipals | filter: temp.provs" value="{{option.municipal_id}}">{{option.municipal_name}}</md-option>
+</md-select>
+</md-input-container>
+
+<md-input-container  flex-gt-sm>
+<label for="selectProvince"> Barangay: </label>
+<md-select name="selectBarangay" id="selectBarangay" ng-disabled="!temp.muns || temp.provs=='111'" ng-model="temp.brgy" required>
+<md-option ng-repeat="option in barangays | filter: temp.muns" value="{{option.barangay_id}}">{{option.barangay_name}}</md-option>
+</md-select>
+</md-input-container>
+
+</div>
+
+<span><i>If any:</i></span>
+ <div layout-gt-sm="row">
+<md-input-container class="md-block" flex-gt-sm>
+<label >Contact No.:</label>
+<input type="number" ng-model="temp.contact"  >
+</md-input-container>
+<md-input-container class="md-block" flex-gt-sm>
+<label >Email:</label>  
+<input type="email" ng-model="temp.email">
+</md-input-container>
+<br>
+</div>
+
+  
+</md-dialog-content>
+<md-dialog-actions layout="row">
+<md-button class="md-raised md-primary"  ng-click="save()" ng-disabled="myForm.$invalid"><md-icon md-svg-icon="content:ic_save_24px"  aria-label="save" ng-click=""></md-icon>SAVE</md-button> 
+
+</md-dialog-actions>
+</form>
+</md-dialog>
+

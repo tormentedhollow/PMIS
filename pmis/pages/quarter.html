@@ -1,0 +1,692 @@
+<md-card>
+<md-progress-linear md-mode="indeterminate" ng-show="isLoading"></md-progress-linear>
+<md-tabs md-dynamic-height md-border-bottom>
+<!--
+<md-tab label="Q1">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+<div class="md-toolbar-tools">
+	<span>1st Quarter</span>
+	<div flex></div>
+	<span><img class="icon" src="svg/search.svg" ng-click="showSearch = !showSearch"><md-tooltip>SEARCH</md-tooltip></span>
+
+</div>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="showSearch">
+<div class="md-toolbar-tools">
+	<span><img class="icon" src="svg/left-arrow.svg" ng-click="showSearch = !showSearch">
+	</span><h3 flex="10">Back</h3>
+	<md-input-container md-no-float layout-gt-sm="row" flex>
+	<input ng-model="search" placeholder="enter search">
+</md-input-container>
+
+<span><img class="icon" src="svg/search.svg" ng-click="showSearch = !showSearch"><md-tooltip>SEARCH</md-tooltip></span>
+
+</div>
+</md-toolbar>
+<md-table-container ng-hide="isLoading">
+<table md-table>
+	<thead md-head>
+		<tr md-row>
+			<th  rowspan="2"><span>MFOs</span></th>
+			<th  colspan="2"><span>Jan</span></th>
+			<th  colspan="2"><span>Feb</span></th>
+			<th  colspan="2"><span>Mar</span></th>
+			<th  colspan="2"><span>Q1</span></th>
+			<th  colspan="2"><span>Jan</span></th>
+			<th  colspan="2"><span>Feb</span></th>
+			<th  colspan="2"><span>Mar</span></th>
+			<th  colspan="2"><span>Q1</span></th>
+			<th  rowspan="2"><span>Remarks</span></th>
+		</tr>
+		<tr md-row>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+		
+		</tr>
+	</thead>
+	<tbody md-body>
+		<tbody md-body>
+		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+			
+			<td md-cell> {{x.mfo_name}} </td>
+			<td md-cell> {{x.kilo[1].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[1].obl|number:2}} </td>	
+			<td md-cell> {{x.kilo[2].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[2].obl|number:2}} </td>	
+			<td md-cell> {{x.kilo[3].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[3].obl|number:2}} </td>		
+			<td md-cell> {{(1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)|number:2}}</td>
+			<td md-cell> {{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>			
+		</tr>
+
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+-->
+<!--
+<md-tab label="Guide">
+<md-content class="md-padding" ng-hide="isLoading">
+<md-toolbar class="md-table-toolbar md-default">
+ 	<div class="md-toolbar-item">
+         <span class="md-headline">Instructions</span>
+    </div>
+</md-toolbar>
+<md-card md-theme="">
+ <md-card-content>
+	<p>The Q2 table will display 10 rows by default and it uses pagination. If you want to continue in the next page, just click the forward arrow found at the right bottom of the table or click the backward arrow to display the previous page. </p>
+	<p>If you wish to change the dispaly limit you can change it by selecting the rows per page. If you like to jump to the page number, just click the page selector and choose the page number. </p>
+
+
+	<p>The <b>Physical and Financial Accomplishment</b> are dispalyed in column that has a white background. These columns are editable except for the MFOs header.
+	The Q2 column that has a light blue background will display the total value of the Physical and Financial of the corresponding MFOs. This column is uneditable.</p>
+
+
+	<p>The <b>Physical and Financial Plan</b> are displayed after the remarks column that has a light blue background. These columns are uneditable.</p>
+
+	<p>To start the inputting - click the <b>Q2 Tab</b></p>
+
+	<p><em>Notes: If you notice a wrong data, please inform the M&E Officer to correct the data. And also, if you encounter bugs/errors, please report it to the IT Division.</em></p> 
+
+	<p><em>Notes: If the value did not display after you edit or delete, please try reloading the page.</em></p> 
+
+	</md-card-content>
+</md-card>
+<div layout="row" layout-xs="column">
+<div flex>
+   <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Physical Accomplishment</span>
+          </md-card-title-text>
+        </md-card-title>
+         <md-card-content>
+         <b>How to add Physical Accomplishment data?</b><br>
+         <ol>
+         	<li>Click the MFOs indicator. Only the italized indicator is clickable.</li>
+      		<li>The modal form will display ready to input.</li>
+      		<li>All fields are required to enable the save button.</li>
+      		<li>After you click the save button, then the value will display in the physical column based to the month you select.</li>   
+      	</ol>
+  		<b>How to edit or delete Physical Accomplishment data?</b><br>
+  		<ol>
+  			<li>Click the cell in the physical column you want to edit or delete.</li>
+  			<li>Then the table will display the details.</li>
+  			<li>In the action column, you choose if you wish to edit or delete.</li>
+  			<li>If you choose delete, then the dialog will open with an action of yes or no.</li>
+  			<li>If you click yes, then the data will permanently deleted. Otherwise, the dialog will close.</li>
+  			<li>If you wish to edit, then click the edit icon in the action column.</li>
+  			<li>The cell will become editable and ready to edit.</li>
+  			<li>Click the save button to save changes. Otherwise click cancel.</li>
+     </md-card-content>
+      </md-card>
+</div>
+<div flex>
+   <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Financial Accomplishment</span>
+          </md-card-title-text>
+        </md-card-title>
+         <md-card-content>
+         <b>How to add/edit/delete Financial Accomplishment data?</b><br>
+         <ol>
+         	<li>Click the cell of the financial column parallel to the mfo indicator you want to add.</li>
+         	<li>The dialog will open and ready to input.</li>
+         	<li>Press the enter button to save.</li>
+         	<li>If you wish to update or delete the value, just click again the cell of the financial column parallel to the mfo indicator</li>
+         	<li>The dialog will open ready to change the input or delete the value.</li>
+         	<li>Press the enter button to save changes.</li>  		
+  		 </md-card-content>
+
+  		   <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Remarks</span>
+          </md-card-title-text>
+        </md-card-title>
+  		<md-card-content>
+  		<b>How to add/edit/delete remarks?</b><br>
+  		<ul>
+  			<li>The same procedure to the Financial Accomplishment.</li>
+  		</ul>
+  		<br>
+  		<em>Note: Don't skip remarks especially if there's a variance against the plan and accomplishment. </em>
+
+  			 </md-card-content>
+
+      </md-card>
+</div>
+</div>
+</md-content>
+</md-tab>
+-->
+
+<md-tab label="Q3">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+<div class="md-toolbar-tools">
+    <div class="md-toolbar-tools">
+        <div layout="row" flex="flex" class="fill-height">
+          <div ng-hide="toggleSearch" class="md-toolbar-item">
+            <span ng-click="toggleSearch = !toggleSearch">Q3-Accomplishment</span>
+          </div>
+          <span flex="flex" ng-hide="toggleSearch"></span>
+          <md-input-container flex="flex" style="padding-left:88px;"  ng-show="toggleSearch">
+            <input type="text" ng-model="search" aria-label="search"/>
+          </md-input-container>
+          <div layout="row" class="md-toolbar-item"><md-icon md-svg-src="svg/search.svg"  aria-label="search" ng-click="toggleSearch = !toggleSearch"></md-icon>
+            <md-tooltip>SEARCH</md-tooltip>
+          </div>
+        </div>
+      </div>
+</div>
+</md-toolbar>
+<md-table-container ng-hide="isLoading">
+<div fixed-first-column>
+<table md-table class="table bordered striped">
+  <thead md-head>
+    <tr md-row>
+      <th ><span>MFOs</span></th>
+      <th  colspan="2"><span>Jul</span></th>
+      <th  colspan="2"><span>Aug</span></th>
+      <th  colspan="2"><span>Sep</span></th>
+      <th  class="customTh" colspan="2"><span>Q3 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q3 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Variance</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+
+    
+    </tr>
+    <tr md-row>
+      <th></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+  
+    
+    </tr>
+  </thead>
+  <tbody md-body>
+    <tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+      
+      <td md-cell ng-if="x.clickable=='no'"> <b>{{x.mfo_name}} </b></td>
+      <td md-cell ng-if="x.clickable=='yes'" ng-click="add(x, mfos, $event, 3)"> <a><i>{{x.mfo_name}} </i></a></td>
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 7, $event, 1)">{{x.kiloa[7].kiloa|number:2}} </td>
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 7)">  
+        {{x.oba[7].obl |number:2 }}</td>
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 8, $event, 1)">{{x.kiloa[8].kiloa|number:2}}</td>
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 8)" >  
+        {{x.oba[8].obl |number:2}}</td>
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 9, $event, 1)">{{x.kiloa[9].kiloa|number:2}} </td>
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 9)" >  
+        {{x.oba[9].obl |number:2}}</td>
+
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[7].kiloa)+(1*x.kiloa[8].kiloa)+(1*x.kiloa[9].kiloa)|number:2}} </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[7].obl)+(1*x.oba[8].obl)+(1*x.oba[9].obl)|number:2}} </td>
+
+
+
+
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[7].kilo)+(1*x.kilo[8].kilo)+(1*x.kilo[9].kilo)|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[7].obl)+(1*x.ob[8].obl)+(1*x.ob[9].obl)|number:2}}</td>  
+
+
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[7].kiloa)+(1*x.kiloa[8].kiloa)+(1*x.kiloa[9].kiloa))-((1*x.kilo[7].kilo)+(1*x.kilo[8].kilo)+(1*x.kilo[9].kilo))|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[7].obl)+(1*x.oba[8].obl)+(1*x.oba[9].obl))-((1*x.ob[7].obl)+(1*x.ob[8].obl)+(1*x.ob[9].obl))|number:2}}</td>  
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-class="{'md-placeholder': !x.remarks[3]}" ng-click="add3($event, x, 3)"> 
+        {{x.remarks[3] ||'--add remarks--'}}</td>
+    
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+
+
+    </tr>
+
+  </tbody>
+</table>
+</div>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+<md-tab label="Q2">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+<div class="md-toolbar-tools">
+    <div class="md-toolbar-tools">
+        <div layout="row" flex="flex" class="fill-height">
+          <div ng-hide="toggleSearch" class="md-toolbar-item">
+            <span ng-click="toggleSearch = !toggleSearch">Q2-Accomplishment</span>
+          </div>
+          <span flex="flex" ng-hide="toggleSearch"></span>
+          <md-input-container flex="flex" style="padding-left:88px;"  ng-show="toggleSearch">
+            <input type="text" ng-model="search" aria-label="search"/>
+          </md-input-container>
+          <div layout="row" class="md-toolbar-item"><md-icon md-svg-src="svg/search.svg"  aria-label="search" ng-click="toggleSearch = !toggleSearch"></md-icon>
+            <md-tooltip>SEARCH</md-tooltip>
+          </div>
+        </div>
+      </div>
+</div>
+</md-toolbar>
+<md-table-container ng-hide="isLoading">
+<div fixed-first-column>
+<table md-table class="table bordered striped">
+	<thead md-head>
+		<tr md-row>
+			<th ><span>MFOs</span></th>
+			<th  colspan="2"><span>Apr</span></th>
+			<th  colspan="2"><span>May</span></th>
+			<th  colspan="2"><span>Jun</span></th>
+      <th  class="customTh" colspan="2"><span>Q2 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q2 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Variance</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+
+    
+    </tr>
+    <tr md-row>
+      <th></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+  
+		
+		</tr>
+	</thead>
+	<tbody md-body>
+		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+			
+      <td md-cell ng-if="x.clickable=='no'"> <b>{{x.mfo_name}} </b></td>
+			<td md-cell ng-if="x.clickable=='yes'" ng-click="add(x, mfos, $event, 2)"> <a><i>{{x.mfo_name}}</a> </i></td>
+
+			<td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 4, $event, 1)">{{x.kiloa[4].kiloa|number:2}} </td>
+			<td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 4)">  
+				{{x.oba[4].obl |number:2 }}</td>
+
+			<td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 5, $event, 1)">{{x.kiloa[5].kiloa|number:2}}</td>
+			<td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 5)" >  
+				{{x.oba[5].obl |number:2}}</td>
+
+			<td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 6, $event, 1)">{{x.kiloa[6].kiloa|number:2}} </td>
+			<td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 6)" >  
+				{{x.oba[6].obl |number:2}}</td>
+
+			<td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[4].kiloa)+(1*x.kiloa[5].kiloa)+(1*x.kiloa[6].kiloa)|number:2}} </td>
+			<td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl)|number:2}} </td>
+
+			 <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo)|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl)|number:2}}</td>  
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa)|number:2}} </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)|number:2}} </td>
+
+     <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>  
+
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[4].kiloa)+(1*x.kiloa[5].kiloa)+(1*x.kiloa[6].kiloa))-((1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo))|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl))-((1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl))|number:2}}</td>  
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-class="{'md-placeholder': !x.remarks[2]}" ng-click="add3($event, x, 2)"> 
+        {{x.remarks[2] ||'--add remarks--'}}</td>
+    
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+
+		</tr>
+
+	</tbody>
+</table>
+</div>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+<md-tab label="Q1">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+<div class="md-toolbar-tools">
+    <div class="md-toolbar-tools">
+        <div layout="row" flex="flex" class="fill-height">
+          <div ng-hide="toggleSearch" class="md-toolbar-item">
+            <span ng-click="toggleSearch = !toggleSearch">Q1-Accomplishment</span>
+          </div>
+          <span flex="flex" ng-hide="toggleSearch"></span>
+          <md-input-container flex="flex" style="padding-left:88px;"  ng-show="toggleSearch">
+            <input type="text" ng-model="search" aria-label="search"/>
+          </md-input-container>
+          <div layout="row" class="md-toolbar-item"><md-icon md-svg-src="svg/search.svg"  aria-label="search" ng-click="toggleSearch = !toggleSearch"></md-icon>
+            <md-tooltip>SEARCH</md-tooltip>
+          </div>
+        </div>
+      </div>
+</div>
+</md-toolbar>
+<md-table-container ng-hide="isLoading">
+<div fixed-first-column>
+<table md-table class="table bordered striped">
+	<thead md-head>
+			<tr md-row>
+			<th ><span>MFOs</span></th>
+			<th  colspan="2"><span>Jan</span></th>
+			<th  colspan="2"><span>Feb</span></th>
+			<th  colspan="2"><span>Mar</span></th>
+			<th  class="customTh" colspan="2"><span>Q1 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Variance</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+
+    
+    </tr>
+    <tr md-row>
+      <th></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  md-numeric><span>Phys</span></th>
+      <th  md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+  
+		
+		</tr>
+	</thead>
+	<tbody md-body>
+		<tbody md-body>
+		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+
+			<td md-cell ng-if="x.clickable=='no'"> <b>{{x.mfo_name}} </b></td>
+      <td md-cell ng-if="x.clickable=='yes'" ng-click="add(x, mfos, $event, 1)"> <a><i>{{x.mfo_name}}</a> </i></td>
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 1, $event, 1)">{{x.kiloa[1].kiloa|number:2}} </td>
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 1)">  
+        {{x.oba[1].obl |number:2 }}</td>
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 2, $event, 1)">{{x.kiloa[2].kiloa|number:2}}</td>
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 2)" >  
+        {{x.oba[2].obl |number:2}}</td>
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="view(x, mfos, 3, $event, 1)">{{x.kiloa[3].kiloa|number:2}} </td>
+      <td md-cell ng-show="x.clickable=='yes'" ng-click="add2($event, x, 3)" >  
+        {{x.oba[3].obl |number:2}}</td>
+
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa)|number:2}} </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)|number:2}} </td>
+
+     <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>  
+
+
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa))-((1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo))|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl))-((1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl))|number:2}}</td>  
+
+      <td md-cell ng-show="x.clickable=='yes'" ng-class="{'md-placeholder': !x.remarks[1]}" ng-click="add3($event, x, 1)"> 
+        {{x.remarks[1] ||'--add remarks--'}}</td>
+    
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell ng-show="x.clickable=='no'"> </td>
+
+		</tr>
+
+	</tbody>
+</table>
+</div>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+<!--
+<md-tab label="Q3">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+<div class="md-toolbar-tools">
+	<span>3rd Quarter</span>
+	<div flex></div>
+	<span><img class="icon" src="svg/search.svg" ng-click="showSearch = !showSearch"><md-tooltip>SEARCH</md-tooltip></span>
+
+</div>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="showSearch">
+<div class="md-toolbar-tools">
+	<span><img class="icon" src="svg/left-arrow.svg" ng-click="showSearch = !showSearch">
+	</span><h3 flex="10">Back</h3>
+	<md-input-container md-no-float layout-gt-sm="row" flex>
+	<input ng-model="search" placeholder="enter search">
+</md-input-container>
+
+<span><img class="icon" src="svg/search.svg" ng-click="showSearch = !showSearch"><md-tooltip>SEARCH</md-tooltip></span>
+
+</div>
+</md-toolbar>
+<md-table-container>
+<table md-table>
+	<thead md-head>
+		<tr md-row>
+			<th  rowspan="2"><span>MFOs</span></th>
+			<th  colspan="2"><span>Jul</span></th>
+			<th  colspan="2"><span>Aug</span></th>
+			<th  colspan="2"><span>Sep</span></th>
+			<th  colspan="2"><span>Q3</span></th>
+			<th  colspan="2"><span>Jul</span></th>
+			<th  colspan="2"><span>Aug</span></th>
+			<th  colspan="2"><span>Sep</span></th>
+			<th  colspan="2"><span>Q3</span></th>
+			<th  rowspan="2"><span>Remarks</span></th>
+		</tr>
+		<tr md-row>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+		
+		</tr>
+	</thead>
+	<tbody md-body>
+		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+			
+			<td md-cell> {{x.mfo_name}} </td>
+			<td md-cell> {{x.kilo[7].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[7].obl|number:2}} </td>		
+			<td md-cell> {{x.kilo[8].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[8].obl|number:2}} </td>	
+			<td md-cell> {{x.kilo[9].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[9].obl|number:2}} </td>		
+			<td md-cell> {{(1*x.kilo[7].kilo)+(1*x.kilo[8].kilo)+(1*x.kilo[9].kilo)|number:2}}</td>
+			<td md-cell> {{(1*x.ob[7].obl)+(1*x.ob[8].obl)+(1*x.ob[9].obl)|number:2}}</td>		
+		</tr>
+
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+<md-tab label="Q4">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+<div class="md-toolbar-tools">
+	<span>4th Quarter</span>
+	<div flex></div>
+	<span><img class="icon" src="svg/search.svg" ng-click="showSearch = !showSearch"><md-tooltip>SEARCH</md-tooltip></span>
+
+</div>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="showSearch">
+<div class="md-toolbar-tools">
+	<span><img class="icon" src="svg/left-arrow.svg" ng-click="showSearch = !showSearch">
+	</span><h3 flex="10">Back</h3>
+	<md-input-container md-no-float layout-gt-sm="row" flex>
+	<input ng-model="search" placeholder="enter search">
+</md-input-container>
+
+<span><img class="icon" src="svg/search.svg" ng-click="showSearch = !showSearch"><md-tooltip>SEARCH</md-tooltip></span>
+
+</div>
+</md-toolbar>
+<md-table-container>
+<table md-table>
+	<thead md-head>
+		<tr md-row>
+			<th  rowspan="2"><span>MFOs</span></th>
+			<th  colspan="2"><span>Oct</span></th>
+			<th  colspan="2"><span>Nov</span></th>
+			<th  colspan="2"><span>Dec</span></th>
+			<th  colspan="2"><span>Q4</span></th>
+			<th  colspan="2"><span>Oct</span></th>
+			<th  colspan="2"><span>Nov</span></th>
+			<th  colspan="2"><span>Dec</span></th>
+			<th  colspan="2"><span>Q4</span></th>
+			<th  rowspan="2"><span>Remarks</span></th>
+		</tr>
+		<tr md-row>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+			<th ><span>Phys</span></th>
+			<th ><span>Fin</span></th>
+		
+		</tr>
+	</thead>
+	<tbody md-body>
+		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+			
+			<td md-cell> {{x.mfo_name}} </td>
+			<td md-cell> {{x.kilo[10].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[10].obl|number:2}} </td>	
+			<td md-cell> {{x.kilo[11].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[11].obl|number:2}} </td>		
+			<td md-cell> {{x.kilo[12].kilo|number:2}} </td>
+			<td md-cell> {{x.ob[12].obl|number:2}} </td>		
+			<td md-cell> {{(1*x.kilo[10].kilo)+(1*x.kilo[11].kilo)+(1*x.kilo[12].kilo)|number:2}} </td>
+			<td md-cell> {{(1*x.ob[10].obl)+(1*x.ob[11].obl)+(1*x.ob[12].obl)|number:2}}</td>
+
+		</tr>
+
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+-->
+</md-tabs>
+</md-card>

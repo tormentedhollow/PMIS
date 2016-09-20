@@ -1,0 +1,120 @@
+ <div class="md-padding" layout-xs="column" layout="row">
+	<div flex-xs flex-gt-xs layout="column">	
+		<md-card class="md-padding">
+		<md-card-title class="alert-info">
+			<md-card-title-text>
+			<span class="md-headline">My Profile</span>
+			</md-card-title-text>
+		</md-card-title>
+		<md-card-content>
+		<form name="form" layout="column">
+			<md-input-container>
+			<label>First Name</label>
+			<input ng-model="user.firstName" type="text" required>
+			</md-input-container>
+			<md-input-container>
+			<label>Last Name</label>
+			<input ng-model="user.lastName" type="text" required>
+			</md-input-container>
+			<md-input-container>
+			<label>UserName</label>
+			<input ng-model="user.username" type="text" required>
+			</md-input-container>
+			<md-input-container>
+			<label>Email</label>
+			<input ng-model="user.email" type="email" required>
+			</md-input-container>
+			<input ng-hide="true" ng-model="user.pwd" type="password">
+			<md-input-container>
+			<label>Enter Password this is required</label>		
+			<input ng-model="user.password" type="password" required data-password-verify="user.pwd" name='verify_password'>
+			</md-input-container>
+			<div ng-show="form.verify_password.$error.passwordVerify" class="red-text">Password is incorrect!
+			</div>
+
+			<div layout="column">
+				<md-button ng-click="update_user(user)" class="md-raised md-primary" ng-disabled="form.$invalid" type="submit">UPDATE</md-button>
+			</div>
+		</form>
+		</md-card-content>
+		</md-card>
+	</div>
+	<div flex-xs flex-gt-xs layout="column">
+		<md-card class="md-padding" >
+			<md-card-title class="alert-info">
+				<md-card-title-text>
+				<span class="md-headline">Change Password</span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content>
+			<form name="form1" layout="column">
+				<md-input-container>
+				<label>Current Password</label>
+				<input ng-model="password.current" type="password" required data-password-verify="user.pwd" name='verify_password'>
+				</md-input-container>
+				<div ng-show="form1.verify_password.$error.passwordVerify" class="red-text">Password is incorrect!
+				</div>
+
+				<md-input-container>
+				<label>Set New Password</label>
+				<input ng-model="password.new" type="password" name='password' required>
+				</md-input-container>
+
+				<md-input-container>
+				<label>Confirm Password</label>
+				<input ng-model="password.confirm" type="password" name='confirm_password' required data-password-verify="password.new">
+				</md-input-container>
+
+				<div ng-show="form1.confirm_password.$error.passwordVerify" class="red-text">Passwords are not equal!
+				</div>
+				<md-input-container layout-align="center center">
+				<div layout="column">
+					<md-button ng-click="change_pass(password)" class="md-raised md-primary" ng-disabled="form1.$invalid" type="submit">Change Password</md-button>
+				</div>
+				</md-input-container>
+			</form>
+			</md-card-content>
+		</md-card>
+		
+	</div>
+	<div flex-xs flex-gt-xs layout="column">
+		<md-card class="md-padding">
+			<md-card-title class="alert-info">
+				<md-card-title-text>
+				<span class="md-headline">Change Avatar</span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content>
+			<form name="form2">
+				<label>Enter Password this is required*</label>
+				<input ng-hide="true" ng-model="user.pwd" type="password">			
+				<input ng-model="user.password2" type="password" required data-password-verify="user.pwd" name='verify_password'>
+				<label ng-show="form2.verify_password.$error.passwordVerify" class="red-text">Password is incorrect!
+				</label>
+				<br>
+				<button ngf-select ng-model="picFile" accept="image/*">Select Picture</button>
+				<div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
+					<img-crop image="picFile  | ngfDataUrl"                 
+					result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+				</img-crop>
+				</div>
+				<div class="container">
+				<img ng-src="{{croppedDataUrl}}" />
+				</div>
+				<md-input-container layout-align="center center">
+				<div layout="column">
+					<md-button ng-click="change_avatar(croppedDataUrl, picFile.name)" class="md-raised md-primary" ng-disabled="form2.$invalid" type="submit">Upload Avatar</md-button>
+				</div>
+				</md-input-container>
+				 <div class="progress" ng-show="progress >= 0" ng-hide="progress == 100">
+				      <div class="determinate" style="width: {{progress}}%" ng-bind="progress + '%'"></div> {{progress}}%
+				 </div><br>
+				 <span ng-show="result">{{progress}}% Upload Successful</span>
+			
+			
+		       
+			</form>
+			</md-card-content>
+		</md-card>
+	</div>
+</div>

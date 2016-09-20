@@ -1,0 +1,641 @@
+ <md-card>
+ <md-card-title>
+ <md-card-title-text class="center">
+ <span class="md-headline">Downloadable Data - CY 2016</span>
+ <span class="md-subhead">as of {{date| date:'MMM dd, yyyy'}}</span>
+</md-card-title-text>
+</md-card-title>
+</md-card>
+<md-progress-linear md-mode="indeterminate" ng-if="isLoading"></md-progress-linear>
+<div layout="row" layout-xs="column" layout-align="center start" ng-hide="isLoading">
+  <md-content flex layout-padding>
+  <md-card>
+  <ul class="collection">
+    <li class="collection-header"><h5>Reports and Documentation</h5></li>
+    <li class="collection-item"><div>1. PMIS v.1.2 User Guide <a  class="secondary-content" target="_self" href="PMEIS-UserGuideManual.docx" download="foo.pdf"><i class="mdi mdi-file-pdf mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>2. Work and Financial Plan <a  class="secondary-content" ng-click="exportToExcel('#table1', 'WFP')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>3. BED-1: Financial Plan <a  class="secondary-content" ng-click="exportToExcel('#table2', 'BED1')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>4. BED-2: Physical Plan <a  class="secondary-content" ng-click="exportToExcel('#table3', 'BED2')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>5. BAR-1: Quarter 1<a  class="secondary-content" ng-click="exportToExcel('#table4', 'BAR1:Q1')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>6. BAR-1: Quarter 2 <a  class="secondary-content"  ng-click="exportToExcel('#table5', 'BAR1:Q2')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>7. BAR-1: Quarter 3 <a  class="secondary-content"  ng-click="exportToExcel('#table6', 'BAR1:Q3')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>8. BAR-1: Quarter 4 <a  class="secondary-content" ng-click="exportToExcel('#table7', 'BAR1:Q4')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>9. BAR-2: Quarter 1 <a  class="secondary-content" ng-click="exportToExcel('#table8', 'BAR2:Q1')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>10. BAR-2: Quarter 2 <a  class="secondary-content" ng-click="exportToExcel('#table9', 'BAR2:Q2')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>11. BAR-2: Quarter 3 <a  class="secondary-content" ng-click="exportToExcel('#table10', 'BAR2:Q3')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>12. BAR-2: Quarter 4 <a  class="secondary-content" ng-click="exportToExcel('#table11', 'BAR2:Q4')"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+
+    <li class="collection-item"><div>13. Actual List of Beneficiary <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>14. Monthly Financial Performance Report <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>15. Monthly Physical Performance Report <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>16. Monthly Physical Performance Report by Units<a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>17. Monthly Physical Performance Report by MFOs <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+    <li class="collection-item"><div>18. Beneficiary Accomplishment Report by Quarter <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+  </ul>
+
+</md-card>
+</md-content>
+
+<md-content flex layout-padding>
+<md-card>
+<ul class="collection">
+ <li class="collection-header"><h5>Physical Accomplishment - By Province and District</h5></li>
+ <li class="collection-item"><div>1. Agusan del Norte <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>2. Agusan del Norte - District 1 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>3. Agusan del Norte - District 2 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>4. Agusan del Sur <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>5. Agusan del Sur - District 1 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>6. Agusan del Sur - District 2 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>7. Surigao del Norte <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>8. Surigao del Norte - District 1 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>9. Surigao del Norte - District 2 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>10. Surigao del Sur <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>11. Surigao del Sur - District 1 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>12. Surigao del Sur - District 2 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>13. Province of Dinagat Islands <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>14. Province of Dinagat Islands - District 1 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+ <li class="collection-item"><div>15. Province of Dinagat Islands - District 2 <a  class="secondary-content"><i class="mdi mdi-file-excel mdi-24px"></i></a> </div></li>
+</ul>
+
+
+</md-card>
+</md-content>
+</div>
+<div id="table1" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th>Work and Financial Plan - CY 2016</th>
+       <th></th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th>Major Final Outputs</th>
+      <th>Unit of Measure</th>
+      <th>Physical Target</th>
+      <th>Financial Allocation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">       
+      <td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+      <td > {{x.description}} </td>
+      <td > {{x.kilot |number:2}} </td>
+      <td > {{x.fint |number:2}} </td>
+
+    </tr>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table2" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="16">BED1: Financial Obligation - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <td><span>MFOs</span></td>
+      <td><span>Jan</span></td>
+      <td><span>Feb</span></td>
+      <td><span>Mar</span></td>
+      <td class="customTH"><span>Q1</span></td>
+      <td><span>Apr</span></td>
+      <td><span>May</span></td>
+      <td><span>Jun</span></td>
+      <td class="customTH"><span>Q2</span></td>
+      <td><span>Jul</span></td>
+      <td><span>Aug</span></td>
+      <td><span>Sep</span></td>
+      <td class="customTH"><span>Q3</span></td>
+      <td><span>Oct</span></td>
+      <td><span>Nov</span></td>
+      <td><span>Dec</span></td>
+      <td class="customTH"><span>Q4</span></td>
+      <td class="customTH"><span>QT</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+
+    
+      <td  ng-if="x.clickable=='yes'">{{x.ob[1].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[2].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[3].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'" class="customTH">{{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl) |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[4].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[5].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[6].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'" class="customTH">{{(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl) |number:2}}</td>
+
+      <td  ng-if="x.clickable=='yes'">{{x.ob[7].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[8].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[9].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'" class="customTH">{{(1*x.ob[7].obl)+(1*x.ob[8].obl)+(1*x.ob[9].obl) |number:2}}</td>
+
+      <td  ng-if="x.clickable=='yes'">{{x.ob[10].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[11].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'">{{x.ob[12].obl |number:2}}</td>
+      <td  ng-if="x.clickable=='yes'" class="customTH">{{(1*x.ob[10].obl)+(1*x.ob[11].obl)+(1*x.ob[12].obl) |number:2}}</td>
+
+      <td  ng-if="x.clickable=='yes'" class="customTH">  {{
+        (1*x.ob[1].obl)+
+        (1*x.ob[2].obl)+
+        (1*x.ob[3].obl)+
+        (1*x.ob[4].obl)+
+        (1*x.ob[5].obl)+
+        (1*x.ob[6].obl)+
+        (1*x.ob[7].obl)+
+        (1*x.ob[8].obl)+
+        (1*x.ob[9].obl)+
+        (1*x.ob[10].obl)+
+        (1*x.ob[11].obl) +
+        (1*x.ob[12].obl)|number:2}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table3" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="17">BED2: Physical Target - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <td><span>MFOs</span></td>
+      <td><span>Unit</span></td>
+      <td><span>Jan</span></td>
+      <td><span>Feb</span></td>
+      <td><span>Mar</span></td>
+      <td class="customTH"><span>Q1</span></td>
+      <td><span>Apr</span></td>
+      <td><span>May</span></td>
+      <td><span>Jun</span></td>
+      <td class="customTH"><span>Q2</span></td>
+      <td><span>Jul</span></td>
+      <td><span>Aug</span></td>
+      <td><span>Sep</span></td>
+      <td class="customTH"><span>Q3</span></td>
+      <td><span>Oct</span></td>
+      <td><span>Nov</span></td>
+      <td><span>Dec</span></td>
+      <td class="customTH"><span>Q4</span></td>
+      <td class="customTH"><span>QT</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+      <td  ng-if="x.clickable=='no'" class="customTH"></td>
+
+    
+      <td  ng-if="x.clickable=='yes'"> {{x.description}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[1].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[2].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[3].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'" class="customTH"> {{(1*x.kilo[1].kilo) + (1*x.kilo[2].kilo) +(1*x.kilo[3].kilo)|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[4].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[5].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[6].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'" class="customTH"> {{(1*x.kilo[4].kilo) + (1*x.kilo[5].kilo) +(1*x.kilo[6].kilo)|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[7].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[8].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[9].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'" class="customTH"> {{(1*x.kilo[7].kilo) + (1*x.kilo[8].kilo) +(1*x.kilo[9].kilo)|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[10].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[11].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'"> {{x.kilo[12].kilo|number:2}} </td>
+      <td  ng-if="x.clickable=='yes'" class="customTH"> {{(1*x.kilo[10].kilo) + (1*x.kilo[11].kilo) +(1*x.kilo[12].kilo)|number:2}} </td>    
+      <td  ng-if="x.clickable=='yes'" class="customTH">  {{
+        (1*x.kilo[1].kilo)+kilo
+        (1*x.kilo[2].kilo)+
+        (1*x.kilo[3].kilo)+
+        (1*x.kilo[4].kilo)+
+        (1*x.kilo[5].kilo)+
+        (1*x.kilo[6].kilo)+
+        (1*x.kilo[7].kilo)+
+        (1*x.kilo[8].kilo)+
+        (1*x.kilo[9].kilo)+
+        (1*x.kilo[10].kilo)+
+        (1*x.kilo[11].kilo) +
+        (1*x.kilo[12].kilo)|number:2}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+
+<div id="table4" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR1: Quarter 1 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Physical Target</span></th>
+      <th  colspan="4"><span>Accomplishment</span></th>
+      <th  rowspan="2"><span>Variance</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+      <td ><span>Jan</span></td>
+      <td ><span>Feb</span></td>
+      <td ><span>Mar</span></td>
+      <td ><span>Q1</span></td>
+      <td ><span>Jan</span></td>
+      <td ><span>Feb</span></td>
+      <td ><span>Mar</span></td>
+      <td ><span>Q1</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+      <td > {{x.kilo[1]['kilo']|number:2}}</td>
+      <td > {{x.kilo[2]['kilo']|number:2}}</td>
+      <td > {{x.kilo[3]['kilo']|number:2}}</td>
+      <td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])|number:2}}</td>
+      <td  > {{x.kiloa[1]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[2]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[3]['kiloa']|number:2}}</td>
+      <td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])|number:2}}</td>
+      <td  > {{((1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo']))-
+        ((1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa']))|number:2}}</td>
+      <td > {{x.remarks[1]}}</td>
+
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table5" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR1: Quarter 2 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Physical Target</span></th>
+      <th  colspan="4"><span>Accomplishment</span></th>
+      <th  rowspan="2"><span>Variance</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+      <td ><span>Apr</span></td>
+      <td ><span>May</span></td>
+      <td ><span>Jun</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Apr</span></td>
+      <td ><span>May</span></td>
+      <td ><span>Jun</span></td>
+      <td ><span>Q2</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+    <td > {{x.kilo[4]['kilo']|number:2}}</td>
+      <td > {{x.kilo[5]['kilo']|number:2}}</td>
+      <td > {{x.kilo[6]['kilo']|number:2}}</td>
+      <td > {{(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])|number:2}}</td>
+      <td  > {{x.kiloa[4]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[5]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[6]['kiloa']|number:2}}</td>
+      <td  > {{(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])|number:2}}</td>
+      <td  > {{((1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo']))
+        -((1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa']))|number:2}}</td>
+      <td > {{x.remarks[2]}}</td>
+
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table6" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR1: Quarter 3 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Physical Target</span></th>
+      <th  colspan="4"><span>Accomplishment</span></th>
+      <th  rowspan="2"><span>Variance</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+      <td ><span>Jul</span></td>
+      <td ><span>Aug</span></td>
+      <td ><span>Sep</span></td>
+      <td ><span>Q3</span></td>
+      <td ><span>Jul</span></td>
+      <td ><span>Aug</span></td>
+      <td ><span>Sep</span></td>
+      <td ><span>Q3</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+    <td > {{x.kilo[7]['kilo']|number:2}}</td>
+      <td > {{x.kilo[8]['kilo']|number:2}}</td>
+      <td > {{x.kilo[9]['kilo']|number:2}}</td>
+      <td > {{(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])|number:2}}</td>
+      <td  > {{x.kiloa[7]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[8]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[9]['kiloa']|number:2}}</td>
+      <td  > {{(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])|number:2}}</td>
+      <td  > {{((1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo']))
+        -((1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa']))|number:2}}</td>
+      <td > {{x.remarks[3]}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table7" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR1: Quarter 4 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Physical Target</span></th>
+      <th  colspan="4"><span>Accomplishment</span></th>
+      <th  rowspan="2"><span>Variance</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+      <td ><span>Oct</span></td>
+      <td ><span>Nov</span></td>
+      <td ><span>Dec</span></td>
+      <td ><span>Q4</span></td>
+      <td ><span>Oct</span></td>
+      <td ><span>Nov</span></td>
+      <td ><span>Dec</span></td>
+      <td ><span>Q4</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+    <td > {{x.kilo[10]['kilo']|number:2}}</td>
+      <td > {{x.kilo[11]['kilo']|number:2}}</td>
+      <td > {{x.kilo[12]['kilo']|number:2}}</td>
+      <td > {{(1*x.kilo[10]['kilo'])+(1*x.kilo[11]['kilo'])+(1*x.kilo[12]['kilo'])|number:2}}</td>
+      <td  > {{x.kiloa[10]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[11]['kiloa']|number:2}}</td>
+      <td  > {{x.kiloa[12]['kiloa']|number:2}}</td>
+      <td  > {{(1*x.kiloa[10]['kiloa'])+(1*x.kiloa[11]['kiloa'])+(1*x.kiloa[12]['kiloa'])|number:2}}</td>
+      <td  > {{((1*x.kilo[10]['kilo'])+(1*x.kilo[11]['kilo'])+(1*x.kilo[12]['kilo']))
+        -((1*x.kiloa[10]['kiloa'])+(1*x.kiloa[11]['kiloa'])+(1*x.kiloa[12]['kiloa']))|number:2}}</td>
+      <td > {{x.remarks[4]}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table8" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR2: Quarter 1 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Allotment Received</span></th>
+      <th  colspan="4"><span>Obligation Incurred</span></th>
+      <th  rowspan="2"><span>Unobligated Allotment</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+      <td ><span>Jan</span></td>
+      <td ><span>Feb</span></td>
+      <td ><span>Mar</span></td>
+      <td ><span>Q1</span></td>
+      <td ><span>Jan</span></td>
+      <td ><span>Feb</span></td>
+      <td ><span>Mar</span></td>
+      <td ><span>Q1</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+      <td > {{x.ob[1]['obl']|number:2}}</td>
+      <td > {{x.ob[2]['obl']|number:2}}</td>
+      <td > {{x.ob[3]['obl']|number:2}}</td>
+      <td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])|number:2}}</td>
+      <td  > {{x.oba[1]['obl']|number:2}}</td>
+      <td  > {{x.oba[2]['obl']|number:2}}</td>
+      <td  > {{x.oba[3]['obl']|number:2}}</td>
+      <td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])|number:2}}</td>
+      <td  > {{((1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl']))-
+        ((1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl']))|number:2}}</td>
+      <td > {{x.remarks[1]}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table9" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR2: Quarter 2 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Allotment Received</span></th>
+      <th  colspan="4"><span>Obligation Incurred</span></th>
+      <th  rowspan="2"><span>Unobligated Allotment</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+     <td ><span>Apr</span></td>
+      <td ><span>May</span></td>
+      <td ><span>Jun</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Apr</span></td>
+      <td ><span>May</span></td>
+      <td ><span>Jun</span></td>
+      <td ><span>Q2</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+     <td > {{x.ob[4]['obl']|number:2}}</td>
+      <td > {{x.ob[5]['obl']|number:2}}</td>
+      <td > {{x.ob[6]['obl']|number:2}}</td>
+      <td > {{(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])|number:2}}</td>
+      <td  > {{x.oba[4]['obl']|number:2}}</td>
+      <td  > {{x.oba[5]['obl']|number:2}}</td>
+      <td  > {{x.oba[6]['obl']|number:2}}</td>
+      <td  > {{(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])|number:2}}</td>
+      <td  > {{((1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl']))-
+        ((1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl']))|number:2}}</td>
+      <td > {{x.remarks[2]}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table10" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR2: Quarter 3 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Allotment Received</span></th>
+      <th  colspan="4"><span>Obligation Incurred</span></th>
+      <th  rowspan="2"><span>Unobligated Allotment</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+     <td ><span>Jul</span></td>
+      <td ><span>Aug</span></td>
+      <td ><span>Sep</span></td>
+      <td ><span>Q3</span></td>
+      <td ><span>Jul</span></td>
+      <td ><span>Aug</span></td>
+      <td ><span>Sep</span></td>
+      <td ><span>Q3</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+    <td > {{x.ob[7]['obl']|number:2}}</td>
+      <td > {{x.ob[8]['obl']|number:2}}</td>
+      <td > {{x.ob[9]['obl']|number:2}}</td>
+      <td > {{(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])|number:2}}</td>
+      <td  > {{x.oba[7]['obl']|number:2}}</td>
+      <td  > {{x.oba[8]['obl']|number:2}}</td>
+      <td  > {{x.oba[9]['obl']|number:2}}</td>
+      <td  > {{(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])|number:2}}</td>
+      <td  > {{((1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl']))-
+        ((1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl']))|number:2}}</td>
+      <td > {{x.remarks[3]}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>
+
+<div id="table11" ng-hide="true">
+<table >
+  <thead>  
+    <tr >
+      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
+      <th colspan="9">BAR2: Quarter 3 - CY 2016</th>
+       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
+    </tr>   
+    <tr >
+      <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  colspan="4"><span>Allotment Received</span></th>
+      <th  colspan="4"><span>Obligation Incurred</span></th>
+      <th  rowspan="2"><span>Unobligated Allotment</span></th>
+      <th  rowspan="2"><span>Remarks</span></th>
+    </tr>
+    <tr >
+     <td ><span>Oct</span></td>
+      <td ><span>Nov</span></td>
+      <td ><span>Dec</span></td>
+      <td ><span>Q4</span></td>
+      <td ><span>Oct</span></td>
+      <td ><span>Nov</span></td>
+      <td ><span>Dec</span></td>
+      <td ><span>Q4</span></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="x in mfos">
+      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
+      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
+    <td > {{x.ob[10]['obl']|number:2}}</td>
+      <td > {{x.ob[11]['obl']|number:2}}</td>
+      <td > {{x.ob[12]['obl']|number:2}}</td>
+      <td > {{(1*x.ob[10]['obl'])+(1*x.ob[11]['obl'])+(1*x.ob[12]['obl'])|number:2}}</td>
+      <td  > {{x.oba[10]['obl']|number:2}}</td>
+      <td  > {{x.oba[11]['obl']|number:2}}</td>
+      <td  > {{x.oba[12]['obl']|number:2}}</td>
+      <td  > {{(1*x.oba[10]['obl'])+(1*x.oba[11]['obl'])+(1*x.oba[12]['obl'])|number:2}}</td>
+      <td  > {{((1*x.oba[10]['obl'])+(1*x.oba[11]['obl'])+(1*x.oba[12]['obl']))-
+        ((1*x.ob[10]['obl'])+(1*x.ob[11]['obl'])+(1*x.ob[12]['obl']))|number:2}}</td>
+      <td > {{x.remarks[4]}}</td>
+    </tr>
+  </tbody>
+</table> 
+</div>

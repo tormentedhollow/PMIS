@@ -1,0 +1,62 @@
+<md-dialog aria-label="Add Breakdown"  layout-padding ng-cloak flex="50">
+  <form name="myForm">
+  <md-toolbar>
+  <div class="md-toolbar-tools">
+    <h3>{{temp.mfo_name}}</h3>
+    <span flex></span>
+    <md-icon md-svg-icon="content:ic_clear_24px"  aria-label="date" ng-click="cancel()"></md-icon>
+  </div>
+</md-toolbar>
+
+<md-dialog-content>
+<div class="md-dialog-content">
+  <md-input-container class="md-block" flex-gt-sm>
+  <label for="selectMonth"> Month: </label>
+  <md-select name="selectMonth" id="selectMonth" ng-model="temp.month" required>
+  <md-option ng-repeat="option in months" value="{{option.id}}" ng-if="!temp.a">{{option.month_name}}</md-option>
+  <md-option value="13" ng-if="!temp.a">All month</md-option>
+  <md-option ng-repeat="option in months.slice(6,9)" value="{{option.id}}" ng-if="temp.a=='3'">{{option.month_name}}</md-option>
+  <md-option ng-repeat="option in months.slice(3,6)" value="{{option.id}}" ng-if="temp.a=='2'">{{option.month_name}}</md-option>
+  <md-option ng-repeat="option in months.slice(0,3)" value="{{option.id}}" ng-if="temp.a=='1'">{{option.month_name}}</md-option>
+</md-select>
+ 
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+<label for="selectProvince"> Province: </label>
+<md-select name="selectProvince" id="selectProvince" ng-model="temp.provs" required>
+<md-option ng-repeat="option in provinces" value="{{option.province_id}}">{{option.province_name}}</md-option>
+</md-select>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+<label for="selectProvince"> Municipal: </label>
+<md-select name="selectMunicipal" id="selectMunicipal" ng-disabled="!temp.provs || temp.provs=='111'" ng-model="temp.muns">
+<md-option ng-repeat="option in municipals | filter: temp.provs" value="{{option.municipal_id}}">{{option.municipal_name}}</md-option>
+</md-select>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+<label>{{temp.description}}</label>
+<input ng-model="temp.kilo" type="number" step="0.01" required>
+</md-input-container>
+
+<div ng-if="!temp.a">
+<md-input-container class="md-block" flex-gt-sm>
+<label>Project Allocation<h6>"Direct Cost"</h6></label>
+<input ng-disabled="!temp.provs || temp.provs=='111'" ng-model="temp.fin" type="number" step="0.01">
+</md-input-container>
+
+<em>Note: Project Allocation <i>(Direct Cost)</i> will display in Financial Tab</em>
+</div>
+</div> 
+
+</md-dialog-content>
+<md-dialog-actions layout="row">
+<md-button ng-if="!temp.a" class="md-raised md-primary"  ng-click="save()" ng-disabled="myForm.$invalid"><md-icon md-svg-icon="content:ic_save_24px"  aria-label="save"></md-icon>SAVE</md-button> 
+<md-button ng-if="temp.a" class="md-raised md-primary"  ng-click="save2()" ng-disabled="myForm.$invalid"><md-icon md-svg-icon="content:ic_save_24px"  aria-label="save"></md-icon>SAVE_ACCOMPLISHMENT</md-button>
+
+</md-dialog-actions>
+</form>
+</md-dialog>
+

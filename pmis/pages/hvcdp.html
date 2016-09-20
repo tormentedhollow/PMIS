@@ -1,0 +1,302 @@
+<md-card>
+<md-progress-linear md-mode="indeterminate" ng-show="isLoading"></md-progress-linear>
+<md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <div layout="row" flex="flex" class="fill-height">
+          <div ng-hide="toggleSearch" class="md-toolbar-item">
+          	<span ng-click="toggleSearch = !toggleSearch">HVCDP - FINANCIAL</span>
+          </div>
+          <span flex="flex" ng-hide="toggleSearch"></span>
+          <md-input-container flex="flex" style="padding-left:88px;"  ng-show="toggleSearch">
+            <input type="text" ng-model="search" aria-label="search"/>
+          </md-input-container>
+          <div layout="row" class="md-toolbar-item"><img ng-click="toggleSearch = !toggleSearch" class="icon" src="svg/search.svg" ><md-tooltip>SEARCH</md-tooltip>
+          </div>
+        </div>
+      </div>
+</md-toolbar>
+<md-tabs md-dynamic-height md-border-bottom ng-hide="isLoading">
+<md-tab label="Q1">
+<md-content class="md-padding">
+<md-table-container>
+<table md-table class="bordered striped">
+	<thead md-head>
+		<tr md-row class="md-table-headers-row">
+			<td md-column rowspan="2"><span>MFOs</span></td>
+			<td md-column><span>Allocation</span></td>
+			<td md-column colspan="4"><span>Obligation</span></td>
+			<td md-column colspan="4"><span>Financial Accomplishment</span></td>
+		</tr>
+		<tr md-row class="md-table-headers-row">
+			<td md-column><span>Annual</span></td>
+			<td md-column><span>Jan</span></td>
+			<td md-column><span>Feb</span></td>
+			<td md-column><span>Mar</span></td>
+			<td md-column><span>Q1</span></td>
+			<td md-column><span>Jan</span></td>
+			<td md-column><span>Feb</span></td>
+			<td md-column><span>Mar</span></td>
+			<td md-column><span>Q1</span></td>
+		</tr>
+
+	</thead>
+	<tbody md-body>
+		<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+		
+			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+			<td md-cell>{{x.fint|number:2}}</td>
+			<td md-cell>{{x.ob[1].obl|number:2}}</td>
+			<td md-cell>{{x.ob[2].obl|number:2}}</td>
+			<td md-cell>{{x.ob[3].obl|number:2}}</td>
+			<td md-cell>{{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>
+			<td md-cell>{{x.oba[1].obl|number:2}}</td>
+			<td md-cell>{{x.oba[2].obl|number:2}}</td>
+			<td md-cell>{{x.oba[3].obl|number:2}}</td>
+			<td md-cell>{{(1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)|number:2}}</td>
+		
+		</tr>
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{rice.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+<md-tab label="Q1-%">
+<md-content class="md-padding">
+
+<div layout="row" layout-xs="column">
+	<div flex>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2 class="md-flex">Financial Accomplishment Monthly Summary Report</h2>
+			</div>
+		</md-toolbar>
+	<md-content flex layout-padding>
+	<div google-chart chart="myChart" style="height:300px; width:100%;"></div>
+	</md-content>
+	</div>
+	<div flex>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2 class="md-flex">Data Table</h2>
+			</div>
+		</md-toolbar>
+	<md-content flex layout-padding>
+	<span class="md-subhead"><b>Annual Target:  &#8369 {{ob_all|number:2}}</b></span>
+	<md-table-container>
+<table md-table class="bordered striped">
+	<thead md-head>
+		<tr md-row>
+			<td md-column><span>Months</span></td>
+			<td md-column><span>Financial Target</span></td>
+			<td md-column><span>Financial Accomplishment</span></td>
+			<td md-column><span>Percentage - Q1</span></td>
+			<td md-column><span>Percentage - Annual</span></td>
+		</tr>
+	</thead>
+	<tbody md-body>
+	<tr md-row ng-repeat="x in q1 | limitTo:3">
+		<td md-cell>{{x.month}}</td>
+		<td md-cell >{{x.ob.obl|number:2}}</td>
+		<td md-cell>{{x.oba.obl|number:2}}</td>
+		<td md-cell ng-init="per_q1 = (1*x.oba.obl)/(1*x.ob.obl)">{{per_q1 | percentage:2}}</td>
+		<td md-cell ng-init="per_annual = (1*x.oba.obl)/(ob_all)">{{per_annual | percentage:2}}</td>
+	</tr>
+	<tr md-row>
+		<td md-cell>Total-Q1</td>
+		<td md-cell>{{finTotal|number:2}}</td>
+		<td md-cell>{{finTotalA|number:2}}</td>
+		<td md-cell>{{finTotalA/finTotal | percentage: 2}}</td>
+		<td md-cell>{{finTotalA/ob_all | percentage: 2}}</td>
+	</tr>
+	</tbody>
+
+</table>
+</md-table-container>
+	</md-content>
+
+	</div>
+</div>
+
+<md-table-container>
+<table md-table class="bordered striped">
+	<thead md-head>
+		<tr md-row>
+			<td md-column><span>MFOs</span></td>
+			<td md-column><span>Annual Allocation</span></td>
+			<td md-column><span>Obligation</span></td>
+			<td md-column><span>Financial Accomplishment</span></td>
+			<td md-column><span>Percentage</span></td>
+			<td md-column><span>Remarks</span></td>
+
+		</tr>
+	</thead>
+	<tbody md-body>
+	<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+		
+			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+			<td md-cell>{{x.fint|number:2}}</td>
+			<td md-cell>{{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>
+			<td md-cell>{{(1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)|number:2}}</td>
+			<td md-cell ng-show="per" ng-init="per = ((1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl))/((1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl))">{{per | percentage:2}}</td>
+			<td md-cell ng-hide="per"></td>
+			<td md-cell>{{x.remarks[1]}}</td>
+		
+		</tr>
+
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{rice.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+<!--   Q2  -->
+
+<md-tab label="Q2">
+<md-content class="md-padding">
+<md-table-container>
+<table md-table class="bordered striped">
+	<thead md-head>
+		<tr md-row class="md-table-headers-row">
+			<td md-column rowspan="2"><span>MFOs</span></td>
+			<td md-column><span>Allocation</span></td>
+			<td md-column colspan="4"><span>Obligation</span></td>
+			<td md-column colspan="4"><span>Financial Accomplishment</span></td>
+		</tr>
+		<tr md-row class="md-table-headers-row">
+			<td md-column><span>Annual</span></td>
+			<td md-column><span>Apr</span></td>
+			<td md-column><span>May</span></td>
+			<td md-column><span>Jun</span></td>
+			<td md-column><span>Q2</span></td>
+			<td md-column><span>Apr</span></td>
+			<td md-column><span>May</span></td>
+			<td md-column><span>Jun</span></td>
+			<td md-column><span>Q2</span></td>
+		</tr>
+
+	</thead>
+	<tbody md-body>
+		<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+		
+			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+			<td md-cell>{{x.fint|number:2}}</td>
+			<td md-cell>{{x.ob[4].obl|number:2}}</td>
+			<td md-cell>{{x.ob[5].obl|number:2}}</td>
+			<td md-cell>{{x.ob[6].obl|number:2}}</td>
+			<td md-cell>{{(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl)|number:2}}</td>
+			<td md-cell>{{x.oba[4].obl|number:2}}</td>
+			<td md-cell>{{x.oba[5].obl|number:2}}</td>
+			<td md-cell>{{x.oba[6].obl|number:2}}</td>
+			<td md-cell>{{(1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl)|number:2}}</td>
+		
+		</tr>
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{rice.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+<md-tab label="Q2-%">
+<md-content class="md-padding">
+
+<div layout="row" layout-xs="column">
+	<div flex>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2 class="md-flex">Financial Accomplishment Monthly Summary Report</h2>
+			</div>
+		</md-toolbar>
+	<md-content flex layout-padding>
+	<div google-chart chart="myChart2" style="height:300px; width:100%;"></div>
+	</md-content>
+	</div>
+	<div flex>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2 class="md-flex">Data Table</h2>
+			</div>
+		</md-toolbar>
+	<md-content flex layout-padding>
+	<span class="md-subhead"><b>Annual Target:  &#8369 {{ob_all|number:2}}</b></span>
+	<md-table-container>
+<table md-table class="bordered striped">
+	<thead md-head>
+		<tr md-row>
+			<td md-column><span>Months</span></td>
+			<td md-column><span>Financial Target</span></td>
+			<td md-column><span>Financial Accomplishment</span></td>
+			<td md-column><span>Percentage-Q2</span></td>
+			<td md-column><span>Percentage-Annual</span></td>
+		</tr>
+	</thead>
+	<tbody md-body>
+	<tr md-row ng-repeat="x in q1.slice(3, 6)">
+		<td md-cell>{{x.month}}</td>
+		<td md-cell >{{x.ob.obl|number:2}}</td>
+		<td md-cell>{{x.oba.obl|number:2}}</td>
+		<td md-cell ng-init="per_q2 = (1*x.oba.obl)/ob_all">{{per_q2 | percentage:2}}</td>
+		<td md-cell ng-init="per_annual = (1*x.oba.obl)/ob_all">{{per_annual | percentage:2}}</td>
+	</tr>
+	<tr md-row>
+		<td md-cell>Total-Q2</td>
+		<td md-cell>{{finTotal2|number:2}}</td>
+		<td md-cell>{{finTotalA2|number:2}}</td>
+		<td md-cell>{{finTotalA2/finTotal2 | percentage: 2}}</td>
+		<td md-cell>{{finTotalA2/ob_all | percentage: 2}}</td>
+	</tr>
+	</tbody>
+
+</table>
+</md-table-container>
+	</md-content>
+
+	</div>
+</div>
+
+<md-table-container>
+<table md-table class="bordered striped">
+	<thead md-head>
+		<tr md-row>
+			<td md-column><span>MFOs</span></td>
+			<td md-column><span>Annual Allocation</span></td>
+			<td md-column><span>Obligation</span></td>
+			<td md-column><span>Financial Accomplishment</span></td>
+			<td md-column><span>Percentage</span></td>
+			<td md-column><span>Remarks</span></td>
+
+		</tr>
+	</thead>
+	<tbody md-body>
+	<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+		
+			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+			<td md-cell>{{x.fint|number:2}}</td>
+			<td md-cell>{{(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl)|number:2}}</td>
+			<td md-cell>{{(1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl)|number:2}}</td>
+			<td md-cell ng-show="per" ng-init="per = ((1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl))/((1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl))">{{per | percentage:2}}</td>
+			<td md-cell ng-hide="per"></td>
+			<td md-cell>{{x.remarks[1]}}</td>
+		
+		</tr>
+
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{rice.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
+</md-tabs>
+</md-card>
