@@ -667,23 +667,23 @@ $timeout(tick, 1000);
 
 $scope.banners = [
 {
-  title: 'RICE',
+  title: 'Rice Program',
   sref: 'riceAdmin'
 },
 {
-  title: 'CORN',
+  title: 'Corn Program',
   sref: 'cornAdmin'
 },
 {
-  title: 'HVCDP',
+  title: 'High Value Crops Development Program',
   sref: 'hvcdpAdmin'
 },
 {
-  title: 'LIVESTOCK',
+  title: 'Livestock Program',
   sref: 'livestockAdmin'
 },
 {
-  title: 'ORGANIC',
+  title: 'Organic Agriculture Program',
   sref: 'organicAdmin'
 }       
 ];
@@ -709,6 +709,48 @@ $scope.banners2 = [
   title: 'ORGANIC',
   sref: 'organic2'
 }       
+];
+
+$scope.ous = [
+{
+  title: 'Agri-business Marketing Assistance Division',
+  sref: 'amadAdmin'
+},
+{
+  title: 'Integrated Laboratory Division',
+  sref: 'ildAdmin'
+},
+{
+  title: 'Planning, Monitoring & Evaluation Division',
+  sref: 'pmedAdmin'
+},
+{
+  title: 'Regional Agricultural Engineering Division',
+  sref: 'raedAdmin'
+},
+{
+  title: 'Regulatory Division',
+  sref: 'regulatoryAdmin'
+}       
+];
+
+$scope.regular = [
+{
+  title: 'Research Division',
+  sref: 'researchAdmin'
+},
+{
+  title: 'Trento Research Station',
+  sref: 'stn_trentoAdmin'
+},
+{
+  title: 'Del Monte Research Station',
+  sref: 'stn_delmonteAdmin'
+},
+{
+  title: 'Tagbina Research Station',
+  sref: 'stn_tagbinaAdmin'
+}      
 ];
 
 });

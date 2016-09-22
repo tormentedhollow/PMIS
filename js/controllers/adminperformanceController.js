@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AdminPerformanceController',  function($scope, $stateParams,$http, $cookies,$mdMedia, $mdDialog, MFOBannerQService, getMFONameService, gePhysicalBannerService, getUnitService, getPhysicalMFOService){
+app.controller('AdminPerformanceController',  function($scope, $stateParams, $cookies,$mdMedia, $mdDialog, $http, MFOBannerQService, getMFONameService, gePhysicalBannerService, getUnitService, getPhysicalMFOService){
 var id = $cookies.get('program_id');
 $scope.isLoading = true;
 $scope.date = new Date(); 
@@ -8,7 +8,8 @@ $scope.varid = id;
 
 var foo = $stateParams; 
 $scope.id = foo.id;
-$scope.varid=foo.id;
+id=foo.id;
+$scope.varid = id;
 
  $scope.header = [
     { title: 'Annual'},
@@ -26,11 +27,14 @@ $scope.varid=foo.id;
     { title: 'Dec'}    
   ];
 
- MFOBannerQService.async($scope.id).then(function(d){
+ MFOBannerQService.async(id).then(function(d){
   if(angular.isUndefined(d.data)) $scope.mfos = [];
   else  $scope.q1 = d.data;
   $scope.isLoading = false;
   $scope.ob_all = d.data[28].obl;
+  if(d.data[28].obl==null||d.data[28].obl==undefined){
+    $scope.ob_all=0;
+  }
   $scope.finTotal = d.data[12].q1;
   $scope.finTotalA = d.data[13].q1a;
 
@@ -139,8 +143,10 @@ getUnitService.async().then(function(d){
 });
 
 */
-getPhysicalMFOService.async($scope.id).then(function(d){
+getPhysicalMFOService.async(id).then(function(d){
 console.log(d);  
+
+try{
 $scope.unit = d.data[0].total;
 $scope.headers= new Array();
 for(var c = 0;c<($scope.unit.length);c++){
@@ -391,8 +397,11 @@ var chart2 = {};
   };
   $scope.myChart4 = chart4;
   console.log($scope.myChart4);
+}catch(err){
+  console.log("error: no ob_all");
+}
 
-})
+});
 $scope.totalTSem = function(y){
   //console.log(y)
   var sumT = 0.0;
@@ -426,7 +435,7 @@ var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
     clickOutsideToClose:true,
     locals: {
      mon: mon,
-     id: $scope.id
+     id: id
    },    
    fullscreen: useFullScreen
  });
@@ -445,7 +454,7 @@ var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
     clickOutsideToClose:true,
     locals: {
      mon: mon,
-     id: $scope.id
+     id: id
    },    
    fullscreen: useFullScreen
  });
@@ -466,7 +475,7 @@ var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
      mfo: mfo,
      unit: unit,
      ta: ta,
-     id: $scope.id
+     id: id
    },    
    fullscreen: useFullScreen
  });
