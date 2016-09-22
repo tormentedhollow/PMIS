@@ -113,7 +113,7 @@ $scope.varid = id;
   ];
   chart1.data = data;
   chart1.options = {
-     title:'Monthly Financial Performance',
+     title:'Financial Performance',
      vAxis: {minValue: 100},
      seriesType: 'bars',
     series: {1: {type: 'line', color: 'deeppink'}}
@@ -380,7 +380,7 @@ var chart2 = {};
 
   chart4.data = data2;
   chart4.options = {
-     title:'Monthly Physical Performance by MFO',
+     title:'Physical Performance by MFO',
      vAxis: {minValue: 100},
      bars: 'vertical'
   };
@@ -613,7 +613,7 @@ $scope.calcAve = function(list){
   ];
   chart3.data = data;
   chart3.options = {
-     title:'Monthly Physical Performance',
+     title:'Physical Performance',
      series: { 0: {color: 'deeppink'} },
     vAxis: {minValue: 100}
   };
