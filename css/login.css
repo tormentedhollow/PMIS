@@ -392,3 +392,12 @@ th, td {
     padding: 5px;
     text-align: left;
 }
+
+md-card-title.widget {
+    max-width: 25%;
+    max-height: 10%;
+    width: 25%;
+    height: 10%;
+}
+
+
