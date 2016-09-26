@@ -5,15 +5,42 @@ $state.transitionTo('admin'); //automatic defaultz
 $scope.isLoading = true;
 $scope.toggleSearch = false; 
 $scope.date = new Date(); 
+var datee = new Date();
 $scope.name =  $cookies.get('name');
 $scope.myChartObject = {};
-$scope.myChartObject.type = "BarChart";
+$scope.myChartObject.type = "google.charts.Bar";
 $scope.myChartObject2 = {};
 $scope.myChartObject2.type = "BarChart"; 
 $scope.myChartObject3 = {};
 $scope.myChartObject3.type = "BarChart"; 
 $scope.myChartObject4 = {};
 $scope.myChartObject4.type = "BarChart"; 
+$scope.myChartObjectt = {};
+$scope.myChartObjectt.type="ColumnChart";
+$scope.myChartObjectt.data = {
+    "cols": [
+    {label: "Month", type: "string"},
+    {label: "Target", type: "number"},
+    {label: "Accomplishment", type: "number"}],
+    "rows": [{c:[{v: "Jan"}, {v: 2}, {v: 0}]},
+    {c:[{v: "Feb"}, {v: 10}, {v: 8}]},
+    {c:[{v: "Mar"}, {v: 25}, {v: 15}]},
+    {c:[{v: "Apr"}, {v: 28}, {v: 20}]},
+    {c:[{v: "Mar"}, {v: 30}, {v: 41}]},
+    {c:[{v: "Apr"}, {v: 32}, {v: 41}]},
+    {c:[{v: "May"}, {v: 35}, {v: 50}]},
+    {c:[{v: "Jun"}, {v: 45}, {v: 52}]},
+    {c:[{v: "Jul"}, {v: 50}, {v: 55}]},
+    {c:[{v: "Aug"}, {v: 65}, {v: 55}]},
+    {c:[{v: "Sep"}, {v: 78}, {v: 65}]},
+    {c:[{v: "Oct"}, {v: 84}, {v: 68}]},
+    {c:[{v: "Nov"}, {v: 96}, {v: 72}]},
+    {c:[{v: "Dec"}, {v: 100}, {v: 79}]}]};
+  $scope.myChartObjectt.options = {
+
+  };
+
+console.log($scope.myChartObjectt);
 
 $('.collapsible').collapsible();
 var r_p1, r_p2, r_pt, c_p1, c_p2, c_pt, h_p1, h_p2, h_pt,l_p1, l_p2, l_pt,o_p1, o_p2, o_pt, a_p1, a_p2, a_pt;
@@ -245,7 +272,33 @@ getBannerService.async().then(function(d){
   var h = parseInt(d.data[2].ob.obl)||0;
   var l = parseInt(d.data[3].ob.obl)||0;
   var o = parseInt(d.data[4].ob.obl)||0;
+//------------Obligation Target---------------//
+  var r_q1t =  (parseInt(d.data[0].total[0].ob.obl) || 0) + (parseInt(d.data[0].total[1].ob.obl) || 0) + (parseInt(d.data[0].total[2].ob.obl) || 0);
+  var c_q1t =  (parseInt(d.data[1].total[0].ob.obl) || 0) + (parseInt(d.data[1].total[1].ob.obl) || 0) + (parseInt(d.data[1].total[2].ob.obl) || 0);
+  var h_q1t =  (parseInt(d.data[2].total[0].ob.obl) || 0) + (parseInt(d.data[2].total[1].ob.obl) || 0) + (parseInt(d.data[2].total[2].ob.obl) || 0);
+  var l_q1t =  (parseInt(d.data[3].total[0].ob.obl) || 0) + (parseInt(d.data[3].total[1].ob.obl) || 0) + (parseInt(d.data[3].total[2].ob.obl) || 0);
+  var o_q1t =  (parseInt(d.data[4].total[0].ob.obl) || 0) + (parseInt(d.data[4].total[1].ob.obl) || 0) + (parseInt(d.data[4].total[2].ob.obl) || 0);  
+ 
+  var r_q2t =  (parseInt(d.data[0].total[3].ob.obl) || 0) + (parseInt(d.data[0].total[4].ob.obl) || 0) + (parseInt(d.data[0].total[5].ob.obl) || 0);
+  var c_q2t =  (parseInt(d.data[1].total[3].ob.obl) || 0) + (parseInt(d.data[1].total[4].ob.obl) || 0) + (parseInt(d.data[1].total[5].ob.obl) || 0);
+  var h_q2t =  (parseInt(d.data[2].total[3].ob.obl) || 0) + (parseInt(d.data[2].total[4].ob.obl) || 0) + (parseInt(d.data[2].total[5].ob.obl) || 0);
+  var l_q2t =  (parseInt(d.data[3].total[3].ob.obl) || 0) + (parseInt(d.data[3].total[4].ob.obl) || 0) + (parseInt(d.data[3].total[5].ob.obl) || 0);
+  var o_q2t =  (parseInt(d.data[4].total[3].ob.obl) || 0) + (parseInt(d.data[4].total[4].ob.obl) || 0) + (parseInt(d.data[4].total[5].ob.obl) || 0); 
 
+  var r_q3t =  (parseInt(d.data[0].total[6].ob.obl) || 0) + (parseInt(d.data[0].total[7].ob.obl) || 0) + (parseInt(d.data[0].total[8].ob.obl) || 0);
+  var c_q3t =  (parseInt(d.data[1].total[6].ob.obl) || 0) + (parseInt(d.data[1].total[7].ob.obl) || 0) + (parseInt(d.data[1].total[8].ob.obl) || 0);
+  var h_q3t =  (parseInt(d.data[2].total[6].ob.obl) || 0) + (parseInt(d.data[2].total[7].ob.obl) || 0) + (parseInt(d.data[2].total[8].ob.obl) || 0);
+  var l_q3t =  (parseInt(d.data[3].total[6].ob.obl) || 0) + (parseInt(d.data[3].total[7].ob.obl) || 0) + (parseInt(d.data[3].total[8].ob.obl) || 0);
+  var o_q3t =  (parseInt(d.data[4].total[6].ob.obl) || 0) + (parseInt(d.data[4].total[7].ob.obl) || 0) + (parseInt(d.data[4].total[8].ob.obl) || 0); 
+
+  var r_q4t =  (parseInt(d.data[0].total[9].ob.obl) || 0) + (parseInt(d.data[0].total[10].ob.obl) || 0) + (parseInt(d.data[0].total[11].ob.obl) || 0);
+  var c_q4t =  (parseInt(d.data[1].total[9].ob.obl) || 0) + (parseInt(d.data[1].total[10].ob.obl) || 0) + (parseInt(d.data[1].total[11].ob.obl) || 0);
+  var h_q4t =  (parseInt(d.data[2].total[9].ob.obl) || 0) + (parseInt(d.data[2].total[10].ob.obl) || 0) + (parseInt(d.data[2].total[11].ob.obl) || 0);
+  var l_q4t =  (parseInt(d.data[3].total[9].ob.obl) || 0) + (parseInt(d.data[3].total[10].ob.obl) || 0) + (parseInt(d.data[3].total[11].ob.obl) || 0);
+  var o_q4t =  (parseInt(d.data[4].total[9].ob.obl) || 0) + (parseInt(d.data[4].total[10].ob.obl) || 0) + (parseInt(d.data[4].total[11].ob.obl) || 0); 
+
+
+//------------Obligation Accomplishment---------------//
   var r_q1 =  (parseInt(d.data[0].total[0].oba.obl) || 0) + (parseInt(d.data[0].total[1].oba.obl) || 0) + (parseInt(d.data[0].total[2].oba.obl) || 0);
   var c_q1 =  (parseInt(d.data[1].total[0].oba.obl) || 0) + (parseInt(d.data[1].total[1].oba.obl) || 0) + (parseInt(d.data[1].total[2].oba.obl) || 0);
   var h_q1 =  (parseInt(d.data[2].total[0].oba.obl) || 0) + (parseInt(d.data[2].total[1].oba.obl) || 0) + (parseInt(d.data[2].total[2].oba.obl) || 0);
@@ -263,16 +316,27 @@ getBannerService.async().then(function(d){
    $scope.myChartObject.data = {
     "cols": [
     {id: "b", label: "Banners", type: "string"},
-    {id: "q1", label: "Q1", type: "number"},
-    {id: "q2", label: "Q2", type: "number"}
+    {id: "q1-t", label: "Q1-T", type: "number"},
+    {id: "q2-t", label: "Q2-T", type: "number"},
+    {id: "q3-t", label: "Q3-T", type: "number"},
+    {id: "q4-t", label: "Q4-T", type: "number"},
+    {id: "q1-a", label: "Q1-A", type: "number"},
+    {id: "q2-a", label: "Q2-A", type: "number"},
+    {id: "q3-a", label: "Q3-A", type: "number"},
+    {id: "q4-a", label: "Q4-A", type: "number"}
     ], 
   "rows": [
-    {c: [ {v: "RICE"}, {v: Math.round((r_q1/r) * 10000)/100}, {v: Math.round((r_q2/r) * 10000)/100},]},
-    {c: [ {v: "CORN"},{v: Math.round((c_q1/c) * 10000)/100},{v: Math.round((c_q2/c) * 10000)/100},]},
-    {c: [ {v: "HVCDP"},{v: Math.round((h_q1/h) * 10000)/100},{v: Math.round((h_q2/h) * 10000)/100},]},
-    {c: [ {v: "LIVESTOCK"},{v: Math.round((l_q1/l) * 10000)/100},{v: Math.round((l_q2/l) * 10000)/100},]},
-    {c: [ {v: "ORGANIC"},{v: Math.round((o_q1/o) * 10000)/100},{v: Math.round((o_q2/o) * 10000)/100},]},
-    {c: [ {v: "ALL"},{v: Math.round(($scope.oba_q1/$scope.ob_all) * 10000)/100},{v: Math.round(($scope.oba_q2/$scope.ob_all) * 10000)/100},]}
+    {c: [ {v: "RICE"}, {v: Math.round((r_q1t/r) * 10000)/100}, {v: Math.round((r_q2t/r) * 10000)/100}, {v: Math.round((r_q3t/r) * 10000)/100}, {v: Math.round((r_q4t/r) * 10000)/100},
+                        {v: Math.round((r_q1/r) * 10000)/100}, {v: Math.round((r_q2/r) * 10000)/100}, {v: 10}, {v: 20}]},
+    {c: [ {v: "CORN"},{v: Math.round((c_q1t/c) * 10000)/100}, {v: Math.round((c_q2t/c) * 10000)/100}, {v: Math.round((c_q3t/c) * 10000)/100}, {v: Math.round((c_q4t/c) * 10000)/100},
+                      {v: Math.round((c_q1/c) * 10000)/100},{v: Math.round((c_q2/c) * 10000)/100}, {v: 5}, {v: 5}]},
+    {c: [ {v: "HVCDP"},{v: Math.round((h_q1t/h) * 10000)/100}, {v: Math.round((h_q2t/h) * 10000)/100}, {v: Math.round((h_q3t/h) * 10000)/100}, {v: Math.round((h_q4t/h) * 10000)/100},
+                      {v: Math.round((h_q1/h) * 10000)/100},{v: Math.round((h_q2/h) * 10000)/100}, {v: 10}, {v: 5}]},
+    {c: [ {v: "LIVESTOCK"},{v: Math.round((l_q1t/l) * 10000)/100}, {v: Math.round((l_q2t/l) * 10000)/100}, {v: Math.round((l_q3t/l) * 10000)/100}, {v: Math.round((l_q4t/l) * 10000)/100},
+                      {v: Math.round((l_q1/l) * 10000)/100},{v: Math.round((l_q2/l) * 10000)/100}, {v: 10}, {v: 20}]},
+    {c: [ {v: "ORGANIC"},{v: Math.round((o_q1t/o) * 10000)/100}, {v: Math.round((o_q2t/o) * 10000)/100}, {v: Math.round((o_q3t/o) * 10000)/100}, {v: Math.round((o_q4t/o) * 10000)/100},
+                      {v: Math.round((o_q1/o) * 10000)/100},{v: Math.round((o_q2/o) * 10000)/100}, {v: 10}, {v: 20}]},
+    //{c: [ {v: "ALL"},{v: Math.round(($scope.oba_q1/$scope.ob_all) * 10000)/100},{v: Math.round(($scope.oba_q2/$scope.ob_all) * 10000)/100}, {v: 10}, {v: 20}]}
     ]};
     console.log($scope.unit);
     $scope.myChartObject3.data = {};
@@ -337,12 +401,10 @@ $scope.isLoading = false;
 });
 
 
-  $scope.myChartObject.options = {
-    'title': 'Financial Summary Report by Quarter - 2016',
-    'isStacked': true,
-      width: 1200,
-     height:500,
-  };
+
+
+$scope.myChartObject.options = {"isStacked":true,"width":1150,"height":500,"chart":{"style":{"background":{"fillColor":"#ffffff","fillOpacity":1,"strokeColor":"#ffffff","strokeWidth":1,"strokeOpacity":0},"chartArea":{"fillColor":"#ffffff","fillOpacity":1,"strokeColor":"#ffffff","strokeWidth":1,"strokeOpacity":0},"text":{"fontName":null,"fontSize":null},"title":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null}}},"vAxis":{"viewWindow":{"min":0,"max":100}},"series":{"4":{"targetAxisIndex":1,"axis":"1","title":null,"inLegend":null},"5":{"targetAxisIndex":1,"axis":"1","title":null,"inLegend":null},"6":{"targetAxisIndex":1,"axis":"1","title":null,"inLegend":null},"7":{"targetAxisIndex":1,"axis":"1","title":null,"inLegend":null},"all":{"axis":null,"title":null,"inLegend":null}},"stacked":true,"selectionMode":null,"groupSize":null,"legend":{"position":null,"style":{"container":{"valign":null},"text":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"title":{"max-lines":null}}},"axes":{"all":{"style":{"gridlines":{"strokeColor":null},"baseline":{"strokeColor":null}}},"domain":{"all":{"baseline":null,"discrete":true,"label":null,"gridlines":null,"range":{"min":null,"max":null},"format":{},"style":{"gridlines":{"strokeColor":null},"baseline":{"strokeColor":null},"label":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"ticks":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"text":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null}}}},"target":{"all":{"baseline":null,"discrete":true,"label":null,"gridlines":null,"range":{"min":null,"max":null},"format":{},"style":{"gridlines":{"strokeColor":null},"baseline":{"strokeColor":null},"label":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"ticks":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"text":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null}}}},"x":{"all":{"baseline":null,"discrete":true,"label":null,"gridlines":null,"range":{"min":null,"max":null},"format":{},"style":{"gridlines":{"strokeColor":null},"baseline":{"strokeColor":null},"label":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"ticks":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"text":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null}}}},"y":{"all":{"baseline":null,"discrete":true,"label":null,"gridlines":null,"range":{"min":0,"max":100},"format":{},"style":{"gridlines":{"strokeColor":null},"baseline":{"strokeColor":null},"label":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"ticks":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null},"text":{"fillColor":null,"opacity":null,"fontName":null,"fontSize":null,"fontWeight":null,"italic":null,"underline":null}}}}}}
+
   $scope.myChartObject2.options = {
     'title': 'Physical Summary Report by Quarter - 2016',
     'isStacked': true,
@@ -667,23 +729,23 @@ $timeout(tick, 1000);
 
 $scope.banners = [
 {
-  title: 'Rice Program',
+  title: 'RICE',
   sref: 'riceAdmin'
 },
 {
-  title: 'Corn Program',
+  title: 'CORN',
   sref: 'cornAdmin'
 },
 {
-  title: 'High Value Crops Development Program',
+  title: 'HVCDP',
   sref: 'hvcdpAdmin'
 },
 {
-  title: 'Livestock Program',
+  title: 'LIVESTOCK',
   sref: 'livestockAdmin'
 },
 {
-  title: 'Organic Agriculture Program',
+  title: 'ORGANIC',
   sref: 'organicAdmin'
 }       
 ];
@@ -709,48 +771,6 @@ $scope.banners2 = [
   title: 'ORGANIC',
   sref: 'organic2'
 }       
-];
-
-$scope.ous = [
-{
-  title: 'Agri-business Marketing Assistance Division',
-  sref: 'amadAdmin'
-},
-{
-  title: 'Integrated Laboratory Division',
-  sref: 'ildAdmin'
-},
-{
-  title: 'Planning, Monitoring & Evaluation Division',
-  sref: 'pmedAdmin'
-},
-{
-  title: 'Regional Agricultural Engineering Division',
-  sref: 'raedAdmin'
-},
-{
-  title: 'Regulatory Division',
-  sref: 'regulatoryAdmin'
-}       
-];
-
-$scope.regular = [
-{
-  title: 'Research Division',
-  sref: 'researchAdmin'
-},
-{
-  title: 'Trento Research Station',
-  sref: 'stn_trentoAdmin'
-},
-{
-  title: 'Del Monte Research Station',
-  sref: 'stn_delmonteAdmin'
-},
-{
-  title: 'Tagbina Research Station',
-  sref: 'stn_tagbinaAdmin'
-}      
 ];
 
 });

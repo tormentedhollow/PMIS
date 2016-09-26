@@ -1292,7 +1292,7 @@ function getAllQuarterBanner($mysqli){
 			$result1A = $mysqli->query( $query1A );
 			$temp['kiloa'] = $result1A->fetch_assoc();
 
-			for($x=1;$x<7;$x++){
+			for($x=1;$x<=12;$x++){
 				$queryo = "SELECT sum(financial_obligation) as obl FROM tbl_obligation where month='$x' and user_id in (select user_id from users where program_id = '$id')";
 				$resulto = $mysqli->query( $queryo );
 				$row['ob'] = $resulto->fetch_assoc();
