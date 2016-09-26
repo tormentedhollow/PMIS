@@ -1,55 +1,219 @@
-	<md-progress-circular layout-align="center center" md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
-	<md-content flex layout-padding layout-margin>
-	 <div layout="row" layout-xs="column" ng-hide="isLoading">
-	<!--<div flex layout-padding layout-margin><br><br>
-	<h5 class="center">Top Performers - Financial Accomplishment 2016</h5> 
-	<h6 class="center" >as of {{date| date:'MMM dd, yyyy'}}</h6>
-		<div class="table-wrapper">
-		<table fixed-first-column style="width:100%;" class="bordered striped">
-			<thead class="header">
-			<tr >
-				<th ><span >Banners</span></th>
-				<th ><span>Annual Target</span></th>
-				<th ><span>Q1</span></th>
-				<th ><span>Q1-%</span></th>
-				<th ><span>Q2</span></th>
-				<th ><span>Q2-%</span></th>
-				<th ><span>QT</span></th>
-				<th ><span>QT-%</span></th>
-			</tr>
-			</thead>
-			<tbody >
-				<tr class="results" ng-repeat="x in ban | orderBy:predicate:true">
-					<th ><span >{{$index + 1}}.{{x.banner_name}}</span></th>
-					<td ><span >&#8369 {{x.ob.obl|number:2}}</span></td>
-					<td >&#8369 {{(1*x.total[0].oba.obl)+(1*x.total[1].oba.obl)+(1*x.total[2].oba.obl)|number:2}}</td>
-					<td ng-init="perq1_t = ((1*x.total[0].oba.obl)+(1*x.total[1].oba.obl)+(1*x.total[2].oba.obl))/x.ob.obl">{{perq1_t|percentage:2}}</td>
-					<td > &#8369{{(1*x.total[3].oba.obl)+(1*x.total[4].oba.obl)+(1*x.total[5].oba.obl)|number:2}}</td>
-					<td  ng-init="perq2_t = ((1*x.total[3].oba.obl)+(1*x.total[4].oba.obl)+(1*x.total[5].oba.obl))/x.ob.obl">{{perq2_t|percentage:2}}</td>
-					<td  ><span >&#8369 {{x.oba_t|number:2}}</span></td>
-					<td  ><span > {{x.per_fin|percentage:2}}</span></td>
+<md-content flex layout-padding layout-margin>
+<h3>DASHBOARD</h3>
 
-				</tr>			
-			  <tr >	
-			    <th ><strong>TOTAL-ALL</strong></th>
-			    <td ><strong> &#8369 {{ob_all|number:2}}</strong></td>
-			    <td ><strong> &#8369 {{oba_q1|number:2}}</strong></td>
-			    <td ><strong> {{(oba_q1/ob_all)|percentage:2}}</strong></td>
-			    <td ><strong> &#8369 {{oba_q2|number:2}}</strong></td>
-			    <td ><strong> {{(oba_q2/ob_all)|percentage:2}}</strong></td>
-			    <td ><strong> &#8369 {{oba_all|number:2}}</strong></td>
-			    <td ><strong> {{(oba_all/ob_all)|percentage:2}}</strong></td>
-			  </tr>
-	
-			</tbody>
-		</table>
+
+<div class="row">
+	<div class="col-sm-3">
+		<div class="card-panel hoverable">		
+			<b>FINANCIAL STATUS</b>
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped active" role="progressbar"
+				aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+				70%
+			</div>
 		</div>
-	</div>-->
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-panel hoverable">	
+		<b>PHYSICAL STATUS</b>
+		<div class="progress">
+			<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+			aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+			40%
+			</div>	
+		</div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-panel hoverable">	
+		<b>BENEFICIARY STATUS</b>
+		<div class="progress">
+			<div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+			aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+			80%
+			</div>	
+		</div>
+	</div>
+</div>
+<div class="col-sm-3">
+	<div class="card-panel hoverable">	
+		<b>BENEFICIARY STATUS</b>
+		<div class="progress">
+			<div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+			aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+			80%
+			</div>	
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="row">
+				<div class="col-sm-8">
+					<div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+    	<span class="center">
+    	<h5>Financial Monthly Report - Target vs. Accomplishment</h5>
+    	<h6>as of {{date| date:'MMM dd, yyyy'}}</h6>
+    </span>
+    <span class="right">
+    		  <p><i class="small material-icons" ng-click="myChartObjectt.type='ColumnChart'">insert_chart</i>
+    		  <i class="small material-icons" ng-click="myChartObjectt.type='AreaChart'">trending_up</i></p>
+    </span><br>
+     	<div google-chart chart="myChartObjectt"></div>
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+    </div>
+  </div>
+
+</div>
+		<div class="col-sm-4">
+     	<div class="card">
+     		  <div class="card-content">
+              <span class="card-title">Top 5 Performers - Financial</span>
+          	 <table class="table table-condensed">
+        <thead>
+          <tr>
+              <th>Rank</th>
+              <th>Projects/Programs</th>
+              <th>Progress</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Organic</td>
+            <td>89.20%</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Livestock</td>
+            <td>
+    85.12%
+ 
+</div></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>HVCDP</td>
+            <td>80.95%</td>
+          </tr>
+           <tr>
+            <td>4</td>
+            <td>PMED</td>
+            <td>79.36%</td>
+          </tr>
+           <tr>
+            <td>5</td>
+            <td>AMAD</td>
+            <td>78.85%</td>
+          </tr>
+        </tbody>
+      </table>
+       <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+            </div>
+     	</div>
+</div>
+
+</div>
+
+
+<div class="row">
+				<div class="col-sm-8">
+					<div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+    	<span class="center">
+    	<h5>Physical Monthly Report - Target vs. Accomplishment</h5>
+    	<h6>as of {{date| date:'MMM dd, yyyy'}}</h6>
+    </span>
+    <span class="right">
+    		  <p><i class="small material-icons" ng-click="myChartObjectt.type='ColumnChart'">insert_chart</i>
+    		  <i class="small material-icons" ng-click="myChartObjectt.type='AreaChart'">trending_up</i></p>
+    </span><br>
+     	<div google-chart chart="myChartObjectt"></div>
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+    </div>
+  </div>
+
+</div>
+		<div class="col-sm-4">
+     	<div class="card">
+     		  <div class="card-content">
+              <span class="card-title">Top 5 Performers - Physical</span>
+          	 <table class="table table-condensed">
+        <thead>
+          <tr>
+              <th>Rank</th>
+              <th>Projects/Programs</th>
+              <th>Progress</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Organic</td>
+            <td>89.20%</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Livestock</td>
+            <td>
+    85.12%
+ 
+</div></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>HVCDP</td>
+            <td>80.95%</td>
+          </tr>
+           <tr>
+            <td>4</td>
+            <td>PMED</td>
+            <td>79.36%</td>
+          </tr>
+           <tr>
+            <td>5</td>
+            <td>AMAD</td>
+            <td>78.85%</td>
+          </tr>
+        </tbody>
+      </table>
+       <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+            </div>
+     	</div>
+</div>
+
+</div>
+
+	
+		<md-progress-circular layout-align="center center" md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+	 <div layout="row" layout-xs="column" ng-hide="isLoading">
 <div class="card">
 	<div class="card-content">
 		<h4 class="center" style="padding:0px">Financial Summary Report by Quarter</h4>
 		<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
-		<div google-chart chart="myChartObject" style="height:500px; width:100%; margin-top:-10px;"></div>
+		<div google-chart chart="myChartObject3"></div>
 		<span class="card-title activator grey-text text-darken-4">See Data Table<i class="material-icons right">more_vert</i></span>
 	</div>
 	<div class="card-reveal">
@@ -59,27 +223,64 @@
 			<h4 class="center" style="padding:0px">Top Performers - Financial Accomplishment 2016</h4>
 			<h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}</h5>
 			<div fixed-first-column style="width:100%;">
-				<table class="table bordered striped">
+					<table class="table bordered striped">
 					<thead>
 						<tr class="md-table-headers-row">
 							<th ><span >Banners</span></th>
 							<th ><span>Annual Target</span></th>
-							<th ><span>Q1</span></th>
-							<th ><span>Q1-%</span></th>
-							<th ><span>Q2</span></th>
-							<th ><span>Q2-%</span></th>
+							<th ><span>Q1-T</span></th>
+							<th ><span>Q1-T%</span></th>
+							<th ><span>Q1-A</span></th>
+							<th ><span>Q1-A%</span></th>
+							<th ><span>Q2-T</span></th>
+							<th ><span>Q2-T%</span></th>
+							<th ><span>Q2-A</span></th>
+							<th ><span>Q2-A%</span></th>
+							<th ><span>Q3-T</span></th>
+							<th ><span>Q3-T%</span></th>
+							<th ><span>Q3-A</span></th>
+							<th ><span>Q3-A%</span></th>
+							<th ><span>Q4-T</span></th>
+							<th ><span>Q4-T%</span></th>
+							<th ><span>Q4-A</span></th>
+							<th ><span>Q4-A%</span></th>
+
 							<th ><span>QT</span></th>
 							<th ><span>QT-%</span></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr class="results" ng-repeat="x in ban | orderBy:predicate:true">
-							<th ><span >{{$index + 1}}.{{x.banner_name}}</span></th>
+							<th ><span >{{$index + 1}}.{{x.banner_name}}</span></th>					
 							<td ><span >&#8369 {{x.ob.obl|number:2}}</span></td>
+							<!--Q1 Target -->
+							<td >&#8369 {{(1*x.total[0].ob.obl)+(1*x.total[1].ob.obl)+(1*x.total[2].ob.obl)|number:2}}</td>
+							<td ng-init="perq1_t = ((1*x.total[0].ob.obl)+(1*x.total[1].ob.obl)+(1*x.total[2].ob.obl))/x.ob.obl">{{perq1_t|percentage:2}}</td>
+								<!--Q1 Accomplishment-->
 							<td >&#8369 {{(1*x.total[0].oba.obl)+(1*x.total[1].oba.obl)+(1*x.total[2].oba.obl)|number:2}}</td>
-							<td ng-init="perq1_t = ((1*x.total[0].oba.obl)+(1*x.total[1].oba.obl)+(1*x.total[2].oba.obl))/x.ob.obl">{{perq1_t|percentage:2}}</td>
+							<td ng-init="perq1_a = ((1*x.total[0].oba.obl)+(1*x.total[1].oba.obl)+(1*x.total[2].oba.obl))/x.ob.obl">{{perq1_a|percentage:2}}</td>
+							<!--Q2 Target -->
+							<td >&#8369 {{(1*x.total[3].ob.obl)+(1*x.total[4].ob.obl)+(1*x.total[5].ob.obl)|number:2}}</td>
+							<td ng-init="perq2_t = ((1*x.total[3].ob.obl)+(1*x.total[4].ob.obl)+(1*x.total[5].ob.obl))/x.ob.obl">{{perq2_t|percentage:2}}</td>
+							<!--Q2 Accomplishment -->
 							<td > &#8369{{(1*x.total[3].oba.obl)+(1*x.total[4].oba.obl)+(1*x.total[5].oba.obl)|number:2}}</td>
-							<td  ng-init="perq2_t = ((1*x.total[3].oba.obl)+(1*x.total[4].oba.obl)+(1*x.total[5].oba.obl))/x.ob.obl">{{perq2_t|percentage:2}}</td>
+							<td ng-init="perq2_a = ((1*x.total[3].oba.obl)+(1*x.total[4].oba.obl)+(1*x.total[5].oba.obl))/x.ob.obl">{{perq2_a|percentage:2}}</td>
+
+							<!--Q3 Target -->
+							<td >&#8369 {{(1*x.total[6].ob.obl)+(1*x.total[7].ob.obl)+(1*x.total[8].ob.obl)|number:2}}</td>
+							<td ng-init="perq3_t = ((1*x.total[6].ob.obl)+(1*x.total[7].ob.obl)+(1*x.total[8].ob.obl))/x.ob.obl">{{perq3_t|percentage:2}}</td>
+							<!--Q3 Accomplishment -->
+							<td > &#8369{{(1*x.total[6].oba.obl)+(1*x.total[4].oba.obl)+(1*x.total[8].oba.obl)|number:2}}</td>
+							<td ng-init="perq3_a = ((1*x.total[6].oba.obl)+(1*x.total[7].oba.obl)+(1*x.total[8].oba.obl))/x.ob.obl">{{perq3_a|percentage:2}}</td>
+
+							<!--Q2 Target -->
+							<td >&#8369 {{(1*x.total[9].ob.obl)+(1*x.total[10].ob.obl)+(1*x.total[11].ob.obl)|number:2}}</td>
+							<td ng-init="perq4_t = ((1*x.total[9].ob.obl)+(1*x.total[10].ob.obl)+(1*x.total[11].ob.obl))/x.ob.obl">{{perq4_t|percentage:2}}</td>
+							<!--Q2 Accomplishment -->
+							<td > &#8369{{(1*x.total[9].oba.obl)+(1*x.total[10].oba.obl)+(1*x.total[11].oba.obl)|number:2}}</td>
+							<td ng-init="perq4_a = ((1*x.total[9].oba.obl)+(1*x.total[10].oba.obl)+(1*x.total[5].oba.obl))/x.ob.obl">{{perq4_a|percentage:2}}</td>
+
+
 							<td  ><span >&#8369 {{x.oba_t|number:2}}</span></td>
 							<td  ><span > {{x.per_fin|percentage:2}}</span></td>
 
@@ -87,8 +288,12 @@
 						<tr >	
 							<th ><strong>TOTAL-ALL</strong></th>
 							<td ><strong> &#8369 {{ob_all|number:2}}</strong></td>
+							<td ><strong> &#8369 </strong></td>
+							<td ><strong> </strong></td>
 							<td ><strong> &#8369 {{oba_q1|number:2}}</strong></td>
 							<td ><strong> {{(oba_q1/ob_all)|percentage:2}}</strong></td>
+							<td ><strong> &#8369 </strong></td>
+							<td ><strong> </strong></td>
 							<td ><strong> &#8369 {{oba_q2|number:2}}</strong></td>
 							<td ><strong> {{(oba_q2/ob_all)|percentage:2}}</strong></td>
 							<td ><strong> &#8369 {{oba_all|number:2}}</strong></td>

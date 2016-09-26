@@ -255,7 +255,7 @@
 		</tr>
 	</thead>
 	<tbody md-body>
-		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+		<tr md-row ng-repeat="x in mfos  | filter:search | limitTo: query.limit : (query.page -1) * query.limit" class="md-table-content-row">
 
       <!-- fixedfirstcolumn-->
       <td md-cell ng-if="x.clickable=='no' "> <b>{{x.mfo_name}}</b></td>
