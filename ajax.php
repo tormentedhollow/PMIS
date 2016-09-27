@@ -180,6 +180,9 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "view_service_month":
 			view_service_month($mysqli);
 			break;
+		case "overall_fin":
+			overall_fin($mysqli);
+			break;
 		default:
 			invalidRequest();
 
@@ -187,6 +190,56 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 
 }else{
 	invalidRequest();
+}
+
+function overall_fin($mysqli){
+	try{	
+		$data = array();
+		$query = "SELECT * from program where id!=6";
+		$result = $mysqli->query( $query );
+		$fin_total=array();
+		for($month = 1;$month<=13;$month++){
+			$fin_total[$month]=array();
+			$fin_total[$month]['ob']=0;
+			$fin_total[$month]['oba']=0;
+		}
+		while ($program = $result->fetch_assoc()) {
+			$val = array();
+			$val['program_id'] = $program['id'];
+			$val['program_name'] = $program['name'];
+			for($month = 1;$month<=12;$month++){
+				$val[$month] = array();
+				$query_ob = "SELECT IFNULL(SUM(financial_obligation), 0) as ob from tbl_obligation where user_id in (select user_id from users where program_id = ".$program['id'].") and month = ".$month;
+				$result_ob = $mysqli->query( $query_ob );
+				while ($ob = $result_ob->fetch_assoc()) {
+					$ob['ob']=(float)$ob['ob'];
+					$val[$month]['ob']=(float)(number_format($ob['ob'], 2, '.', ''));
+					$fin_total[$month]['ob']+=$val[$month]['ob'];
+					$fin_total[13]['ob']+=$val[$month]['ob'];
+				}
+				$query_oba = "SELECT IFNULL(sum(financial_obligation), 0) as oba from tbl_obligationa where user_id in (select user_id from users where program_id = ".$program['id'].") and month = ".$month;
+				$result_oba = $mysqli->query( $query_oba );
+				while ($oba = $result_oba->fetch_assoc()) {
+					$oba['oba']=(float)$oba['oba'];
+					$val[$month]['oba']=(float)(number_format($oba['oba'], 2, '.', ''));
+					$fin_total[$month]['oba']+=$val[$month]['oba'];		
+					$fin_total[13]['oba']+=$val[$month]['oba'];			
+				}
+			}
+			//$program['id'];
+			$data['data'][]=$val;
+		}
+		$data['fin_total']=$fin_total;
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
 }
 
 function view_service($mysqli){

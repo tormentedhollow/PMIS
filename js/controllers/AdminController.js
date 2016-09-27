@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService){
+app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService,overall_finService){
 $state.transitionTo('admin'); //automatic defaultz 
 $scope.isLoading = true;
 $scope.toggleSearch = false; 
@@ -16,35 +16,76 @@ $scope.myChartObject3.type = "BarChart";
 $scope.myChartObject4 = {};
 $scope.myChartObject4.type = "BarChart"; 
 $scope.myChartObjectt = {};
-$scope.myChartObjectt.type="ColumnChart";
-$scope.myChartObjectt.data = {
-    "cols": [
-    {label: "Month", type: "string"},
-    {label: "Target", type: "number"},
-    {label: "Accomplishment", type: "number"}],
-    "rows": [{c:[{v: "Jan"}, {v: 2}, {v: 0}]},
-    {c:[{v: "Feb"}, {v: 10}, {v: 8}]},
-    {c:[{v: "Mar"}, {v: 25}, {v: 15}]},
-    {c:[{v: "Apr"}, {v: 28}, {v: 20}]},
-    {c:[{v: "Mar"}, {v: 30}, {v: 41}]},
-    {c:[{v: "Apr"}, {v: 32}, {v: 41}]},
-    {c:[{v: "May"}, {v: 35}, {v: 50}]},
-    {c:[{v: "Jun"}, {v: 45}, {v: 52}]},
-    {c:[{v: "Jul"}, {v: 50}, {v: 55}]},
-    {c:[{v: "Aug"}, {v: 65}, {v: 55}]},
-    {c:[{v: "Sep"}, {v: 78}, {v: 65}]},
-    {c:[{v: "Oct"}, {v: 84}, {v: 68}]},
-    {c:[{v: "Nov"}, {v: 96}, {v: 72}]},
-    {c:[{v: "Dec"}, {v: 100}, {v: 79}]}]};
-  $scope.myChartObjectt.options = {
+$scope.variable =234.0;
+$scope.month = [
+    { name: 'January'},
+    { name: 'February'},
+    { name: 'March'},
+    { name: 'April'},
+    { name: 'May'},
+    { name: 'June'},
+    { name: 'July'},
+    { name: 'August'} ,
+    { name: 'September'} ,
+    { name: 'October'} ,
+    { name: 'November'} ,
+    { name: 'December'}    
+  ];
 
-  };
+overall_finService.async().then(function(d){
+  console.log(d.data);
+  console.log(d.fin_total);
+  $scope.o_fin = d;
+  $scope.fincommu = new Array();
+  var g= new Array();
+  for(var f=1;f<=12;f++){
+    g[f]=new Array();
+    g[f][0]=0.0;
+    g[f][1]=0.0;
+    $scope.fincommu[f]=new Array();
+    $scope.fincommu[f][0]=0.0;
+    $scope.fincommu[f][1]=0.0;
+    for(var f2=1;f2<=f;f2++){
+      g[f][0]+=d.fin_total[f2]['ob'];
+      g[f][1]+=d.fin_total[f2]['oba'];
+      $scope.fincommu[f][0]+=d.fin_total[f2]['ob'];
+      $scope.fincommu[f][1]+=d.fin_total[f2]['oba'];
+    }
+    g[f][0]=Math.round((g[f][0]/d.fin_total[13]['ob'])*10000)/100;
+    g[f][1]=Math.round((g[f][1]/d.fin_total[13]['ob'])*10000)/100;
+  }
+  $scope.finstat = g[12][1];
+  $scope.myChartObjectt.type="ColumnChart";
+  $scope.myChartObjectt.data = {
+      "cols": [
+      {label: "Month", type: "string"},
+      {label: "Target", type: "number"},
+      {label: "Accomplishment", type: "number"}],
+      "rows": [{c:[{v: "Jan"}, {v: g[1][0]}, {v: g[1][1]}]},
+      {c:[{v: "Feb"}, {v: g[2][0]}, {v: g[2][1]}]},
+      {c:[{v: "Mar"}, {v: g[3][0]}, {v: g[3][1]}]},
+      {c:[{v: "Apr"}, {v: g[4][0]}, {v: g[4][1]}]},
+      {c:[{v: "May"}, {v: g[5][0]}, {v: g[5][1]}]},
+      {c:[{v: "Jun"}, {v: g[6][0]}, {v: g[6][1]}]},
+      {c:[{v: "Jul"}, {v: g[7][0]}, {v: g[7][1]}]},
+      {c:[{v: "Aug"}, {v: g[8][0]}, {v: g[8][1]}]},
+      {c:[{v: "Sep"}, {v: g[9][0]}, {v: g[9][1]}]},
+      {c:[{v: "Oct"}, {v: g[10][0]}, {v: g[10][1]}]},
+      {c:[{v: "Nov"}, {v: g[11][0]}, {v: g[11][1]}]},
+      {c:[{v: "Dec"}, {v: g[12][0]}, {v: g[12][1]}]}]};
+    $scope.myChartObjectt.options = {"height":550
+
+    };
+});
+
 
 console.log($scope.myChartObjectt);
 
 $('.collapsible').collapsible();
 var r_p1, r_p2, r_pt, c_p1, c_p2, c_pt, h_p1, h_p2, h_pt,l_p1, l_p2, l_pt,o_p1, o_p2, o_pt, a_p1, a_p2, a_pt;
 r_p1=r_p2=r_pt=c_p1=c_p2=c_pt=h_p1=h_p2=h_pt=l_p1=l_p2=l_pt=o_p1=o_p2=o_pt=a_p1=a_p2=a_pt=0;
+
+
 
 
 getUnitService.async().then(function(d){
