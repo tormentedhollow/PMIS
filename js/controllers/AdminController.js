@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService,overall_finService){
+app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService,overall_finService,overall_phyService,overall_finmfoService){
 $state.transitionTo('admin'); //automatic defaultz 
 $scope.isLoading = true;
 $scope.toggleSearch = false; 
@@ -16,6 +16,8 @@ $scope.myChartObject3.type = "BarChart";
 $scope.myChartObject4 = {};
 $scope.myChartObject4.type = "BarChart"; 
 $scope.myChartObjectt = {};
+$scope.myChartObjecttph = {};
+$scope.myChartObjecttmfo = {};
 $scope.variable =234.0;
 $scope.month = [
     { name: 'January'},
@@ -73,11 +75,110 @@ overall_finService.async().then(function(d){
       {c:[{v: "Oct"}, {v: g[10][0]}, {v: g[10][1]}]},
       {c:[{v: "Nov"}, {v: g[11][0]}, {v: g[11][1]}]},
       {c:[{v: "Dec"}, {v: g[12][0]}, {v: g[12][1]}]}]};
-    $scope.myChartObjectt.options = {"height":550
+    $scope.myChartObjectt.options = {"height":550,
+          chartArea : { left: '8%', top: '8%', width: "85%", height: "80%" },
+          legend:{position: 'bottom'}
 
     };
 });
+overall_finmfoService.async().then(function(d){
+  $scope.myChartObjecttmfo.type="ColumnChart";
+  $scope.myChartObjecttmfo.data = {
+      "cols": [
+      {label: "Month", type: "string"},
+      {label: "Target", type: "number"},
+      {label: "Accomplishment", type: "number"}]/*,
+      "rows": [{c:[{v: "Jan"}, {v: g[1][0]}, {v: g[1][1]}]},
+      {c:[{v: "Feb"}, {v: g[2][0]}, {v: g[2][1]}]},
+      {c:[{v: "Mar"}, {v: g[3][0]}, {v: g[3][1]}]},
+      {c:[{v: "Apr"}, {v: g[4][0]}, {v: g[4][1]}]},
+      {c:[{v: "May"}, {v: g[5][0]}, {v: g[5][1]}]},
+      {c:[{v: "Jun"}, {v: g[6][0]}, {v: g[6][1]}]},
+      {c:[{v: "Jul"}, {v: g[7][0]}, {v: g[7][1]}]},
+      {c:[{v: "Aug"}, {v: g[8][0]}, {v: g[8][1]}]},
+      {c:[{v: "Sep"}, {v: g[9][0]}, {v: g[9][1]}]},
+      {c:[{v: "Oct"}, {v: g[10][0]}, {v: g[10][1]}]},
+      {c:[{v: "Nov"}, {v: g[11][0]}, {v: g[11][1]}]},
+      {c:[{v: "Dec"}, {v: g[12][0]}, {v: g[12][1]}]}]*/};
+    $scope.myChartObjecttmfo.options = {"height":337,
+          chartArea : { left: '8%', top: '8%', width: "90%", height: "80%" },
+          legend:{position: 'bottom'}
+    };
+    console.log($scope.myChartObjecttmfo.data.rows);
+  $scope.myChartObjecttmfo.data.rows = new Array();
+  console.log(d);
+  var g = new Array();
+  for(var m=0;m<(d.finbymfo).length;m++){
+    var row = new Array();
+    row['c'] = new Array();
+    row['c'][0]= new Array();
+    row['c'][0]['v'] =  d.finbymfo[m]['header_id'];
+    row['c'][1]= new Array();
+    row['c'][1]['v'] = Math.round((d.finbymfo[m]['obl']/$scope.fincommu[12][0])*10000)/100;
+    row['c'][2]= new Array();
+    row['c'][2]['v'] = Math.round((d.finbymfo[m]['obla']/$scope.fincommu[12][0])*10000)/100;
+    /*g[m] = new Array();
+    g[m][0] = (d.finbymfo[m]['obl']/$scope.fincommu[12][0])*100;
+    g[m][1] = (d.finbymfo[m]['obla']/$scope.fincommu[12][0])*100;*/
+    $scope.myChartObjecttmfo.data.rows.push(row);
+  }
+  console.log($scope.myChartObjecttmfo.data.rows);
+    
+});
 
+overall_phyService.async().then(function(d){
+  console.log(d);
+  $scope.o_phy = d;
+  var g = new Array();
+  for(var p=1;p<=12;p++){
+    g[p] = new Array();
+    g[p][0]=0.0;
+    g[p][1]=0.0;
+    d.o_bymonth[p];
+    for(var h=0;h<(d.o_bymonth[p]).length;h++){
+      d.o_bymonth[p][h]['unit_id'];
+      d.o_bymonth[p][h]['a'];
+      d.o_bymonth[p][h]['t'];
+      for(var y=0;y<(d.o_obl).length;y++){
+        d.o_obl[y]['unit_id'];
+        if(d.o_obl[y]['unit_id']==d.o_bymonth[p][h]['unit_id']){
+          var rw = (Math.round((d.o_obl[y]['obl']/$scope.fincommu[12][0])*100))/100;
+          g[p][0] += ((d.o_bymonth[p][h]['t']/d.o_obl[y]['at'])*100)*rw;
+          g[p][1] += ((d.o_bymonth[p][h]['a']/d.o_obl[y]['at'])*100)*rw;
+        }
+      }
+    }
+    if(p>1){
+      g[p][0]+=g[p-1][0];
+      g[p][1]+=g[p-1][1];
+    }
+    g[p][0]=(Math.round(g[p][0]*100))/100;
+    g[p][1]=(Math.round(g[p][1]*100))/100;
+  }
+  $scope.phystat = g[12][1];
+  $scope.myChartObjecttph.type="ColumnChart";
+  $scope.myChartObjecttph.data = {
+      "cols": [
+      {label: "Month", type: "string"},
+      {label: "Target", type: "number"},
+      {label: "Accomplishment", type: "number"}],
+      "rows": [{c:[{v: "Jan"}, {v: g[1][0]}, {v: g[1][1]}]},
+      {c:[{v: "Feb"}, {v: g[2][0]}, {v: g[2][1]}]},
+      {c:[{v: "Mar"}, {v: g[3][0]}, {v: g[3][1]}]},
+      {c:[{v: "Apr"}, {v: g[4][0]}, {v: g[4][1]}]},
+      {c:[{v: "May"}, {v: g[5][0]}, {v: g[5][1]}]},
+      {c:[{v: "Jun"}, {v: g[6][0]}, {v: g[6][1]}]},
+      {c:[{v: "Jul"}, {v: g[7][0]}, {v: g[7][1]}]},
+      {c:[{v: "Aug"}, {v: g[8][0]}, {v: g[8][1]}]},
+      {c:[{v: "Sep"}, {v: g[9][0]}, {v: g[9][1]}]},
+      {c:[{v: "Oct"}, {v: g[10][0]}, {v: g[10][1]}]},
+      {c:[{v: "Nov"}, {v: g[11][0]}, {v: g[11][1]}]},
+      {c:[{v: "Dec"}, {v: g[12][0]}, {v: g[12][1]}]}]};
+    $scope.myChartObjecttph.options = {"height":550,
+          chartArea : { left: '8%', top: '8%', width: "85%", height: "80%" },
+          legend:{position: 'bottom'}
+    };
+});
 
 console.log($scope.myChartObjectt);
 

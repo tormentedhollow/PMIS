@@ -183,6 +183,12 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "overall_fin":
 			overall_fin($mysqli);
 			break;
+		case "overall_finmfo":
+			overall_finmfo($mysqli);
+			break;
+		case "overall_phy":
+			overall_phy($mysqli);
+			break;
 		default:
 			invalidRequest();
 
@@ -190,6 +196,148 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 
 }else{
 	invalidRequest();
+}
+
+function overall_phy($mysqli){
+
+	try{	
+		$data = array();
+		$query = "SELECT distinct unit_id FROM `tbl_registered` order by unit_id";
+		$result = $mysqli->query( $query );
+		$data['o_obl']= array();
+		while ($unit_id = $result->fetch_assoc()) {
+			$var = array();
+			$var['unit_id'] = $unit_id['unit_id'];
+			$query2 = "SELECT sum(financial_obligation) as obl FROM `tbl_obligation`where mfo_id in (SELECT distinct mfo_id FROM `tbl_mfo` where unitofmeasure =".$unit_id['unit_id'].")";
+			$result2 = $mysqli->query( $query2 );
+			while ($obl = $result2->fetch_assoc()) {
+				$var['obl'] = $obl['obl'];
+				$obl['obl']=(float)$obl['obl'];
+				$var['obl']=(float)(number_format($obl['obl'], 2, '.', ''));
+			}
+
+			$query2 = "SELECT sum(kilo) as t FROM `tbl_registered` where unit_id = ".$unit_id['unit_id'];
+			$result2 = $mysqli->query( $query2 );
+			while ($target = $result2->fetch_assoc()) {
+				$target['t']=(float)$target['t'];
+				$var['at']=(float)(number_format($target['t'], 2, '.', ''));
+			}
+			$data['o_obl'][] = $var;
+		}
+
+		$data['o_bymonth']= array();
+		for($ctr=1;$ctr<=12;$ctr++){
+			$data['o_bymonth'][$ctr]= array();
+			$query = "SELECT distinct unit_id FROM `tbl_registered` where month = ".$ctr;
+			$result = $mysqli->query( $query );
+			while ($unit_id = $result->fetch_assoc()) {
+				$var = array();
+				$var['unit_id'] = $unit_id['unit_id'];
+				$query2 = "SELECT sum(kilo) as t FROM `tbl_registered` where month = ".$ctr." and unit_id = ".$unit_id['unit_id'];
+				$result2 = $mysqli->query( $query2 );
+				while ($target = $result2->fetch_assoc()) {
+					//$var['t']=$target['t'];
+					$target['t']=(float)$target['t'];
+					$var['t']=(float)(number_format($target['t'], 2, '.', ''));
+				}
+				$query2 = "SELECT sum(kilo) as a FROM `tbl_registereda` where month = ".$ctr." and unit_id = ".$unit_id['unit_id'];
+				$result2 = $mysqli->query( $query2 );
+				while ($acc = $result2->fetch_assoc()) {
+					//$var['a']=$acc['a'];
+					$acc['a']=(float)$acc['a'];
+					$var['a']=(float)(number_format($acc['a'], 2, '.', ''));
+				}
+				$data['o_bymonth'][$ctr][] = $var;
+			}
+		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+function overall_finmfo($mysqli){
+	try{	
+		$data = array();
+		$query = "SELECT distinct header_id FROM `tbl_obligation` order by header_id";
+		$result = $mysqli->query( $query );
+		$data['finbymfo'] = array();
+		while ($header_id = $result->fetch_assoc()) {
+			$a = array();
+			$a['header_id'] = $header_id['header_id'];
+			$query2 = "SELECT sum(financial_obligation) as obl FROM `tbl_obligation` where FORMAT(header_id,2)=FORMAT(".$header_id['header_id'].",2) ";
+			$result2 = $mysqli->query( $query2 );
+			while ($obl = $result2->fetch_assoc()) {
+				$obl['obl']=(float)$obl['obl'];
+				$a['obl']=(float)(number_format($obl['obl'], 2, '.', ''));
+			}
+			$query2 = "SELECT sum(financial_obligation) as obla FROM `tbl_obligationa` where FORMAT(header_id,2)=FORMAT(".$header_id['header_id'].",2) ";
+			$result2 = $mysqli->query( $query2 );
+			while ($obla = $result2->fetch_assoc()) {
+				$obla['obla']=(float)$obla['obla'];
+				$a['obla']=(float)(number_format($obla['obla'], 2, '.', ''));
+			}
+			$data['finbymfo'][] = $a;
+		}
+
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+function overall_phybymfo($mysqli){
+
+	try{	
+		$data = array();
+		$query = "SELECT distinct unit_id FROM `tbl_registered` order by unit_id";
+		$result = $mysqli->query( $query );
+		$data['o_obl']= array();
+		while ($unit_id = $result->fetch_assoc()) {
+			$var = array();
+			$var['unit_id'] = $unit_id['unit_id'];
+			$query2 = "SELECT sum(financial_obligation) as obl FROM `tbl_obligation`where mfo_id in (SELECT distinct mfo_id FROM `tbl_mfo` where unitofmeasure =".$unit_id['unit_id'].")";
+			$result2 = $mysqli->query( $query2 );
+			while ($obl = $result2->fetch_assoc()) {
+				$var['obl'] = $obl['obl'];
+			}
+			$data['o_obl'][] = $var;
+		}
+
+		$query = "SELECT distinct header_id FROM `tbl_registered`";
+		$result = $mysqli->query( $query );
+		$data['o_bymfo']= array();
+		while ($mfo = $result->fetch_assoc()) {
+			$mfo['header_id'];
+			$var = array();
+			$query2 = "SELECT distinct unit_id FROM `tbl_registered` where header_id = ".$mfo['header_id'];
+			$result2 = $mysqli->query( $query2 );
+			while ($unit_id2 = $result2->fetch_assoc()) {
+			}
+			$data['o_bymfo'][] = $var;
+		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
 }
 
 function overall_fin($mysqli){
