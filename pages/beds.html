@@ -47,7 +47,7 @@
 		</tr>
 	</thead>
 	<tbody md-body>
-		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+		<tr md-row ng-repeat="x in mfos | filter:search| limitTo: query.limit : (query.page -1) * query.limit ">
 			
 			<td md-cell ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
 			<td md-cell ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>
@@ -186,7 +186,7 @@
 		</tr>
 	</thead>
 	<tbody md-body>
-	<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+	<tr md-row ng-repeat="x in mfos| filter:search | limitTo: query.limit : (query.page -1) * query.limit ">
 			<td md-cell ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
 			<td md-cell ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>
 

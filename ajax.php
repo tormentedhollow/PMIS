@@ -189,6 +189,9 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "overall_phy":
 			overall_phy($mysqli);
 			break;
+		case "overall_phybymfo":
+			overall_phybymfo($mysqli);
+			break;
 		default:
 			invalidRequest();
 
@@ -228,7 +231,7 @@ function overall_phy($mysqli){
 		$data['o_bymonth']= array();
 		for($ctr=1;$ctr<=12;$ctr++){
 			$data['o_bymonth'][$ctr]= array();
-			$query = "SELECT distinct unit_id FROM `tbl_registered` where month = ".$ctr;
+			$query = "SELECT distinct unitofmeasure as unit_id FROM `tbl_mfo`";
 			$result = $mysqli->query( $query );
 			while ($unit_id = $result->fetch_assoc()) {
 				$var = array();
@@ -302,7 +305,7 @@ function overall_phybymfo($mysqli){
 
 	try{	
 		$data = array();
-		$query = "SELECT distinct unit_id FROM `tbl_registered` order by unit_id";
+		$query = "SELECT distinct unitofmeasure as unit_id FROM `tbl_mfo";
 		$result = $mysqli->query( $query );
 		$data['o_obl']= array();
 		while ($unit_id = $result->fetch_assoc()) {
@@ -312,20 +315,52 @@ function overall_phybymfo($mysqli){
 			$result2 = $mysqli->query( $query2 );
 			while ($obl = $result2->fetch_assoc()) {
 				$var['obl'] = $obl['obl'];
+				$obl['obl']=(float)$obl['obl'];
+				//$var['obl']=(float)(number_format($obl['obl'], 2, '.', ''));
+				$var['obl']=$obl['obl'];
+			}
+
+			$query2 = "SELECT sum(kilo) as t FROM `tbl_registered` where unit_id = ".$unit_id['unit_id'];
+			$result2 = $mysqli->query( $query2 );
+			while ($target = $result2->fetch_assoc()) {
+				$target['t']=(float)$target['t'];
+				//$var['at']=(float)(number_format($target['t'], 2, '.', ''));
+				$var['at']=$target['t'];
 			}
 			$data['o_obl'][] = $var;
 		}
 
-		$query = "SELECT distinct header_id FROM `tbl_registered`";
+		$query = "SELECT distinct id as header_id FROM `tbl_mfoheader`";
 		$result = $mysqli->query( $query );
 		$data['o_bymfo']= array();
 		while ($mfo = $result->fetch_assoc()) {
-			$mfo['header_id'];
 			$var = array();
-			$query2 = "SELECT distinct unit_id FROM `tbl_registered` where header_id = ".$mfo['header_id'];
+			$query2 = "SELECT distinct unit_id FROM `tbl_registered` where FORMAT(header_id,2)=FORMAT(".$mfo['header_id'].",2)";
 			$result2 = $mysqli->query( $query2 );
+			$ct=0;
 			while ($unit_id2 = $result2->fetch_assoc()) {
+				$var[$ct]=array();
+				$var[$ct]['unit_id']=$unit_id2['unit_id'];
+				$query3 = "SELECT sum(kilo) as t FROM `tbl_registered` where unit_id = ".$unit_id2['unit_id']." and FORMAT(header_id,2)=FORMAT(".$mfo['header_id'].",2)";
+				$result3 = $mysqli->query( $query3 );
+				while ($t = $result3->fetch_assoc()) {
+					//$var[$ct]['t'] =$t['t'];
+					$t['t']=(float)$t['t'];
+					//$var[$ct]['t']=(float)(number_format($t['t'], 2, '.', ''));
+					$var[$ct]['t']=$t['t'];
+				}
+
+				$query4 = "SELECT sum(kilo) as a FROM `tbl_registereda` where unit_id = ".$unit_id2['unit_id']." and FORMAT(header_id,2)=FORMAT(".$mfo['header_id'].",2)";
+				$result4 = $mysqli->query( $query4 );
+				while ($a = $result4->fetch_assoc()) {
+					//$var[$ct]['a'] =$a['a'];
+					$a['a']=(float)$a['a'];
+					//$var[$ct]['a']=(float)(number_format($a['a'], 2, '.', ''));
+					$var[$ct]['a']=$a['a'];
+				}
+				$ct++;
 			}
+			$var[$ct] = $mfo['header_id'];
 			$data['o_bymfo'][] = $var;
 		}
 		$data['success'] = true;
@@ -463,7 +498,7 @@ function view_P($mysqli){
 		if($mfo!=''&&isset($mfo)){
 			$str1=" FORMAT(header_id,2)=FORMAT('".$mfo."',2) and";
 		}
-		$query = "SELECT * FROM `".$tbl."` inner join tbl_mfo on `".$tbl."`.mfo_id=`tbl_mfo`.mfo_id WHERE".$str1." unit_id = (select id from unit_of_measure where description = '".$unit."')".$str." and user_id in (select user_id from users where program_id = ".$prog_id.") order by  header_id";
+		$query = "SELECT * FROM `".$tbl."` inner join tbl_mfo on `".$tbl."`.mfo_id=`tbl_mfo`.mfo_id WHERE".$str1." unit_id = (select id from unit_of_measure where description = '".$unit."')".$str." and user_id in (select user_id from users where program_id = ".$prog_id.") and `".$tbl."`.mfo_id in (SELECT distinct mfo_id FROM `tbl_obligation` where user_id in (select user_id from users where program_id = ".$prog_id.")) order by  header_id";
 		$result = $mysqli->query( $query );
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
@@ -542,6 +577,13 @@ function getProvince($mysqli){
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}
+
+		$query = "SELECT * FROM `tbl_municipal` where municipal_id!=111";
+		$result = $mysqli->query( $query );
+		while ($row = $result->fetch_assoc()) {
+			$data['mun'][] = $row;
+		}
+
 		$data['success'] = true;
 		echo json_encode($data);exit;
 	
@@ -1770,10 +1812,10 @@ function getPhysicalMFO($mysqli){ //getByMFO
 						for($ctr=0;$ctr<=12;$ctr++){
 							$q="";
 							if($ctr==0){
-								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and FORMAT(header_id,2)=FORMAT('$temp[header_id]',2) and user_id in (select user_id from users where program_id = ".$prog_id.")";
+								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and FORMAT(header_id,2)=FORMAT('$temp[header_id]',2) and user_id in (select user_id from users where program_id = ".$prog_id.") and mfo_id in (SELECT distinct mfo_id FROM `tbl_obligation` where user_id in (select user_id from users where program_id = ".$prog_id."))";
 							}
 							else{
-								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and FORMAT(header_id,2)=FORMAT('$temp[header_id]',2) and month='".$ctr."' and user_id in (select user_id from users where program_id = ".$prog_id.")";
+								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and FORMAT(header_id,2)=FORMAT('$temp[header_id]',2) and month='".$ctr."' and user_id in (select user_id from users where program_id = ".$prog_id.") and mfo_id in (SELECT distinct mfo_id FROM `tbl_obligation` where user_id in (select user_id from users where program_id = ".$prog_id."))";
 							}
 			
 							$r= $mysqli->query($q);
@@ -1883,10 +1925,10 @@ function getPhysicalMFO($mysqli){ //getByMFO
 						for($ctr=0;$ctr<=12;$ctr++){
 							$q="";
 							if($ctr==0){
-								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and user_id in (select user_id from users where program_id = ".$prog_id.")";
+								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and user_id in (select user_id from users where program_id = ".$prog_id.") and mfo_id in (SELECT distinct mfo_id FROM `tbl_obligation` where user_id in (select user_id from users where program_id = ".$prog_id."))";
 							}
 							else{
-								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and month='".$ctr."' and user_id in (select user_id from users where program_id = ".$prog_id.")";
+								$q = "SELECT sum(kilo) as k FROM `".$tblname."` where unit_id='$rowUnit[unit_id]' and month='".$ctr."' and user_id in (select user_id from users where program_id = ".$prog_id.") and mfo_id in (SELECT distinct mfo_id FROM `tbl_obligation` where user_id in (select user_id from users where program_id = ".$prog_id."))";
 							}
 			
 							$r= $mysqli->query($q);
@@ -2073,8 +2115,12 @@ function getByDistrict($mysqli){
 		$data = array();
 		$provs = $mysqli->real_escape_string(isset( $_POST['provs'] ) ? $_POST['provs'] : '');
 		$dist = $mysqli->real_escape_string(isset( $_POST['dist'] ) ? $_POST['dist'] : '');
+		$mun = $mysqli->real_escape_string(isset( $_POST['mun'] ) ? $_POST['mun'] : '');
 		if($dist==0){
 			$query = "SELECT * FROM `tbl_municipal` where province_id = '$provs' ORDER BY `municipal_name` ASC";
+		}
+		else if($dist==3){
+			$query = "SELECT * FROM `tbl_municipal` where municipal_id = '$mun'";
 		}else{
 			$query = "SELECT * FROM `tbl_municipal` where province_id = '$provs' and District = $dist ORDER BY `municipal_name` ASC";		
 		}

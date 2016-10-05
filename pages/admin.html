@@ -120,31 +120,11 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody ng-repeat="x in topfin" ng-if="$index < 5">
           <tr>
-            <td>1</td>
-            <td>Organic</td>
-            <td>89.20%</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Livestock</td>
-            <td>85.12%</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>HVCDP</td>
-            <td>80.95%</td>
-          </tr>
-           <tr>
-            <td>4</td>
-            <td>PMED</td>
-            <td>79.36%</td>
-          </tr>
-           <tr>
-            <td>5</td>
-            <td>AMAD</td>
-            <td>78.85%</td>
+            <td>{{$index+1}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.acc}}%</td>
           </tr>
         </tbody>
       </table>
@@ -202,39 +182,39 @@
         <tbody>
           <tr>
             <td>1</td>
-            <td>Organic</td>
-            <td>89.20%</td>
+            <td>-----</td>
+            <td>-----</td>
           </tr>
           <tr>
             <td>2</td>
-            <td>Livestock</td>
-            <td>
-    85.12%
- 
-</div></td>
+            <td>-----</td>
+            <td>-----</td>
           </tr>
           <tr>
             <td>3</td>
-            <td>HVCDP</td>
-            <td>80.95%</td>
+            <td>-----</td>
+            <td>-----</td>
           </tr>
            <tr>
             <td>4</td>
-            <td>PMED</td>
-            <td>79.36%</td>
+            <td>-----</td>
+            <td>-----</td>
           </tr>
            <tr>
             <td>5</td>
-            <td>AMAD</td>
-            <td>78.85%</td>
+            <td>-----</td>
+            <td>-----</td>
           </tr>
         </tbody>
       </table>
-       <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
+       
             </div>
-            </div>
+     	</div>
+     	<div class="card">
+     		<div class="card-content">
+     			<span class="center" style="padding:0px">Physical Report by MFO - Target vs. Accomplishment</span>
+            	<div google-chart chart="myChartObjecttphmfo"></div>
+          	</div>
      	</div>
 </div>
 

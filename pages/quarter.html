@@ -247,7 +247,7 @@
     </tr>
   </thead>
   <tbody md-body>
-    <tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+    <tr md-row ng-repeat="x in mfos | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
       
       <td md-cell ng-if="x.clickable=='no'"> <b>{{x.mfo_name}} </b></td>
       <td md-cell ng-if="x.clickable=='yes'" ng-click="add(x, mfos, $event, 3)"> <a><i>{{x.mfo_name}} </i></a></td>
@@ -383,7 +383,7 @@
 		</tr>
 	</thead>
 	<tbody md-body>
-		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+		<tr md-row ng-repeat="x in mfos | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
 			
       <td md-cell ng-if="x.clickable=='no'"> <b>{{x.mfo_name}} </b></td>
 			<td md-cell ng-if="x.clickable=='yes'" ng-click="add(x, mfos, $event, 2)"> <a><i>{{x.mfo_name}}</a> </i></td>
@@ -502,7 +502,7 @@
 	</thead>
 	<tbody md-body>
 		<tbody md-body>
-		<tr md-row ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
+		<tr md-row ng-repeat="x in mfos | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
 
 			<td md-cell ng-if="x.clickable=='no'"> <b>{{x.mfo_name}} </b></td>
       <td md-cell ng-if="x.clickable=='yes'" ng-click="add(x, mfos, $event, 1)"> <a><i>{{x.mfo_name}}</a> </i></td>

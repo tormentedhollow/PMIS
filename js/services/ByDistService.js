@@ -10,7 +10,7 @@ app.factory('ByDistService',  ['$http', function($http) {
 				promise = $http({
 					method: 'post',
 					url: 'ajax.php',
-					data: $.param({'type' : 'getByDistrict', 'provs':items.forProv,'dist':items.forDist }),
+					data: $.param({'type' : 'getByDistrict', 'provs':items.forProv,'dist':items.forDist,'mun':items.forMun }),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 				}).
 				success(function(data, status, headers, config) {

@@ -56,7 +56,7 @@
     </tr>
   </thead>
   <tbody md-body>
-      <tr md-row ng-repeat="x in inds | limitTo: query.limit : (query.page -1) * query.limit | filter:search"> 
+      <tr md-row ng-repeat="x in inds  | filter:search| limitTo: query.limit : (query.page -1) * query.limit"> 
         <td md-cell ><a ng-click="individual(x, inds, $event)">{{x.mfo_name}}</a></td>
    
       <td md-cell ng-click="myInd(x, inds, '1', $event)">{{x.total[0].total}}-{{x.totalg[0].totalg}}</td>

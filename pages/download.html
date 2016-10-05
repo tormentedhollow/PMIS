@@ -366,46 +366,52 @@
 
 <div id="table6" ng-hide="true">
 <table >
-  <thead>  
-    <tr >
+  <thead> 
+     <tr >
       <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
       <th colspan="9">BAR1: Quarter 3 - CY 2016</th>
        <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
     </tr>   
     <tr >
       <th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  rowspan="2"><span>Unit of Measure</span></th>
       <th  colspan="4"><span>Physical Target</span></th>
       <th  colspan="4"><span>Accomplishment</span></th>
       <th  rowspan="2"><span>Variance</span></th>
       <th  rowspan="2"><span>Remarks</span></th>
     </tr>
     <tr >
-      <td ><span>Jul</span></td>
-      <td ><span>Aug</span></td>
-      <td ><span>Sep</span></td>
+      <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
       <td ><span>Q3</span></td>
-      <td ><span>Jul</span></td>
-      <td ><span>Aug</span></td>
-      <td ><span>Sep</span></td>
+      <td ><span>Q1+Q2+Q3</span></td>
+       <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
       <td ><span>Q3</span></td>
+      <td ><span>Q1+Q2+Q3</span></td>
     </tr>
   </thead>
-  <tbody>
-    <tr ng-repeat="x in mfos">
-      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
-      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
-    <td > {{x.kilo[7]['kilo']|number:2}}</td>
-      <td > {{x.kilo[8]['kilo']|number:2}}</td>
-      <td > {{x.kilo[9]['kilo']|number:2}}</td>
+  <tbody md-body>
+    <tr  ng-repeat="x in mfos">
+      
+      <td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+      <td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+      <td > {{x.description}}</td>
+      <td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])|number:2}}</td>
+      <td > {{(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])|number:2}}</td>
       <td > {{(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])|number:2}}</td>
-      <td  > {{x.kiloa[7]['kiloa']|number:2}}</td>
-      <td  > {{x.kiloa[8]['kiloa']|number:2}}</td>
-      <td  > {{x.kiloa[9]['kiloa']|number:2}}</td>
+       <td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])+(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])|number:2}}</td>
+  
+      <td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])|number:2}}</td>
+      <td  > {{(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])|number:2}}</td>
       <td  > {{(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])|number:2}}</td>
-      <td  > {{((1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo']))
-        -((1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa']))|number:2}}</td>
+       <td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])+(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])|number:2}}</td>
+
+      <td  > {{((1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])+(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa']))-((1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])+(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo']))|number:2}}</td>
       <td > {{x.remarks[3]}}</td>
+
     </tr>
+
   </tbody>
 </table> 
 </div>
@@ -548,6 +554,8 @@
 </table> 
 </div>
 
+
+
 <div id="table10" ng-hide="true">
 <table >
   <thead>  
@@ -563,79 +571,37 @@
       <th  rowspan="2"><span>Unobligated Allotment</span></th>
       <th  rowspan="2"><span>Remarks</span></th>
     </tr>
-    <tr >
-     <td ><span>Jul</span></td>
-      <td ><span>Aug</span></td>
-      <td ><span>Sep</span></td>
+ <tr >
+      <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
       <td ><span>Q3</span></td>
-      <td ><span>Jul</span></td>
-      <td ><span>Aug</span></td>
-      <td ><span>Sep</span></td>
+      <td ><span>Q1+Q2+Q3</span></td>
+       <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
       <td ><span>Q3</span></td>
+      <td ><span>Q1+Q2+Q3</span></td>
     </tr>
   </thead>
-  <tbody>
-    <tr ng-repeat="x in mfos">
-      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
-      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
-    <td > {{x.ob[7]['obl']|number:2}}</td>
-      <td > {{x.ob[8]['obl']|number:2}}</td>
-      <td > {{x.ob[9]['obl']|number:2}}</td>
+  <tbody md-body>
+    <tr  ng-repeat="x in mfos">
+      
+      <td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+      <td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+      <td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])|number:2}}</td>
+      <td > {{(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])|number:2}}</td>
       <td > {{(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])|number:2}}</td>
-      <td  > {{x.oba[7]['obl']|number:2}}</td>
-      <td  > {{x.oba[8]['obl']|number:2}}</td>
-      <td  > {{x.oba[9]['obl']|number:2}}</td>
+      <td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])+(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])|number:2}}</td>
+
+       <td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])|number:2}}</td>    
+      <td  > {{(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])|number:2}}</td>
       <td  > {{(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])|number:2}}</td>
-      <td  > {{((1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl']))-
-        ((1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl']))|number:2}}</td>
+      <td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])+(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])|number:2}}</td>
+
+      <td  > {{((1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])+(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl']))-
+        ((1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])+(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl']))|number:2}}</td>
       <td > {{x.remarks[3]}}</td>
+
     </tr>
-  </tbody>
 </table> 
 </div>
 
-<div id="table11" ng-hide="true">
-<table >
-  <thead>  
-    <tr >
-      <th height="50"><img src='http://localhost/pmis/images/da-logo.png' style="width:304px;height:228px;"></th>
-      <th colspan="9">BAR2: Quarter 3 - CY 2016</th>
-       <th>Date generated: {{date| date:'MMM dd, yyyy'}}</th>
-    </tr>   
-    <tr >
-      <th  rowspan="2"><span>Major Final Outputs</span></th>
-      <th  colspan="4"><span>Allotment Received</span></th>
-      <th  colspan="4"><span>Obligation Incurred</span></th>
-      <th  rowspan="2"><span>Unobligated Allotment</span></th>
-      <th  rowspan="2"><span>Remarks</span></th>
-    </tr>
-    <tr >
-     <td ><span>Oct</span></td>
-      <td ><span>Nov</span></td>
-      <td ><span>Dec</span></td>
-      <td ><span>Q4</span></td>
-      <td ><span>Oct</span></td>
-      <td ><span>Nov</span></td>
-      <td ><span>Dec</span></td>
-      <td ><span>Q4</span></td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="x in mfos">
-      <td ng-if="x.clickable=='yes'"><span>{{x.mfo_name}}</span></td>
-      <td ng-if="x.clickable=='no'"><span><b>{{x.mfo_name}}</b></span></td>       
-    <td > {{x.ob[10]['obl']|number:2}}</td>
-      <td > {{x.ob[11]['obl']|number:2}}</td>
-      <td > {{x.ob[12]['obl']|number:2}}</td>
-      <td > {{(1*x.ob[10]['obl'])+(1*x.ob[11]['obl'])+(1*x.ob[12]['obl'])|number:2}}</td>
-      <td  > {{x.oba[10]['obl']|number:2}}</td>
-      <td  > {{x.oba[11]['obl']|number:2}}</td>
-      <td  > {{x.oba[12]['obl']|number:2}}</td>
-      <td  > {{(1*x.oba[10]['obl'])+(1*x.oba[11]['obl'])+(1*x.oba[12]['obl'])|number:2}}</td>
-      <td  > {{((1*x.oba[10]['obl'])+(1*x.oba[11]['obl'])+(1*x.oba[12]['obl']))-
-        ((1*x.ob[10]['obl'])+(1*x.ob[11]['obl'])+(1*x.ob[12]['obl']))|number:2}}</td>
-      <td > {{x.remarks[4]}}</td>
-    </tr>
-  </tbody>
-</table> 
-</div>

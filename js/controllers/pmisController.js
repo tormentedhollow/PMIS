@@ -25,7 +25,7 @@ $scope.query = {
     page: 1
   };
 
-  $scope.limitOptions = [10, 15, 20, 25, 30];
+  $scope.limitOptions = [5,10, 15, 20, 25, 30];
 
 $scope.openLeftMenu   = function() {
  $mdSidenav('left').toggle();   

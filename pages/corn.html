@@ -41,7 +41,7 @@
 
 	</thead>
 	<tbody md-body>
-		<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+		<tr md-row ng-repeat="x in rice | filter:search | limitTo: query.limit : (query.page -1) * query.limit" class="md-table-content-row">
 		
 			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
 			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
@@ -135,7 +135,7 @@
 		</tr>
 	</thead>
 	<tbody md-body>
-	<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+	<tr md-row ng-repeat="x in rice | filter:search| limitTo: query.limit : (query.page -1) * query.limit " class="md-table-content-row">
 		
 			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
 			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
@@ -183,7 +183,7 @@
 
 	</thead>
 	<tbody md-body>
-		<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+		<tr md-row ng-repeat="x in rice | filter:search| limitTo: query.limit : (query.page -1) * query.limit " class="md-table-content-row">
 		
 			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
 			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
@@ -277,7 +277,7 @@
 		</tr>
 	</thead>
 	<tbody md-body>
-	<tr md-row ng-repeat="x in rice | limitTo: query.limit : (query.page -1) * query.limit | filter:search" class="md-table-content-row">
+	<tr md-row ng-repeat="x in rice | filter:search | limitTo: query.limit : (query.page -1) * query.limit " class="md-table-content-row">
 		
 			<td md-cell ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
 			<td md-cell ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>

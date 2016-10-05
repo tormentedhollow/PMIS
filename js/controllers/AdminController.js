@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService,overall_finService,overall_phyService,overall_finmfoService){
+app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService,overall_finService,overall_phyService,overall_finmfoService,overall_phybymfoService){
 $state.transitionTo('admin'); //automatic defaultz 
 $scope.isLoading = true;
 $scope.toggleSearch = false; 
@@ -18,6 +18,7 @@ $scope.myChartObject4.type = "BarChart";
 $scope.myChartObjectt = {};
 $scope.myChartObjecttph = {};
 $scope.myChartObjecttmfo = {};
+$scope.myChartObjecttphmfo = {};
 $scope.variable =234.0;
 $scope.month = [
     { name: 'January'},
@@ -80,6 +81,41 @@ overall_finService.async().then(function(d){
           legend:{position: 'bottom'}
 
     };
+
+  $scope.topfin = new Array();
+  $scope.topf = new Array();
+  for(var r=0;r<d.data.length;r++){
+    $scope.topfin[r]=new Array();
+    $scope.topf[r]=new Array();
+    $scope.topfin[r]['name'] = d.data[r]['program_name'];
+    $scope.topfin[r]['acc']=0.0;
+    $scope.topf[r]['acca']=0.0;
+    $scope.topf[r]['obl']=0.0;
+    for(var f=1;f<=12;f++){
+      //$scope.topfin[r]['acc'] += d.data[r][f]['oba'];
+      $scope.topf[r]['acca'] += d.data[r][f]['oba'];
+      $scope.topf[r]['obl'] += d.data[r][f]['ob'];
+    }
+    $scope.topfin[r]['acc'] = (Math.round(($scope.topf[r]['acca']/$scope.topf[r]['obl'])*10000))/100;
+  }
+
+  console.log($scope.topfin);
+  for(var bubble=0;bubble<($scope.topfin).length;bubble++){
+    for(var sort=0;sort<=bubble;sort++){
+      if($scope.topfin[bubble]['acc']>$scope.topfin[sort]['acc']){
+        var tempname=$scope.topfin[bubble]['name'];
+        var tempacc=$scope.topfin[bubble]['acc'];
+        $scope.topfin[bubble]['name']=$scope.topfin[sort]['name'];
+        $scope.topfin[bubble]['acc']=$scope.topfin[sort]['acc'];
+        console.log($scope.topfin[bubble]['name']);
+        console.log($scope.topfin[bubble]['acc']);
+        $scope.topfin[sort]['name']=tempname;
+        $scope.topfin[sort]['acc']=tempacc;
+
+      }
+    }
+  }
+  console.log($scope.topfin);
 });
 overall_finmfoService.async().then(function(d){
   $scope.myChartObjecttmfo.type="ColumnChart";
@@ -87,19 +123,7 @@ overall_finmfoService.async().then(function(d){
       "cols": [
       {label: "Month", type: "string"},
       {label: "Target", type: "number"},
-      {label: "Accomplishment", type: "number"}]/*,
-      "rows": [{c:[{v: "Jan"}, {v: g[1][0]}, {v: g[1][1]}]},
-      {c:[{v: "Feb"}, {v: g[2][0]}, {v: g[2][1]}]},
-      {c:[{v: "Mar"}, {v: g[3][0]}, {v: g[3][1]}]},
-      {c:[{v: "Apr"}, {v: g[4][0]}, {v: g[4][1]}]},
-      {c:[{v: "May"}, {v: g[5][0]}, {v: g[5][1]}]},
-      {c:[{v: "Jun"}, {v: g[6][0]}, {v: g[6][1]}]},
-      {c:[{v: "Jul"}, {v: g[7][0]}, {v: g[7][1]}]},
-      {c:[{v: "Aug"}, {v: g[8][0]}, {v: g[8][1]}]},
-      {c:[{v: "Sep"}, {v: g[9][0]}, {v: g[9][1]}]},
-      {c:[{v: "Oct"}, {v: g[10][0]}, {v: g[10][1]}]},
-      {c:[{v: "Nov"}, {v: g[11][0]}, {v: g[11][1]}]},
-      {c:[{v: "Dec"}, {v: g[12][0]}, {v: g[12][1]}]}]*/};
+      {label: "Accomplishment", type: "number"}]};
     $scope.myChartObjecttmfo.options = {"height":337,
           chartArea : { left: '8%', top: '8%', width: "90%", height: "80%" },
           legend:{position: 'bottom'}
@@ -117,6 +141,8 @@ overall_finmfoService.async().then(function(d){
     row['c'][1]['v'] = Math.round((d.finbymfo[m]['obl']/$scope.fincommu[12][0])*10000)/100;
     row['c'][2]= new Array();
     row['c'][2]['v'] = Math.round((d.finbymfo[m]['obla']/$scope.fincommu[12][0])*10000)/100;
+
+console.log($scope.fincommu[12][0]);
     /*g[m] = new Array();
     g[m][0] = (d.finbymfo[m]['obl']/$scope.fincommu[12][0])*100;
     g[m][1] = (d.finbymfo[m]['obla']/$scope.fincommu[12][0])*100;*/
@@ -125,7 +151,6 @@ overall_finmfoService.async().then(function(d){
   console.log($scope.myChartObjecttmfo.data.rows);
     
 });
-
 overall_phyService.async().then(function(d){
   console.log(d);
   $scope.o_phy = d;
@@ -134,6 +159,8 @@ overall_phyService.async().then(function(d){
     g[p] = new Array();
     g[p][0]=0.0;
     g[p][1]=0.0;
+    g[p][2]=0.0;
+    g[p][3]=0.0;
     d.o_bymonth[p];
     for(var h=0;h<(d.o_bymonth[p]).length;h++){
       d.o_bymonth[p][h]['unit_id'];
@@ -142,15 +169,20 @@ overall_phyService.async().then(function(d){
       for(var y=0;y<(d.o_obl).length;y++){
         d.o_obl[y]['unit_id'];
         if(d.o_obl[y]['unit_id']==d.o_bymonth[p][h]['unit_id']){
-          var rw = (Math.round((d.o_obl[y]['obl']/$scope.fincommu[12][0])*100))/100;
+          var rw = (d.o_obl[y]['obl']/$scope.fincommu[12][0]);
           g[p][0] += ((d.o_bymonth[p][h]['t']/d.o_obl[y]['at'])*100)*rw;
           g[p][1] += ((d.o_bymonth[p][h]['a']/d.o_obl[y]['at'])*100)*rw;
+          g[p][2]+=((d.o_bymonth[p][h]['t']/d.o_obl[y]['at'])*100)*rw;
+          g[p][3]+=((d.o_bymonth[p][h]['a']/d.o_obl[y]['at'])*100)*rw;
+          console.log(((d.o_bymonth[p][h]['a']/d.o_obl[y]['at'])*100)*rw);
         }
       }
     }
     if(p>1){
-      g[p][0]+=g[p-1][0];
-      g[p][1]+=g[p-1][1];
+      g[p][0]+=g[p-1][2];
+      g[p][1]+=g[p-1][3];
+      g[p][2]+=g[p-1][2];
+      g[p][3]+=g[p-1][3];
     }
     g[p][0]=(Math.round(g[p][0]*100))/100;
     g[p][1]=(Math.round(g[p][1]*100))/100;
@@ -180,7 +212,56 @@ overall_phyService.async().then(function(d){
     };
 });
 
-console.log($scope.myChartObjectt);
+overall_phybymfoService.async().then(function(d){
+  console.log(d);
+  $scope.myChartObjecttphmfo.type="ColumnChart";
+  $scope.myChartObjecttphmfo.data = {
+      "cols": [
+      {label: "Month", type: "string"},
+      {label: "Target", type: "number"},
+      {label: "Accomplishment", type: "number"}]};
+    $scope.myChartObjecttphmfo.options = {"height":337,
+          chartArea : { left: '8%', top: '8%', width: "90%", height: "80%" },
+          legend:{position: 'bottom'}
+    };
+    //console.log($scope.myChartObjecttmfo.data.rows);
+  $scope.myChartObjecttphmfo.data.rows = new Array();
+  console.log(d);
+  var g = new Array();
+  for(var m=0;m<(d.o_bymfo).length;m++){
+    var row = new Array();
+    row['c'] = new Array();
+    row['c'][0]= new Array();
+    row['c'][0]['v'] =  d.o_bymfo[m][(d.o_bymfo[m]).length-1];
+    row['c'][1]= new Array();
+    row['c'][1]['v'] =0.0;
+    row['c'][2]= new Array();
+    row['c'][2]['v'] =0.0;
+      console.log(d.o_bymfo[m].length);
+    for(var h=0;h<(d.o_bymfo[m].length)-1;h++){
+      d.o_bymfo[m][h]['t'];
+      d.o_bymfo[m][h]['a'];
+      d.o_bymfo[m][h]['unit_id'];
+      for(var e=0;e<d.o_obl.length;e++){
+        if(d.o_obl[e]['unit_id']==d.o_bymfo[m][h]['unit_id']){
+          var tt = (d.o_bymfo[m][h]['t']/d.o_obl[e]['at'])*100;
+          var aa = (d.o_bymfo[m][h]['a']/d.o_obl[e]['at'])*100;
+          var rw = (d.o_obl[e]['obl']/$scope.fincommu[12][0]);
+          console.log(aa*rw);
+          row['c'][1]['v']+=tt*rw;
+          row['c'][2]['v']+=aa*rw;
+        }
+      }
+    }
+    /*
+    row['c'][1]= new Array();
+    row['c'][1]['v'] = Math.round((d.finbymfo[m]['obl']/$scope.fincommu[12][0])*10000)/100;
+    row['c'][2]= new Array();
+    row['c'][2]['v'] = Math.round((d.finbymfo[m]['obla']/$scope.fincommu[12][0])*10000)/100;*/
+    $scope.myChartObjecttphmfo.data.rows.push(row);
+  }
+});
+console.log($scope.myChartObjecttphmfo);
 
 $('.collapsible').collapsible();
 var r_p1, r_p2, r_pt, c_p1, c_p2, c_pt, h_p1, h_p2, h_pt,l_p1, l_p2, l_pt,o_p1, o_p2, o_pt, a_p1, a_p2, a_pt;
@@ -890,6 +971,48 @@ $scope.banners = [
   title: 'ORGANIC',
   sref: 'organicAdmin'
 }       
+];
+
+$scope.ous = [
+{
+  title: 'Agri-Business & Marketing Assistance Division',
+  sref: 'amadAdmin'
+},
+{
+  title: 'Planning, Monitoring & Evaluation Division',
+  sref: 'pmedAdmin'
+},
+{
+  title: 'Integrated Laboratories Division',
+  sref: 'ildAdmin'
+},
+{
+  title: 'Regional Agricultural Engineering Division',
+  sref: 'raedAdmin'
+}    
+];
+
+$scope.regular = [
+{
+  title: 'Regulatory Division',
+  sref: 'regulatoryAdmin'
+},
+{
+  title: 'Research Division',
+  sref: 'researchAdmin'
+},
+{
+  title: 'Trento Research Station',
+  sref: 'stn_trentoAdmin'
+}  ,
+{
+  title: 'Del Monte Research Station',
+  sref: 'stn_delmonteAdmin'
+}  ,
+{
+  title: 'Tagbina Research Station',
+  sref: 'stn_tagbinaAdmin'
+}    
 ];
 
 $scope.banners2 = [

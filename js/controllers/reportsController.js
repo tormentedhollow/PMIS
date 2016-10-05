@@ -4,6 +4,8 @@ app.controller('ReportsController',  function($scope, $mdEditDialog, ProvinceSer
 
 	$scope.isLoading = true;
 	$scope.isSubmit = true;
+	$scope.Math = Math;
+	console.log($scope.Math);
 	MFOFilterService.async().then(function(d){
 	  if(angular.isUndefined(d.data)) $scope.mfos = [];
 	  else  $scope.mfos = d.data;
@@ -15,9 +17,11 @@ app.controller('ReportsController',  function($scope, $mdEditDialog, ProvinceSer
 			if(angular.isUndefined(d.data)) $scope.doc.forOptions = [];
 			else {
 				$scope.get = {
+					forOpMun: d.data.mun,
 					forOptions: d.data.data,
 					forProv: null,
-					forDist: null			
+					forDist: null,
+					forMun: null			
 				};
 			}
 		});

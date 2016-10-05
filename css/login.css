@@ -387,4 +387,9 @@ height: auto;
     color: black;
     cursor: pointer;
 }
-
+.positive {
+    background-color: #b8ffa8;
+}
+.negative {
+    background-color: #ffcdcd;
+}
