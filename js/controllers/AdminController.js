@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService,overall_finService,overall_phyService,overall_finmfoService,overall_phybymfoService){
+app.controller('AdminController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, getBannerService, MFOBannerAllService, getUnitService, getMFOHeaderService, gePhysicalService,gePhysicalByHeaderService,getPhysicalMFOService,MFOBannerQService,overall_finService,overall_phyService,overall_finmfoService,overall_phybymfoService,overall_phytopService){
 $state.transitionTo('admin'); //automatic defaultz 
 $scope.isLoading = true;
 $scope.toggleSearch = false; 
@@ -116,7 +116,6 @@ overall_finService.async().then(function(d){
     }
   }
   console.log($scope.topfin);
-});
 overall_finmfoService.async().then(function(d){
   $scope.myChartObjecttmfo.type="ColumnChart";
   $scope.myChartObjecttmfo.data = {
@@ -261,6 +260,58 @@ overall_phybymfoService.async().then(function(d){
     $scope.myChartObjecttphmfo.data.rows.push(row);
   }
 });
+
+
+overall_phytopService.async().then(function(d){
+  console.log(d);
+  $scope.phytop = new Array();
+  for(var t=0;t<d.prog.length;t++){
+    var total_obl=0;
+    var rw = new Array();
+    for(var o=0;o<d.prog[t]['o_obl'].length;o++){
+      total_obl+=d.prog[t]['o_obl'][o]['obl'];
+    }
+    for(var o=0;o<d.prog[t]['o_obl'].length;o++){
+      rw[o] = new Array();
+      rw[o]['unit_id']=d.prog[t]['o_obl'][o]['unit_id'];
+      rw[o]['rw']=(Math.round((d.prog[t]['o_obl'][o]['obl']/total_obl)*10000))/10000;
+    }
+    var perc = 0;
+    for(var p=0;p<d.prog[t]['o_bymonth'].length;p++){
+      var pe = (Math.round((d.prog[t]['o_bymonth'][p]['a']/d.prog[t]['o_bymonth'][p]['t'])*10000))/100;
+      //d.prog[t]['o_bymonth'][p]['unit_id']
+      for(var o=0;o<rw.length;o++){
+        if(rw[o]['unit_id']==d.prog[t]['o_bymonth'][p]['unit_id'])
+          perc += (pe*rw[o]['rw']);
+      }
+    }
+    perc = (Math.round((perc)*100))/100
+    console.log(perc+" "+d.prog[t]['pid']);
+    var pr = new Array();
+    pr['pid'] = d.prog[t]['pid'];
+    pr['per'] = perc;
+    $scope.phytop.push(pr);
+  }
+
+for(var bubble=0;bubble<($scope.phytop).length;bubble++){
+    for(var sort=0;sort<=bubble;sort++){
+      if($scope.phytop[bubble]['per']>$scope.phytop[sort]['per']){
+        var tempname=$scope.phytop[bubble]['pid'];
+        var tempacc=$scope.phytop[bubble]['per'];
+        $scope.phytop[bubble]['pid']=$scope.phytop[sort]['pid'];
+        $scope.phytop[bubble]['per']=$scope.phytop[sort]['per'];
+        console.log($scope.phytop[bubble]['pid']);
+        console.log($scope.phytop[bubble]['per']);
+        $scope.phytop[sort]['pid']=tempname;
+        $scope.phytop[sort]['per']=tempacc;
+
+      }
+    }
+  }
+  console.log($scope.phytop);
+});
+});
+
 console.log($scope.myChartObjecttphmfo);
 
 $('.collapsible').collapsible();
