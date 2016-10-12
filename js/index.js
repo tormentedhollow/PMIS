@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngMaterial', 'ngRoute', 'ui.router', 'md.data.table', 'ngCookies', 'ngMdIcons', 'googlechart', 'angular.filter', 'ngFileUpload', 'ngImgCrop']);
+var app = angular.module('myApp', ['ngMaterial', 'ngRoute', 'ui.router', 'md.data.table', 'ngCookies', 'ngMdIcons', 'googlechart', 'angular.filter', 'ngFileUpload', 'ngImgCrop', 'luegg.directives', 'angularMoment']);
 
 app.config(function($routeProvider, $stateProvider) {
 	$routeProvider
@@ -75,6 +75,87 @@ app.config(function($routeProvider, $stateProvider) {
 			}
 		},
 		params : { id: 5, },
+	})
+	.state('amadAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 14, },
+	})
+	.state('ildAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 19, },
+	})
+	.state('pmedAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 17, },
+	})
+	.state('raedAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 18, },
+	})
+	.state('regulatoryAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 16, },
+	})
+	.state('researchAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 15, },
+	})
+	.state('stn_trentoAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 11, },
+	})
+	.state('stn_delmonteAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 12, },
+	})
+	.state('stn_tagbinaAdmin', {        
+		views: {
+			"viewA": {
+				templateUrl: "pages/adminperformance.html",
+				controller: 'AdminPerformanceController',
+			}
+		},
+		params : { id: 13, },
 	})
 	.state('rice', {        
 		views: {

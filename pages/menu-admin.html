@@ -24,32 +24,56 @@
 </md-toolbar> 
 
   <ul class="collapsible" data-collapsible="accordion">
-    <li md-list>
+    <!--<li md-list>
       <div class="collapsible-header" ui-sref="admin" ng-click="closeSidenav()">ALL</div>
       </li md-list>
 
       <li md-list  ng-repeat="item in banners">
       <div class="collapsible-header" ui-sref="{{item.sref}}" ng-click="closeSidenav()">{{item.title}}</div>
+      </li md-list>-->
+      <li md-list>
+      <div class="collapsible-header" ui-sref="admin" ng-click="closeSidenav()"><span class="md-body-2" >Department of Agriculture</span></div>
       </li md-list>
-<!--/*
+
      <li md-list ng-repeat="item in banners" >
           <div class="collapsible-header" ng-click="closeSidenav()" ui-sref="{{item.sref}}">
             <span class="md-body-2" >{{item.title}}</span>
           </div>
       </li md-list>
 
-     <li md-list>
-      <div class="collapsible-header">Banners - Physical</div>
-        <md-list-item class="collapsible-body" ng-repeat="item in banners2" role="link" md-ink-ripple>
+      <li md-list>
+      <div class="collapsible-header"><span class="md-body-2" >Regular Program</span></div>
+        <md-list-item class="collapsible-body" ng-repeat="item in regular" role="link" md-ink-ripple>
           <md-icon md-svg-icon="{{item.icon}}"  aria-label="{{item.title}}"></md-icon>
           <div class="md-list-item-text" ui-sref="{{item.sref}}" ng-click="closeSidenav()">
-            <span class="md-body-2" >{{item}}</span>
+            <span class="md-body-2" >{{item.title}}</span>
           </div>
-        </li 
+        </li md-list>
 
-        md-list-item>*/-->
-      </md-list>
+     <li md-list>
+      <div class="collapsible-header">Operating Units</div>
+        <md-list-item class="collapsible-body" ng-repeat="item in ous" role="link" md-ink-ripple>
+          <md-icon md-svg-icon="{{item.icon}}"  aria-label="{{item.title}}"></md-icon>
+          <div class="md-list-item-text" ui-sref="{{item.sref}}" ng-click="closeSidenav()">
+            <span class="md-body-2" >{{item.title}}</span>
+          </div>
+        </li md-list>
+      <!--</md-list>-->
+          <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Operating Units</div>
+      <div class="collapsible-body" ng-repeat="item in banners" ui-sref="{{item.sref}}" ng-click="closeSidenav()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">filter_drama</i>{{item.title}}</div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+    </li>
   </ul>
+
+
 
 </md-sidenav>
 

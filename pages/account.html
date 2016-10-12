@@ -86,13 +86,9 @@
 			</md-card-title>
 			<md-card-content>
 			<form name="form2">
-	
-				<input ng-hide="true" ng-model="user.pwd" type="password">	
-
-				<md-input-container>	
-				<label>Enter Password this is required*</label>	
+				<label>Enter Password this is required*</label>
+				<input ng-hide="true" ng-model="user.pwd" type="password">			
 				<input ng-model="user.password2" type="password" required data-password-verify="user.pwd" name='verify_password'>
-			</md-input-container>	
 				<label ng-show="form2.verify_password.$error.passwordVerify" class="red-text">Password is incorrect!
 				</label>
 				<br>

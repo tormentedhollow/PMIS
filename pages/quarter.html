@@ -211,6 +211,10 @@
       <th  colspan="2"><span>Sep</span></th>
       <th  class="customTh" colspan="2"><span>Q3 - Accomplishment</span></th>
       <th  class="customTh" colspan="2"><span>Q3 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Q2 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q2 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Accomplishment</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Target</span></th>
       <th  class="customTh" colspan="2"><span>Variance</span></th>
       <th  rowspan="2"><span>Remarks</span></th>
 
@@ -224,6 +228,14 @@
       <th  md-numeric><span>Fin</span></th>
       <th  md-numeric><span>Phys</span></th>
       <th  md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
+      <th  class="customTh" md-numeric><span>Phys</span></th>
+      <th  class="customTh" md-numeric><span>Fin</span></th>
       <th  class="customTh" md-numeric><span>Phys</span></th>
       <th  class="customTh" md-numeric><span>Fin</span></th>
       <th  class="customTh" md-numeric><span>Phys</span></th>
@@ -255,15 +267,23 @@
       <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[7].kiloa)+(1*x.kiloa[8].kiloa)+(1*x.kiloa[9].kiloa)|number:2}} </td>
       <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[7].obl)+(1*x.oba[8].obl)+(1*x.oba[9].obl)|number:2}} </td>
 
-
-
-
       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[7].kilo)+(1*x.kilo[8].kilo)+(1*x.kilo[9].kilo)|number:2}}</td>
       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[7].obl)+(1*x.ob[8].obl)+(1*x.ob[9].obl)|number:2}}</td>  
 
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[4].kiloa)+(1*x.kiloa[5].kiloa)+(1*x.kiloa[6].kiloa)|number:2}} </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl)|number:2}} </td>
 
-      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[7].kiloa)+(1*x.kiloa[8].kiloa)+(1*x.kiloa[9].kiloa))-((1*x.kilo[7].kilo)+(1*x.kilo[8].kilo)+(1*x.kilo[9].kilo))|number:2}}</td>
-      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[7].obl)+(1*x.oba[8].obl)+(1*x.oba[9].obl))-((1*x.ob[7].obl)+(1*x.ob[8].obl)+(1*x.ob[9].obl))|number:2}}</td>  
+       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo)|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl)|number:2}}</td>  
+      
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa)|number:2}} </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)|number:2}} </td>
+
+     <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>
+
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa)+(1*x.kiloa[4].kiloa)+(1*x.kiloa[5].kiloa)+(1*x.kiloa[6].kiloa)+(1*x.kiloa[7].kiloa)+(1*x.kiloa[8].kiloa)+(1*x.kiloa[9].kiloa))-((1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)+(1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo)+ (1*x.kilo[7].kilo)+(1*x.kilo[8].kilo)+(1*x.kilo[9].kilo))|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)+(1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl)+(1*x.oba[7].obl)+(1*x.oba[8].obl)+(1*x.oba[9].obl))-((1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)+(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl)+(1*x.ob[7].obl)+(1*x.ob[8].obl)+(1*x.ob[9].obl))|number:2}}</td>  
 
       <td md-cell ng-show="x.clickable=='yes'" ng-class="{'md-placeholder': !x.remarks[3]}" ng-click="add3($event, x, 3)"> 
         {{x.remarks[3] ||'--add remarks--'}}</td>
@@ -274,6 +294,14 @@
       <td md-cell ng-show="x.clickable=='no'"> </td>
       <td md-cell ng-show="x.clickable=='no'"> </td>
       <td md-cell ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
+      <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
       <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
       <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
       <td md-cell class="customTh" ng-show="x.clickable=='no'"> </td>
@@ -324,8 +352,8 @@
 			<th  colspan="2"><span>May</span></th>
 			<th  colspan="2"><span>Jun</span></th>
       <th  class="customTh" colspan="2"><span>Q2 - Accomplishment</span></th>
-      <th  class="customTh" colspan="2"><span>Q1 - Accomplishment</span></th>
       <th  class="customTh" colspan="2"><span>Q2 - Target</span></th>
+      <th  class="customTh" colspan="2"><span>Q1 - Accomplishment</span></th>
       <th  class="customTh" colspan="2"><span>Q1 - Target</span></th>
       <th  class="customTh" colspan="2"><span>Variance</span></th>
       <th  rowspan="2"><span>Remarks</span></th>
@@ -377,14 +405,15 @@
 
 			 <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo)|number:2}}</td>
       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl)|number:2}}</td>  
+      
       <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa)|number:2}} </td>
       <td md-cell class="customTh" ng-show="x.clickable=='yes'">{{(1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)|number:2}} </td>
 
      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)|number:2}}</td>
       <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{(1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)|number:2}}</td>  
 
-      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[4].kiloa)+(1*x.kiloa[5].kiloa)+(1*x.kiloa[6].kiloa))-((1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo))|number:2}}</td>
-      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl))-((1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl))|number:2}}</td>  
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.kiloa[1].kiloa)+(1*x.kiloa[2].kiloa)+(1*x.kiloa[3].kiloa)+(1*x.kiloa[4].kiloa)+(1*x.kiloa[5].kiloa)+(1*x.kiloa[6].kiloa))-((1*x.kilo[1].kilo)+(1*x.kilo[2].kilo)+(1*x.kilo[3].kilo)+(1*x.kilo[4].kilo)+(1*x.kilo[5].kilo)+(1*x.kilo[6].kilo))|number:2}}</td>
+      <td md-cell class="customTh" ng-show="x.clickable=='yes'"> {{((1*x.oba[1].obl)+(1*x.oba[2].obl)+(1*x.oba[3].obl)+(1*x.oba[4].obl)+(1*x.oba[5].obl)+(1*x.oba[6].obl))-((1*x.ob[1].obl)+(1*x.ob[2].obl)+(1*x.ob[3].obl)+(1*x.ob[4].obl)+(1*x.ob[5].obl)+(1*x.ob[6].obl))|number:2}}</td>  
 
       <td md-cell ng-show="x.clickable=='yes'" ng-class="{'md-placeholder': !x.remarks[2]}" ng-click="add3($event, x, 2)"> 
         {{x.remarks[2] ||'--add remarks--'}}</td>

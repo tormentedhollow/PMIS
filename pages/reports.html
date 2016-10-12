@@ -22,7 +22,7 @@
       </div>
 </md-toolbar>
 <md-table-container ng-hide="isLoading">
-<table  md-table class="bordered striped">
+<table  md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th ><span>Major Final Outputs</span></th>
@@ -69,10 +69,11 @@
       </div>
 </md-toolbar>
 <md-table-container>
-<table md-table class="bordered striped">
+<table md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  rowspan="2"><span>Unit of Measure</span></th>
 			<th  colspan="4"><span>Physical Target</span></th>
 			<th  colspan="4"><span>Accomplishment</span></th>
 			<th  rowspan="2"><span>Variance</span></th>
@@ -94,6 +95,7 @@
 			
 			<td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
 			<td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+      <td>{{x.description}}</td>
 			<td > {{x.kilo[1]['kilo']|number:2}}</td>
 			<td > {{x.kilo[2]['kilo']|number:2}}</td>
 			<td > {{x.kilo[3]['kilo']|number:2}}</td>
@@ -136,40 +138,40 @@
       </div>
 </md-toolbar>
 <md-table-container>
-<table md-table class="bordered striped">
+<table md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th  rowspan="2"><span>Major Final Outputs</span></th>
-			<th  colspan="4"><span>Physical Target</span></th>
-			<th  colspan="4"><span>Accomplishment</span></th>
+      <th  rowspan="2"><span>Unit of Measure</span></th>
+			<th  colspan="3"><span>Physical Target</span></th>
+			<th  colspan="3"><span>Accomplishment</span></th>
 			<th  rowspan="2"><span>Variance</span></th>
 			<th  rowspan="2"><span>Remarks</span></th>
 		</tr>
 		<tr >
-			<td ><span>Apr</span></td>
-			<td ><span>May</span></td>
-			<td ><span>Jun</span></td>
+      <td ><span>Q1</span></td>
 			<td ><span>Q2</span></td>
-			<td ><span>Apr</span></td>
-			<td ><span>May</span></td>
-			<td ><span>Jun</span></td>
+      <td ><span>Q1+Q2</span></td>
+      <td ><span>Q1</span></td>
 			<td ><span>Q2</span></td>
+      <td ><span>Q1+Q2</span></td>
 		</tr>
 	</thead>
 	<tbody md-body>
 		<tr  ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
 			
-			<td  ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
-			<td  ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
-			<td > {{x.kilo[4]['kilo']|number:2}}</td>
-			<td > {{x.kilo[5]['kilo']|number:2}}</td>
-			<td > {{x.kilo[6]['kilo']|number:2}}</td>
+			<td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+      <td > {{x.description}}</td>
+      <td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])|number:2}}</td>
 			<td > {{(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])|number:2}}</td>
-			<td  > {{x.kiloa[4]['kiloa']|number:2}}</td>
-			<td  > {{x.kiloa[5]['kiloa']|number:2}}</td>
-			<td  > {{x.kiloa[6]['kiloa']|number:2}}</td>
+      <td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])|number:2}}</td>
+
+			<td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])|number:2}}</td>
 			<td  > {{(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])|number:2}}</td>
-			<td  > {{((1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa']))-((1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo']))|number:2}}</td>
+      <td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])|number:2}}</td>
+
+			<td  > {{((1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa']))-((1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo']))|number:2}}</td>
 			<td > {{x.remarks[2]}}</td>
 
 		</tr>
@@ -203,40 +205,44 @@
       </div>
 </md-toolbar>
 <md-table-container>
-<table md-table class="bordered striped">
+<table md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  rowspan="2"><span>Unit of Measure</span></th>
 			<th  colspan="4"><span>Physical Target</span></th>
 			<th  colspan="4"><span>Accomplishment</span></th>
 			<th  rowspan="2"><span>Variance</span></th>
 			<th  rowspan="2"><span>Remarks</span></th>
 		</tr>
 		<tr >
-			<td ><span>Jul</span></td>
-			<td ><span>Aug</span></td>
-			<td ><span>Sep</span></td>
+			<td ><span>Q1</span></td>
+			<td ><span>Q2</span></td>
 			<td ><span>Q3</span></td>
-			<td ><span>Jul</span></td>
-			<td ><span>Aug</span></td>
-			<td ><span>Sep</span></td>
-			<td ><span>Q3</span></td>
+			<td ><span>Q1+Q2+Q3</span></td>
+	     <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Q3</span></td>
+      <td ><span>Q1+Q2+Q3</span></td>
 		</tr>
 	</thead>
 	<tbody md-body>
 		<tr  ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
 			
-			<td  ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
-			<td  ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
-			<td > {{x.kilo[7]['kilo']|number:2}}</td>
-			<td > {{x.kilo[8]['kilo']|number:2}}</td>
-			<td > {{x.kilo[9]['kilo']|number:2}}</td>
+			<td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+      <td > {{x.description}}</td>
+	   	<td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])|number:2}}</td>
+      <td > {{(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])|number:2}}</td>
 			<td > {{(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])|number:2}}</td>
-			<td  > {{x.kiloa[7]['kiloa']|number:2}}</td>
-			<td  > {{x.kiloa[8]['kiloa']|number:2}}</td>
-			<td  > {{x.kiloa[9]['kiloa']|number:2}}</td>
+       <td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])+(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])|number:2}}</td>
+	
+      <td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])|number:2}}</td>
+      <td  > {{(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])|number:2}}</td>
 			<td  > {{(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])|number:2}}</td>
-			<td  > {{((1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa']))-((1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo']))|number:2}}</td>
+       <td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])+(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])|number:2}}</td>
+
+			<td  > {{((1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])+(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa']))-((1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])+(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo']))|number:2}}</td>
 			<td > {{x.remarks[3]}}</td>
 
 		</tr>
@@ -270,7 +276,7 @@
       </div>
 </md-toolbar>
 <md-table-container>
-<table md-table class="bordered striped">
+<table md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th  rowspan="2"><span>Major Final Outputs</span></th>
@@ -339,41 +345,37 @@
       </div>
 </md-toolbar>
 <md-table-container>
-<table md-table class="bordered striped">
+<table md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th  rowspan="2"><span>Major Final Outputs</span></th>
-			<th  colspan="4"><span>Allotment Received</span></th>
-			<th  colspan="4"><span>Obligation Incurred</span></th>
+			<th  colspan="3"><span>Allotment Received</span></th>
+			<th  colspan="3"><span>Obligation Incurred</span></th>
 			<th  rowspan="2"><span>Unobligated Allotment</span></th>
 			<th  rowspan="2"><span>Remarks</span></th>
 		</tr>
 		<tr >
-			<td ><span>Apr</span></td>
-			<td ><span>May</span></td>
-			<td ><span>Jun</span></td>
-			<td ><span>Q2</span></td>
-			<td ><span>Apr</span></td>
-			<td ><span>May</span></td>
-			<td ><span>Jun</span></td>
-			<td ><span>Q2</span></td>
+		 <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Q1+Q2</span></td>
+      <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Q1+Q2</span></td>
 		</tr>
 	</thead>
 	<tbody md-body>
 		<tr  ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
 			
-			<td  ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
-			<td  ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
-			<td > {{x.ob[4]['obl']|number:2}}</td>
-			<td > {{x.ob[5]['obl']|number:2}}</td>
-			<td > {{x.ob[6]['obl']|number:2}}</td>
+			<td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+			<td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])|number:2}}</td>
 			<td > {{(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])|number:2}}</td>
-			<td  > {{x.oba[4]['obl']|number:2}}</td>
-			<td  > {{x.oba[5]['obl']|number:2}}</td>
-			<td  > {{x.oba[6]['obl']|number:2}}</td>
+      <td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])|number:2}}</td>
+      <td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])|number:2}}</td>		
 			<td  > {{(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])|number:2}}</td>
-			<td  > {{((1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl']))-
-				((1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl']))|number:2}}</td>
+      <td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])|number:2}}</td>
+			<td  > {{((1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl']))-
+				((1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl']))|number:2}}</td>
 			<td > {{x.remarks[2]}}</td>
 
 		</tr>
@@ -407,7 +409,7 @@
       </div>
 </md-toolbar>
 <md-table-container>
-<table md-table class="bordered striped">
+<table md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th  rowspan="2"><span>Major Final Outputs</span></th>
@@ -417,31 +419,33 @@
 			<th  rowspan="2"><span>Remarks</span></th>
 		</tr>
 		<tr >
-			<td ><span>Jul</span></td>
-			<td ><span>Aug</span></td>
-			<td ><span>Sep</span></td>
-			<td ><span>Q3</span></td>
-			<td ><span>Jul</span></td>
-			<td ><span>Aug</span></td>
-			<td ><span>Sep</span></td>
-			<td ><span>Q3</span></td>
+			<td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Q3</span></td>
+      <td ><span>Q1+Q2+Q3</span></td>
+       <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Q3</span></td>
+      <td ><span>Q1+Q2+Q3</span></td>
 		</tr>
 	</thead>
 	<tbody md-body>
 		<tr  ng-repeat="x in mfos | limitTo: query.limit : (query.page -1) * query.limit | filter:search">
 			
-			<td  ng-show="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
-			<td  ng-show="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
-			<td > {{x.ob[7]['obl']|number:2}}</td>
-			<td > {{x.ob[8]['obl']|number:2}}</td>
-			<td > {{x.ob[9]['obl']|number:2}}</td>
+			<td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+			<td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])|number:2}}</td>
+      <td > {{(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])|number:2}}</td>
 			<td > {{(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])|number:2}}</td>
-			<td  > {{x.oba[7]['obl']|number:2}}</td>
-			<td  > {{x.oba[8]['obl']|number:2}}</td>
-			<td  > {{x.oba[9]['obl']|number:2}}</td>
-			<td  > {{(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])|number:2}}</td>
-			<td  > {{((1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl']))-
-				((1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl']))|number:2}}</td>
+      <td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])+(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])|number:2}}</td>
+
+			 <td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])|number:2}}</td>    
+      <td  > {{(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])|number:2}}</td>
+      <td  > {{(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])|number:2}}</td>
+			<td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])+(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])|number:2}}</td>
+
+			<td  > {{((1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])+(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl']))-
+				((1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])+(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl']))|number:2}}</td>
 			<td > {{x.remarks[3]}}</td>
 
 		</tr>
@@ -494,7 +498,7 @@
 </md-toolbar>
 <md-progress-linear md-mode="indeterminate" ng-show="isSubmitLoad"></md-progress-linear>
 <md-table-container ng-hide="isSubmit">
-<table md-table class="bordered striped">
+<table md-table class="table bordered striped">
 	<thead >
 		<tr >
 			<th ><span>MFOs</span></th>

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('PmisController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, InitService){
+app.controller('PmisController',  function($scope, $mdSidenav, $state, $mdDialog, $mdMedia, $mdBottomSheet, $cookies, $timeout, $q, $http, InitService, ChatService){
 $state.transitionTo('pmis'); //automatic defaultz 
 $scope.isLoading = true;
 $scope.toggleSearch = false;  
@@ -11,7 +11,15 @@ $scope.username =  $cookies.get('username');
 $scope.image =  $cookies.get('image');
 $scope.pwd =  $cookies.get('password');
 $scope.p_id =  $cookies.get('program_id');
+$scope.image =  $cookies.get('image');
 console.log($scope.p_id);
+
+$scope.currentTime = new moment();
+var tick = function() {
+    $scope.currentTime = new moment();
+    $timeout(tick, 1000);
+}
+$timeout(tick, 1000);
 
 InitService.async().then(function(d){
   if(angular.isUndefined(d.data)) $scope.mfos = [];
@@ -19,6 +27,20 @@ InitService.async().then(function(d){
   $scope.isLoading = false;
   console.log($scope.mfos);
 });
+
+ChatService.async().then(function(d){
+  if(angular.isUndefined(d.data)) $scope.messages = [];
+  else  $scope.messages = d.data;
+  //console.log($scope.mess);
+});
+
+  $scope.getDuration = function(start, end) {
+    try {
+      return ((moment.duration(end - start)).humanize());
+    } catch (e) {
+      return "Cant evaluate"
+    }
+  };
 
 $scope.query = {
     limit: 10,
@@ -35,6 +57,10 @@ $scope.closeSidenav   = function() {
   $mdSidenav('left').close();   
 }
 
+$scope.openChat   = function() {
+ $mdSidenav('right').toggle();   
+}
+
 
 $scope.showGridBottomSheet = function() {
   $mdBottomSheet.show({
@@ -44,12 +70,79 @@ $scope.showGridBottomSheet = function() {
   });
 }
 
-$scope.currentTime = moment();
-var tick = function() {
-    $scope.currentTime = moment();
-    $timeout(tick, 1000);
-}
-$timeout(tick, 1000);
+var socket = io.connect( 'http://'+window.location.hostname+':3000' ); 
+socket.on( 'new_message', function( data ) {  
+  $scope.messages.push({username:data.username, image: data.image, message: data.message, time_created: data.time_created});
+      
+});
+$scope.sendMessage = function(){
+  if($scope.msg){
+    $http({
+        method: 'post',
+        url: 'ajax.php',
+        data: $.param({ 'type' : 'saveMessage', 'msg':$scope.msg }),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(function(response) {
+        //$scope.messages.push({username:$scope.username, image: $scope.image, message: $scope.msg, time_created: new Date()});
+        console.log($scope.messages);
+    
+        //var socket = io(); 
+        socket.emit('new_message', { 
+                  username: $scope.username,
+                  image: $scope.image,
+                  message: $scope.msg,
+                  time_created: new Date()
+                });
+        $scope.msg = null;   
+      });
+    }
+};
+
+var imagePath = 'images/avatar/avatar.png';
+
+
+//---------------------------------------------------------------------------
+
+ $scope.messages = [];
+    $scope.status = {
+        loading: false,
+        loaded: false
+    };
+
+    $scope.counter = 8;
+    $scope.loadMore = function() {
+        var deferred = $q.defer();
+        if (!$scope.status.loading && $scope.messages.length>=$scope.counter) {
+            $scope.status.loading = true;
+            // simulate an ajax request
+            $timeout(function() {
+              $scope.counter += 5;
+                /*for (var i = 0; i < 10; i++) {
+                    $scope.messages.unshift({
+                        id: counter,
+                        face : imagePath,
+                        what: 'Brunch this weekend?',
+                        who: 'Min Li Chan',
+                        when: '3:08PM',
+                        notes: " I'll be in your neighborhood doing errands"
+                    });
+                    counter += 10;
+                }
+                */
+                $scope.status.loading = false;
+               // $scope.status.loaded = ($scope.messages.length > 0);
+                deferred.resolve();
+            }, 2000);
+        } else {
+            deferred.reject();
+        }
+        return deferred.promise;
+    };
+
+    $scope.loadMore();
+
+
+
 
 $scope.myBreakdown = function(id, mfos, ev, a){  //adding physical form 
   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));

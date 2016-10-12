@@ -24,6 +24,7 @@ app.factory('loginService', function($http, $location, $state, $cookies, session
 	     					 $cookies.put('username', data.username); 
 	     					 $cookies.put('image', data.image);
 	     					 $cookies.put('password', data.password);
+	     					 $cookies.put('image', data.image);
 							return data.data;    				
 						}else{
 							sessionService.set('uid', data.uid);
@@ -36,6 +37,7 @@ app.factory('loginService', function($http, $location, $state, $cookies, session
 	     					 $cookies.put('program_id', data.program_id);  
 	     					 $cookies.put('image', data.image);
 	     					 $cookies.put('password', data.password);
+	     					 $cookies.put('image', data.image);
 							return data.data;  	
 						}
 					}

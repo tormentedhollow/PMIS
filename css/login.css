@@ -122,9 +122,7 @@ max-height: 50px !important;
 /*fixed column */
  md-table-pagination div.label { color:  #757575; !important; } 
 
-td, th {
-   border: 1px solid #ddd !important;
-}
+
 
 
 .customTh{
@@ -388,16 +386,13 @@ height: auto;
     cursor: pointer;
 }
 
-th, td {
-    padding: 5px;
-    text-align: left;
+#fixedbutton {
+    position: fixed;
+    bottom: 0px;
+    right: 0px; 
 }
 
-md-card-title.widget {
-    max-width: 25%;
-    max-height: 10%;
-    width: 25%;
-    height: 10%;
+#fixed {
+    height: 600px;
+    overflow: auto;
 }
-
-
