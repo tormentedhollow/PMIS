@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngMaterial', 'ngRoute', 'ui.router', 'md.data.table', 'ngCookies', 'ngMdIcons', 'googlechart', 'angular.filter', 'ngFileUpload', 'ngImgCrop']);
+var app = angular.module('myApp', ['ngMaterial', 'ngRoute', 'ui.router', 'md.data.table', 'ngCookies', 'ngMdIcons', 'googlechart', 'angular.filter', 'ngFileUpload', 'ngImgCrop', 'luegg.directives', 'angularMoment']);
 
 app.config(function($routeProvider, $stateProvider) {
 	$routeProvider

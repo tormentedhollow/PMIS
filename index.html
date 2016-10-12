@@ -19,9 +19,9 @@
 
 
 </head>
-<body layout="column" flex ng-cloak>
-
-	<ng-view/>
+<body>
+	<ng-view></ng-view>
+	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/angular.js"></script>
 	<script src="resources/js/angular-animate.min.js"></script>
 	<script src="resources/js/angular-aria.min.js"></script>
@@ -31,7 +31,7 @@
 
 
 	<script src="resources/js/angular-ui-router.js"></script>
-	<script src="resources/js/jquery.min.js"></script>
+	<!--<script src="resources/js/jquery.min.js"></script>-->
 	<script src="resources/js/jquery-ui.js"></script>
 
 
@@ -42,6 +42,7 @@
 	<script src="resources/js/md-data-table.js"></script>
 	<script src="resources/js/ng-google-chart.min.js" ></script>
 	<script src="resources/js/materialize.min.js"></script>
+	<script src="resources/js/ng-infinite-scroll.min.js"></script>
 
 	<script src="resources/js/jsapi.js"></script>
 	<script src="resources/js/angular-filter.js"></script>
@@ -51,7 +52,11 @@
 	<script src="resources/js/ng-file-upload-shim.min.js"></script>
 	<script src="resources/js/ng-file-upload.min.js"></script>
 	<script src="resources/js/ng-img-crop.js"></script>
-
+<!-- Angular Moment -->
+	<script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.8.3/angular-moment.js"></script>
+   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 
 	<script src="js/index.js"></script>
 	<script src="js/moment.js"></script>
@@ -96,6 +101,7 @@
 	<script src="js/services/viewObService.js"></script>
 	<script src="js/services/viewObaService.js"></script>
 	<script src="js/services/viewPService.js"></script>
+	<script src="js/services/ChatService.js"></script>
 	<script src="js/services/overall_finService.js"></script>
 	<script src="js/services/overall_finmfoService.js"></script>
 	<script src="js/services/overall_phyService.js"></script>
@@ -135,6 +141,7 @@
 	<script src="js/controllers/DownloadController.js"></script>
 	<script src="js/directives/passwordVerify.js"></script>
 	<script src="js/directives/fixedFirstColumn.js"></script>
+	<script src="js/directives/whenScrolled.js"></script>
 
 
 

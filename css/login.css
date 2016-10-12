@@ -393,3 +393,14 @@ height: auto;
 .negative {
     background-color: #ffcdcd;
 }
+
+#fixedbutton {
+    position: fixed;
+    bottom: 0px;
+    right: 0px; 
+}
+
+#fixed {
+    height: 600px;
+    overflow: auto;
+}

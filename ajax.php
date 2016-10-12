@@ -180,6 +180,12 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 		case "view_service_month":
 			view_service_month($mysqli);
 			break;
+		case "getChatMessage":
+			getChatMessage($mysqli);
+			break;
+		case "saveMessage":
+			saveMessage($mysqli);
+			break;
 		case "overall_fin":
 			overall_fin($mysqli);
 			break;
@@ -203,6 +209,48 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 }else{
 	invalidRequest();
 }
+
+function saveMessage($mysqli){
+	try{	
+		$msg= $mysqli->real_escape_string(isset( $_POST['msg'] ) ? $_POST['msg'] : '');
+		$query = "INSERT INTO tbl_chat(user_id, message, time_created) VALUES (".$_SESSION['user_id'].", '$msg', now())";
+		$result = $mysqli->query( $query );
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+function getChatMessage($mysqli){
+	try{	
+		$query = "SELECT * FROM `tbl_chat` inner join users on tbl_chat.user_id = users.user_id ORDER by chat_id";
+		$result = $mysqli->query( $query );
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data['data'][] = $row;
+		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
 
 function overall_phytop($mysqli){
 
