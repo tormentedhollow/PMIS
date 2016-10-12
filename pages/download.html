@@ -61,7 +61,7 @@
 </md-card>
 </md-content>
 </div>
-<div id="table1" ng-hide="true">
+<div id="table1" ng-hide="false">
 <table >
   <thead>  
     <tr >
@@ -83,7 +83,7 @@
       <td ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
       <td > {{x.description}} </td>
       <td > {{x.kilot |number:2}} </td>
-      <td > {{x.fint |number:2}} </td>
+      <td > {{x.obt |number:2}} </td>
 
     </tr>
     </tr>
