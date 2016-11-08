@@ -15,6 +15,7 @@
   <md-select name="selectMonth" id="selectMonth" ng-model="temp.month" required>
   <md-option ng-repeat="option in months" value="{{option.id}}" ng-if="!temp.a">{{option.month_name}}</md-option>
   <md-option value="13" ng-if="!temp.a">All month</md-option>
+  <md-option ng-repeat="option in months.slice(9,12)" value="{{option.id}}" ng-if="temp.a=='4'">{{option.month_name}}</md-option>
   <md-option ng-repeat="option in months.slice(6,9)" value="{{option.id}}" ng-if="temp.a=='3'">{{option.month_name}}</md-option>
   <md-option ng-repeat="option in months.slice(3,6)" value="{{option.id}}" ng-if="temp.a=='2'">{{option.month_name}}</md-option>
   <md-option ng-repeat="option in months.slice(0,3)" value="{{option.id}}" ng-if="temp.a=='1'">{{option.month_name}}</md-option>

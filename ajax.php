@@ -158,6 +158,9 @@ if( isset($_POST['type']) && !empty($_POST['type'] ) ){
 			break;	
 		case "view_oba":
 			view_oba($mysqli);
+			break;
+		case "view_obadmin":
+			view_obadmin($mysqli);
 			break;		
 		case "updateUser":
 			updateUser($mysqli);
@@ -632,6 +635,43 @@ function view_P($mysqli){
 		while ($row = $result->fetch_assoc()) {
 			$data['data'][] = $row;
 		}
+		$data['success'] = true;
+		echo json_encode($data);exit;
+	
+	}catch (Exception $e){
+		$data = array();
+		$data['success'] = false;
+		$data['message'] = $e->getMessage();
+		echo json_encode($data);
+		exit;
+	}
+}
+
+function view_obadmin($mysqli){
+	try{
+		$bol = $_POST['bol'];
+		if($bol=='0'){
+			$tbl = '`tbl_obligation`';
+		}
+		else if($bol=='1'){
+			$tbl = '`tbl_obligationa`';
+		}
+		$mon = $_POST['mon'];
+		
+		$query = "SELECT * FROM `program`";
+		$result = $mysqli->query( $query );
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$row['id'];
+			$query1 = "SELECT * FROM ".$tbl." inner join tbl_mfo on ".$tbl.".mfo_id=`tbl_mfo`.mfo_id inner join month on ".$tbl.".month=`month`.id where month='$mon' and user_id in (select user_id from users where program_id = ".$row['id'].") and financial_obligation >0";
+			$result1 = $mysqli->query( $query1 );
+			while ($row1 = $result1->fetch_assoc()) {
+				$row1['program'] = $row['name'];
+				$row1['program_id'] = $row['id'];
+				$data['data'][] = $row1;
+			}
+		}
+
 		$data['success'] = true;
 		echo json_encode($data);exit;
 	

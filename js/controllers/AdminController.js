@@ -993,6 +993,26 @@ $scope.showGridBottomSheet = function() {
   });
 }
 
+$scope.view = function(mon,bol, ev){
+  console.log(mon);
+var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+  $mdDialog.show({
+    controller: ViewObAdminController,
+    templateUrl: 'pages/viewFinancialAdmin.html',
+    parent: angular.element(document.body),
+    targetEvent: ev,
+    clickOutsideToClose:true,
+    locals: {
+     mon: mon,
+     bol: bol
+   },    
+   fullscreen: useFullScreen
+ });
+  $scope.$watch(function() {
+    return $mdMedia('xs') || $mdMedia('sm');
+  });
+};
+
 $scope.currentTime = moment();
 var tick = function() {
   $scope.currentTime = moment();
@@ -1090,6 +1110,8 @@ $scope.banners2 = [
 ];
 
 });
+
+
 
 app.filter('percentage', ['$filter', function ($filter) {
   return function (input, decimals) {

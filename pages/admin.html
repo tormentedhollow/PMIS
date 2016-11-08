@@ -90,8 +90,8 @@
 					<tbody >
 						<tr ng-repeat="x in month track by $index">
 							<th ><span >{{x.name}}</span></th>	
-							<td style="text-align: right"><span ><a>{{o_fin.fin_total[$index+1]['ob']|number:2}}</a></span></td>
-							<td style="text-align: right"><span ><a>{{o_fin.fin_total[$index+1]['oba']|number:2}}</a></span></td>
+							<td style="text-align: right"><span ><a ng-click="view($index+1,0)">{{o_fin.fin_total[$index+1]['ob']|number:2}}</a></span></td>
+							<td style="text-align: right"><span ><a ng-click="view($index+1,1)">{{o_fin.fin_total[$index+1]['oba']|number:2}}</a></span></td>
 							<td style="text-align: right"><span >{{fincommu[$index+1][0]|number:2}}</span></td>
 							<td style="text-align: right"><span >{{fincommu[$index+1][1]|number:2}}</span></td>
 							<td style="text-align: right"><span >{{o_fin.fin_total[$index+1]['ob']/fincommu[12][0]|percentage:2}}</span></td>
@@ -157,11 +157,45 @@
      	<div google-chart chart="myChartObjecttph"></div>
     </div>
     <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+      <span class="card-title activator grey-text text-darken-4">Data Table<i class="material-icons right">more_vert</i></span>
     </div>
     <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+    <span class="card-title grey-text text-darken-4">
+    <i class="material-icons right">close</i></span>
+    <md-content flex layout-padding>
+      <h4 class="center" style="padding:0px">Physical Monthly Report - Target vs. Accomplishment</h4>
+      <h5 class="center" style="padding:0px">as of {{date| date:'MMM dd, yyyy'}}<br><b>Annual Target:  &#8369 {{fincommu[12][0]|number:2}}</b></h5>
+      <div fixed-first-column style="width:100%;">
+        <table class="table bordered striped">
+          <thead>
+            <tr class="md-table-headers-row">
+              <th ><span ></span>Months</th>
+              <th class="center"><span>Financial Target</span></th>
+              <th class="center"><span>Financial Accomplishment</span></th>
+              <th class="center"><span>Financial Target +</span></th>
+              <th class="center"><span>Financial Accomplishment +</span></th>
+              <th class="center"><span>Percentage (FT/AT)</span></th>
+              <th class="center"><span>Percentage (FA/AT)</span></th>
+              <th class="center"><span>Percentage (FT+/AT)</span></th>
+              <th class="center"><span>Percentage (FA+/AT)</span></th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr ng-repeat="x in month track by $index">
+              <th ><span >{{x.name}}</span></th>  
+              <td style="text-align: right"><span ><a ng-click="view($index+1,0)">{{o_fin.fin_total[$index+1]['ob']|number:2}}</a></span></td>
+              <td style="text-align: right"><span ><a ng-click="view($index+1,1)">{{o_fin.fin_total[$index+1]['oba']|number:2}}</a></span></td>
+              <td style="text-align: right"><span >{{fincommu[$index+1][0]|number:2}}</span></td>
+              <td style="text-align: right"><span >{{fincommu[$index+1][1]|number:2}}</span></td>
+              <td style="text-align: right"><span >{{o_fin.fin_total[$index+1]['ob']/fincommu[12][0]|percentage:2}}</span></td>
+              <td style="text-align: right"><span >{{o_fin.fin_total[$index+1]['oba']/fincommu[12][0]|percentage:2}}</span></td>
+              <td style="text-align: right"><span >{{fincommu[$index+1][0]/fincommu[12][0]|percentage:2}}</span></td>
+              <td style="text-align: right"><span >{{fincommu[$index+1][1]/fincommu[12][0]|percentage:2}}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </md-content>
     </div>
   </div>
 

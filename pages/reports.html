@@ -258,6 +258,81 @@
 </md-content>
 </md-tab>
 
+<md-tab label="BAR1-Q4">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <div layout="row" flex="flex" class="fill-height">
+          <div ng-hide="toggleSearch" class="md-toolbar-item">
+            <span ng-click="toggleSearch = !toggleSearch">BAR1: Quarter 4</span>
+          </div>  
+          <span flex="flex" ng-hide="toggleSearch"></span>
+          <md-input-container flex="flex" style="padding-left:88px;"  ng-show="toggleSearch">
+            <input type="text" ng-model="search" aria-label="search"/>
+          </md-input-container>
+          <div layout="row" class="md-toolbar-item"><md-icon md-svg-src="svg/search.svg"  aria-label="search" ng-click="toggleSearch = !toggleSearch"></md-icon>
+            <md-tooltip>SEARCH</md-tooltip>
+          </div>
+        </div>
+      </div>
+</md-toolbar>
+<md-table-container>
+<table md-table class="table bordered striped">
+	<thead >
+		<tr >
+			<th  rowspan="2"><span>Major Final Outputs</span></th>
+      <th  rowspan="2"><span>Unit of Measure</span></th>
+			<th  colspan="5"><span>Physical Target</span></th>
+			<th  colspan="5"><span>Accomplishment</span></th>
+			<th  rowspan="2"><span>Variance</span></th>
+			<th  rowspan="2"><span>Remarks</span></th>
+		</tr>
+		<tr >
+			<td ><span>Q1</span></td>
+			<td ><span>Q2</span></td>
+			<td ><span>Q3</span></td>
+			<td ><span>Q4</span></td>
+			<td ><span>Q1+Q2+Q3+Q4</span></td>
+	     	<td ><span>Q1</span></td>
+      		<td ><span>Q2</span></td>
+			<td ><span>Q3</span></td>
+			<td ><span>Q4</span></td>
+      		<td ><span>Q1+Q2+Q3+Q4</span></td>
+		</tr>
+	</thead>
+	<tbody md-body>
+		<tr  ng-repeat="x in mfos | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+			
+			<td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+      		<td > {{x.description}}</td>
+	   		<td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])|number:2}}</td>
+     		 <td > {{(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])|number:2}}</td>
+			<td > {{(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])|number:2}}</td>
+			<td > {{(1*x.kilo[10]['kilo'])+(1*x.kilo[11]['kilo'])+(1*x.kilo[12]['kilo'])|number:2}}</td>
+       		<td > {{(1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])+(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])+(1*x.kilo[10]['kilo'])+(1*x.kilo[11]['kilo'])+(1*x.kilo[12]['kilo'])|number:2}}</td>
+	
+     		<td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])|number:2}}</td>
+      		<td  > {{(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])|number:2}}</td>
+			<td  > {{(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])|number:2}}</td>
+			<td  > {{(1*x.kiloa[10]['kiloa'])+(1*x.kiloa[11]['kiloa'])+(1*x.kiloa[12]['kiloa'])|number:2}}</td>
+       		<td  > {{(1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])+(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])+(1*x.kiloa[10]['kiloa'])+(1*x.kiloa[11]['kiloa'])+(1*x.kiloa[12]['kiloa'])|number:2}}</td>
+
+			<!--td  > {{((1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])+(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa']))-((1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])+(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo']))|number:2}}</td-->
+			<td ng-init="var = (Math.round((((1*x.kiloa[1]['kiloa'])+(1*x.kiloa[2]['kiloa'])+(1*x.kiloa[3]['kiloa'])+(1*x.kiloa[4]['kiloa'])+(1*x.kiloa[5]['kiloa'])+(1*x.kiloa[6]['kiloa'])+(1*x.kiloa[7]['kiloa'])+(1*x.kiloa[8]['kiloa'])+(1*x.kiloa[9]['kiloa'])+(1*x.kiloa[10]['kiloa'])+(1*x.kiloa[11]['kiloa'])+(1*x.kiloa[12]['kiloa']))-((1*x.kilo[1]['kilo'])+(1*x.kilo[2]['kilo'])+(1*x.kilo[3]['kilo'])+(1*x.kilo[4]['kilo'])+(1*x.kilo[5]['kilo'])+(1*x.kilo[6]['kilo'])+(1*x.kilo[7]['kilo'])+(1*x.kilo[8]['kilo'])+(1*x.kilo[9]['kilo'])+(1*x.kilo[10]['kilo'])+(1*x.kilo[11]['kilo'])+(1*x.kilo[12]['kilo'])))*100))/100" ng-class="{positive:var>0,negative:var<0}"> {{var|number:2}}</td>
+			<td > {{x.remarks[4]}}</td>
+
+		</tr>
+
+
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
 <md-tab label="BAR2-Q1">
 <md-content class="md-padding">
 <md-toolbar class="md-table-toolbar md-default">
@@ -465,6 +540,83 @@
 
 </md-content>
 </md-tab>
+
+<md-tab label="BAR2-Q4">
+<md-content class="md-padding">
+<md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <div layout="row" flex="flex" class="fill-height">
+          <div ng-hide="toggleSearch" class="md-toolbar-item">
+            <span ng-click="toggleSearch = !toggleSearch">BAR2: Quarter 4</span>
+          </div>  
+          <span flex="flex" ng-hide="toggleSearch"></span>
+
+          <md-input-container flex="flex" style="padding-left:88px;"  ng-show="toggleSearch">
+            <input type="text" ng-model="search" aria-label="search"/>
+          </md-input-container>
+          <div layout="row" class="md-toolbar-item"><md-icon md-svg-src="svg/search.svg"  aria-label="search" ng-click="toggleSearch = !toggleSearch"></md-icon>
+            <md-tooltip>SEARCH</md-tooltip>
+          </div>
+        </div>
+      </div>
+</md-toolbar>
+<md-table-container>
+<table md-table class="table bordered striped">
+	<thead >
+		<tr >
+			<th  rowspan="2"><span>Major Final Outputs</span></th>
+			<th  colspan="5"><span>Allotment Received</span></th>
+			<th  colspan="5"><span>Obligation Incurred</span></th>
+			<th  rowspan="2"><span>Unobligated Allotment</span></th>
+			<th  rowspan="2"><span>Remarks</span></th>
+		</tr>
+		<tr >
+			<td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Q3</span></td>
+      <td ><span>Q4</span></td>
+      <td ><span>Q1+Q2+Q3+Q4</span></td>
+       <td ><span>Q1</span></td>
+      <td ><span>Q2</span></td>
+      <td ><span>Q3</span></td>
+      <td ><span>Q4</span></td>
+      <td ><span>Q1+Q2+Q3+Q4</span></td>
+		</tr>
+	</thead>
+	<tbody md-body>
+		<tr  ng-repeat="x in mfos | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+			
+			<td  ng-if="x.clickable=='yes' && x.input=='no' "><span>{{x.mfo_name}}</span></td>
+			<td  ng-if="x.clickable=='no' && x.output=='no' "><span><b>{{x.mfo_name}} </b></span></td>
+			<td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])|number:2}}</td>
+      		<td > {{(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])|number:2}}</td>
+			<td > {{(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])|number:2}}</td>
+			<td > {{(1*x.ob[10]['obl'])+(1*x.ob[11]['obl'])+(1*x.ob[12]['obl'])|number:2}}</td>
+      		<td > {{(1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])+(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])+(1*x.ob[10]['obl'])+(1*x.ob[11]['obl'])+(1*x.ob[12]['obl'])|number:2}}</td>
+
+			 <td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])|number:2}}</td>    
+     		 <td  > {{(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])|number:2}}</td>
+      		<td  > {{(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])|number:2}}</td>
+      		<td  > {{(1*x.oba[10]['obl'])+(1*x.oba[11]['obl'])+(1*x.oba[12]['obl'])|number:2}}</td>
+			<td  > {{(1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])+(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])+(1*x.oba[10]['obl'])+(1*x.oba[11]['obl'])+(1*x.oba[12]['obl'])|number:2}}</td>
+
+			<!--td  > {{((1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])+(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl']))-
+				((1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])+(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl']))|number:2}}</td-->
+			<td ng-init="var = (Math.round((((1*x.oba[1]['obl'])+(1*x.oba[2]['obl'])+(1*x.oba[3]['obl'])+(1*x.oba[4]['obl'])+(1*x.oba[5]['obl'])+(1*x.oba[6]['obl'])+(1*x.oba[7]['obl'])+(1*x.oba[8]['obl'])+(1*x.oba[9]['obl'])+(1*x.oba[10]['obl'])+(1*x.oba[11]['obl'])+(1*x.oba[12]['obl']))-
+				((1*x.ob[1]['obl'])+(1*x.ob[2]['obl'])+(1*x.ob[3]['obl'])+(1*x.ob[4]['obl'])+(1*x.ob[5]['obl'])+(1*x.ob[6]['obl'])+(1*x.ob[7]['obl'])+(1*x.ob[8]['obl'])+(1*x.ob[9]['obl'])+(1*x.ob[10]['obl'])+(1*x.ob[11]['obl'])+(1*x.ob[12]['obl'])))*100))/100" ng-class="{positive:var>0,negative:var<0}"> {{var|number:2}}</td>
+			<td > {{x.remarks[4]}}</td>
+
+		</tr>
+
+
+	</tbody>
+</table>
+</md-table-container>
+<md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{mfos.length}}" md-page-select="true"></md-table-pagination>
+
+</md-content>
+</md-tab>
+
 <md-tab label="By District">
 <md-content class="md-padding">
 <md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">

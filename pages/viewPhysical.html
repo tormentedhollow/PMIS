@@ -11,12 +11,12 @@
 <div class="md-dialog-content">
   <md-list>
   <ul md-subheader ng-repeat="(key, value) in ob | groupBy: 'header_id'">
-  <b>MFO: {{ key }} - {{value | sumByKey:'value' | number:2}}</b>
+  <b>MFO: {{ key }} - {{value | sumByKey:'value'}}</b>
 
     <table class="bordered striped">
       <tr ng-repeat="(key, value) in value | groupBy: 'mfo_name'">
         <td>{{key}}</td>
-        <td style="text-align: right">{{value | sumByKey:'value' | number:2}}</td>
+        <td style="text-align: right">{{value | sumation:'value'}}</td>
     </table>
 </ul>
 <md-list>
